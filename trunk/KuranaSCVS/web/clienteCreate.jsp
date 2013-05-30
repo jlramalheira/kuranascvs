@@ -41,9 +41,8 @@
                             <div class="well sidebar-nav">
                                 <ul class="nav nav-list">
                                     <li class="nav-header">Gerenciamento</li>
-                                    <li><a href="#">Início</a></li>
-                                    <li class="active"><a href="#">Cadastrar novo</a></li>
                                     <li><a href="#">Pesquisar</a></li>
+                                    <li class="active"><a href="#">Cadastrar novo</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -54,14 +53,15 @@
                                     <legend>Informações</legend>
                                     <label for="nome">Nome completo</label>
                                     <input type="text" id="nome" class="input-xxlarge" name="nome" value="" placeholder="Insira o nome completo"/>
+                                    <label for="isJuridica" class="checkbox">
+                                        <input type="checkbox" id="isJuridica" class="" name="isJuridica" value="juridica"/>
+                                        Pessoa Jurídica
+                                    </label>
                                     <label for="cpf" class="toggleId show">CPF</label>
                                     <input type="text" id="cpf" class="toggleId show" name="cpf" value="" placeholder="Insira um número de CPF"/>
                                     <label for="cnpj" class="toggleId hide">CNPJ</label>
                                     <input type="text" id="cnpj" class="toggleId hide" name="cnpj" value="" placeholder="Insira um número de CNPJ"/>
-                                    <label for="isJuridica" class="checkbox">
-                                        <input type="checkbox" id="isJuridica" class="" name="isJuridica" value="juridica" checked="checked"/>
-                                        Pessoa Jurídica
-                                    </label>
+
                                 </fieldset>
                                 <fieldset>
                                     <legend>Contato</legend>

@@ -41,20 +41,26 @@
                             <div class="well sidebar-nav">
                                 <ul class="nav nav-list">
                                     <li class="nav-header">Gerenciamento</li>
-                                    <li class="active"><a href="#">Início</a></li>
+                                    <li class="active"><a href="#">Pesquisar</a></li>
                                     <li><a href="#">Cadastrar novo</a></li>
-                                    <li><a href="#">Pesquisar</a></li>
                                 </ul>
                             </div>
                         </div>
                         <div class="span9">
                             <h2 class="noMarginTop">Controle de clientes</h2>
+                            <form class="well">
+                                <fieldset>
+                                    <legend>Pesquisar</legend>
+                                    <label></label>
+                                </fieldset>
+
+                            </form>
                             <table class="table table-striped table-hover">
                                 <thead>
                                     <tr>
                                         <th>ID</th>
                                         <th>Nome</th>
-                                        <th>E-mail</th>
+                                        <th>CPF/CNPJ</th>
                                         <th>Telefone</th>
                                     </tr>
                                 </thead>
@@ -62,20 +68,14 @@
                                     <tr>
                                         <td>871</td>
                                         <td>José Maria de Jesus</td>
-                                        <td>jose@maria.com.br</td>
-                                        <td>(44)3523-9555</td>
+                                        <td>888.888.888-88</td>
+                                        <td>(44) 3523-9555</td>
                                     </tr>
                                     <tr>
                                         <td>871</td>
-                                        <td>José Maria de Jesus</td>
-                                        <td>jose@maria.com.br</td>
-                                        <td>(44)3523-9555</td>
-                                    </tr>
-                                    <tr>
-                                        <td>871</td>
-                                        <td>José Maria de Jesus</td>
-                                        <td>jose@maria.com.br</td>
-                                        <td>(44)3523-9555</td>
+                                        <td>Farmácias Farmapred</td>
+                                        <td>00.000.000/0000-00</td>
+                                        <td>(44) 9999-9555</td>
                                     </tr>
                                 </tbody>
                             </table>
