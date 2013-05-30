@@ -49,6 +49,11 @@
                                     <input type="email" id="email" class="" name="email" value="" placeholder="Insira um e-mail"/>
                                     <label for="telefone">Telefone</label>
                                     <input type="text" id="telefone" class="" name="telefone" value="" placeholder="Insira um número de telefone"/>
+                                </fieldset>
+                                <fieldset>
+                                    <legend>Endereço</legend>
+                                    <label for="endereco-cep">CEP</label>
+                                    <input type="text" id="endereco-cep" class="" name="endereco-cep" value="" placeholder="Código de endereçamento"/>
                                     <label for="endereco-logradouro">Logradouro</label>
                                     <input type="text" id="endereco-logradouro" class="input-xxlarge" name="endereco-logradouro" value="" placeholder="Nome da rua, avenida, travessa, etc..."/>
                                     <label for="endereco-numero">Número</label>
