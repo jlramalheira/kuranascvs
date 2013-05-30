@@ -50,9 +50,58 @@
                             <h2 class="noMarginTop">Controle de clientes</h2>
                             <form class="well">
                                 <fieldset>
-                                    <legend>Pesquisar</legend>
-                                    <label></label>
+                                    <label for="nome">Nome</label>
+                                    <input type="text" id="nome" class="input-xxlarge" name="nome" value="" placeholder="Insira um nome para pesquisar"/>
+                                    <div class="hide more-options">
+                                        <label for="isJuridica" class="checkbox">
+                                            <input type="checkbox" id="isJuridica" class="" name="isJuridica" value="juridica"/>
+                                            Pessoa Jurídica
+                                        </label>
+                                        <label for="cpf" class="toggleId show">CPF</label>
+                                        <input type="text" id="cpf" class="toggleId show" name="cpf" value="" placeholder="Insira um número de CPF"/>
+                                        <label for="cnpj" class="toggleId hide">CNPJ</label>
+                                        <input type="text" id="cnpj" class="toggleId hide" name="cnpj" value="" placeholder="Insira um número de CNPJ"/>
+                                        <label for="email">E-mail</label>
+                                    <input type="email" id="email" class="" name="email" value="" placeholder="Insira um e-mail"/>
+                                    <label for="endereco-logradouro">Logradouro</label>
+                                    <input type="text" id="endereco-logradouro" class="input-xxlarge" name="endereco-logradouro" value="" placeholder="Nome da rua, avenida, travessa, etc..."/>
+                                    <label for="endereco-cidade">Cidade</label>
+                                    <input type="text" id="endereco-cidade" class="" name="endereco-cidade" value="" placeholder="Nome da cidade"/>
+                                    <label for="endereco-estado">Estado</label>
+                                    <select name="endereco-estado" id="endereco-estado">
+                                        <option value="0">Selecione o Estado</option>
+                                        <option value="ac">Acre</option>
+                                        <option value="al">Alagoas</option>
+                                        <option value="ap">Amapá</option>
+                                        <option value="am">Amazonas</option>
+                                        <option value="ba">Bahia</option>
+                                        <option value="ce">Ceará</option>
+                                        <option value="df">Distrito Federal</option>
+                                        <option value="es">Espirito Santo</option>
+                                        <option value="go">Goiás</option>
+                                        <option value="ma">Maranhão</option>
+                                        <option value="ms">Mato Grosso do Sul</option>
+                                        <option value="mt">Mato Grosso</option>
+                                        <option value="mg">Minas Gerais</option>
+                                        <option value="pa">Pará</option>
+                                        <option value="pb">Paraíba</option>
+                                        <option value="pr">Paraná</option>
+                                        <option value="pe">Pernambuco</option>
+                                        <option value="pi">Piauí</option>
+                                        <option value="rj">Rio de Janeiro</option>
+                                        <option value="rn">Rio Grande do Norte</option>
+                                        <option value="rs">Rio Grande do Sul</option>
+                                        <option value="ro">Rondônia</option>
+                                        <option value="rr">Roraima</option>
+                                        <option value="sc">Santa Catarina</option>
+                                        <option value="sp">São Paulo</option>
+                                        <option value="se">Sergipe</option>
+                                        <option value="to">Tocantins</option>
+                                    </select>
+                                    </div>
                                 </fieldset>
+                                <button type="submit" class="btn btn-primary">Pesquisar</button>
+                                <button type="button" class="btn" onclick="toggleOptions(this)">Mais Opções</button>
 
                             </form>
                             <table class="table table-striped table-hover">
@@ -61,7 +110,7 @@
                                         <th>ID</th>
                                         <th>Nome</th>
                                         <th>CPF/CNPJ</th>
-                                        <th>Telefone</th>
+                                        <th>Cliente desde</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -69,13 +118,13 @@
                                         <td>871</td>
                                         <td>José Maria de Jesus</td>
                                         <td>888.888.888-88</td>
-                                        <td>(44) 3523-9555</td>
+                                        <td>03/03/2003</td>
                                     </tr>
                                     <tr>
                                         <td>871</td>
                                         <td>Farmácias Farmapred</td>
                                         <td>00.000.000/0000-00</td>
-                                        <td>(44) 9999-9555</td>
+                                        <td>03/03/2003</td>
                                     </tr>
                                 </tbody>
                             </table>
