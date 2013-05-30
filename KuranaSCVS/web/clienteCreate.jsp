@@ -73,6 +73,8 @@
                                     <input type="text" id="endereco-logradouro" class="input-xxlarge" name="endereco-logradouro" value="" placeholder="Nome da rua, avenida, travessa, etc..."/>
                                     <label for="endereco-numero">Número</label>
                                     <input type="text" id="endereco-numero" class="input-small" name="endereco-numero" value="" placeholder="Número"/>
+                                    <label for="endereco-complemento">Complemento</label>
+                                    <input type="text" id="endereco-complemento" class="" name="endereco-complemento" value="" placeholder="Informação adicional"/>
                                     <label for="endereco-cidade">Cidade</label>
                                     <input type="text" id="endereco-cidade" class="" name="endereco-cidade" value="" placeholder="Nome da cidade"/>
                                     <label for="endereco-estado">Estado</label>
