@@ -1,0 +1,21 @@
+html,
+body {
+    height: 100%;
+    /* The html and body elements cannot have any padding or margin. */
+}
+
+/* Wrapper for page content to push down footer */
+.nonFooter {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    /* Negative indent footer by it's height plus top/bottom */
+    margin: 0 auto -50px;
+}
+
+/* Set the fixed height of the footer here */
+#push,
+.stickyFooter {
+    height: 35px;
+    padding: 15px 0 0 0;
+}

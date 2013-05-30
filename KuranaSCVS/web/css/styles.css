@@ -1,0 +1,29 @@
+/*
+    Document   : styles
+    Created on : 29/05/2013, 18:57:35
+    Author     : Max
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/*Lib*/
+.noMarginTop{
+    margin-top: 0;
+}
+.hidden{
+    display: none;
+}
+
+#main{
+    padding: 60px 0 0 0;
+}
+/*Titles/Headers*/
+.sidebar-nav{
+    padding: 9px 0;
+}
+
+footer{
+    background-color: rgb(27, 27, 27);
+    background-image: linear-gradient(#333,#111);
+    color: #777;
+}

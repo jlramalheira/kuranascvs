@@ -1,5 +1,5 @@
 <%--
-    Document   : index
+    Document   : blank
     Created on : 30/05/2013, 00:22:18
     Author     : Max
     Description: Esse documento JSP é utilizado para
@@ -37,10 +37,19 @@
             <div id="main">
                 <div class="container">
                     <div class="row">
-                        <div class="span12">
-                            <div class="hero-unit">
-                                <h1 class="noMarginTop">Bem vindo!</h1>
+                        <div class="span3">
+                            <div class="well sidebar-nav">
+                                <ul class="nav nav-list">
+                                    <li class="nav-header">Título</li>
+                                    <li class="active"><a href="#">Link ativo</a></li>
+                                    <li><a href="#">Link</a></li>
+                                    <li><a href="#">Link</a></li>
+                                </ul>
                             </div>
+                        </div>
+                        <div class="span9">
+                            <h2 class="noMarginTop">Título</h2>
+
                         </div>
                     </div>
 
@@ -56,6 +65,7 @@
         <%-- Javascript --%>
         <script src="js/jquery-1.9.1.min.js" type="text/javascript"></script>
         <script src="js/bootstrap.js" type="text/javascript"></script>
+        <script src="js/interface.js" type="text/javascript"></script>
     </body>
 </html>
 
