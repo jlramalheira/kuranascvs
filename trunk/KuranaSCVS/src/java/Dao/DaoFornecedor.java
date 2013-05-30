@@ -4,16 +4,17 @@
  */
 package Dao;
 
-import Model.Endereco;
+import Model.Fornecedor;
 
 /**
  *
  * @author Joao Luiz
  */
-public class DaoEndereco extends Dao<Endereco>{
+public class DaoFornecedor extends Dao<Fornecedor>{
 
-    public DaoEndereco() {
-        super(Endereco.class);
+    public DaoFornecedor() {
+        super(Fornecedor.class);
     }
+    
     
 }

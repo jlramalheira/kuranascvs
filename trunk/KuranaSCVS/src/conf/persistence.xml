@@ -4,6 +4,8 @@
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>Model.Cliente</class>
     <class>Model.Endereco</class>
+    <class>Model.Produto</class>
+    <class>Model.Fornecedor</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/kuranaSCVS?zeroDateTimeBehavior=convertToNull"/>
