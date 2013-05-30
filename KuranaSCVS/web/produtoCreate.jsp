@@ -54,13 +54,19 @@
                                         <span class="add-on">R$</span>
                                         <input type="text" id="valor-custo" class="input-small" name="valor-custo" value=""/>
                                     </div>
-                                    <label for="valor-custo">Valor de venda</label>
+                                    <label for="valor-venda">Valor de venda</label>
                                     <div class="input-prepend">
                                         <span class="add-on">R$</span>
-                                        <input type="text" id="valor-custo" class="input-small" name="valor-custo" value=""/>
+                                        <input type="text" id="valor-venda" class="input-small" name="valor-venda" value=""/>
                                     </div>
-
-
+                                </fieldset>
+                                <fieldset>
+                                    <legend>Estoque</legend>
+                                    <div class="input-append">
+                                        <label for="estoque-minimo">Estoque mínimo</label>
+                                        <input type="text" id="estoque-minimo" class="input-small" name="estoque-minimo" value=""/>
+                                        <span class="add-on">unidades</span>
+                                    </div>
                                 </fieldset>
                                 <button type="submit" name="operacao" value="Cadastrar" class="btn btn-large btn-primary">Cadastrar</button>
                             </form>
