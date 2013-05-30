@@ -10,6 +10,11 @@
 .noMarginTop{
     margin-top: 0;
 }
+
+.no-padding-top{
+    padding-top: 0;
+}
+
 .hidden{
     display: none;
 }
