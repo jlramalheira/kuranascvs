@@ -5,7 +5,19 @@
     Description: Esse documento JSP é utilizado para
 --%>
 
+<%@page import="Dao.DaoProduto"%>
+<%@page import="Model.Produto"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    if (request.getParameter("idProduto") == null) {
+        response.sendRedirect("index.jsp");
+    } else {
+        int idProduto = Integer.parseInt(request.getParameter("idProduto"));
+        Produto produto = new DaoProduto().get(idProduto);
+        if (produto == null) {
+            response.sendRedirect("index.jsp");
+        } else {
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -31,21 +43,21 @@
                             </div>
                         </div>
                         <div class="span9">
-                            <h2 class="noMarginTop">Nome comercial do produto</h2>
+                            <h2 class="noMarginTop"><%=produto.getNome()%></h2>
                             <p>
-                                <strong>ID: </strong>88888888-99<br/>
-                                <strong>Fornecedor: </strong>Nome do fornecedor<br/>
+                                <strong>Codigo de barras: </strong><%=produto.getCodigoDeBarras()%><br/>
+                                <strong>Fornecedor: </strong><%=produto.getFornecedor().getNome()%><br/>
                             </p>
                             <h3>Valor</h3>
                             <p>
-                                <strong>Valor de custo: </strong>R$ 80,00<br/>
-                                <strong>Valor de venda: </strong>R$ 100,00<br/>
-                                <strong>Lucro: </strong>25%<br/>
+                                <strong>Valor de custo: </strong>R$ <%=produto.getValorCusto()%><br/>
+                                <strong>Valor de venda: </strong>R$ <%=produto.getValorVenda()%><br/>
+                                <strong>Lucro: </strong><%=produto.getLucro()%><br/>
                             </p>
                             <h3>Estoque</h3>
                             <p>
-                                <strong>Estoque atual: </strong>189 unidades<br/>
-                                <strong>Estoque mínimo: </strong>25 unidades<br/>
+                                <strong>Estoque atual: </strong><%=produto.getEstoqueAtual()%><br/>
+                                <strong>Estoque mínimo: </strong><%=produto.getEstoqueMinimo()%><br/>
                                 <strong>Status: </strong>Normal<br/>
                             </p>
 
@@ -60,3 +72,5 @@
         <%@include file="interfaceFooter.jsp" %>
     </body>
 </html>
+<%}
+    }%>

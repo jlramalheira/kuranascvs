@@ -28,6 +28,21 @@ public class ServletProduto extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        HttpSession session = request.getSession(true);
+        RequestDispatcher rd = request.getRequestDispatcher("erro.jsp");
+
+        String operacao = request.getParameter("operacao");
+        
+        switch (operacao){
+            case "Ver":
+                int idProduto = Integer.parseInt(request.getParameter("idProduto"));
+                
+                rd = request.getRequestDispatcher("produtoView.jsp?idProduto="+idProduto);
+                rd.forward(request, response);
+                break;
+            default:
+        }
     }
 
     @Override
@@ -62,7 +77,7 @@ public class ServletProduto extends HttpServlet {
                 
                 Fornecedor fornecedor = new DaoFornecedor().get(idFornecedor);
                 
-                Produto produto = new Produto(nome, codigoDeBarras, fornecedor, valorCusto, valorVenda, estoqueMinimo);
+                Produto produto = new Produto(nome, codigoDeBarras, fornecedor, valorCusto, valorVenda, estoqueMinimo,0);
                 daoProduto.insert(produto);
                 
                 rd = request.getRequestDispatcher("produtoSearch.jsp");
