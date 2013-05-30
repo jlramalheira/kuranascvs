@@ -5,7 +5,19 @@
     Description: Esse documento JSP é utilizado para
 --%>
 
+<%@page import="Model.Cliente"%>
+<%@page import="Dao.DaoCliente"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    if (request.getParameter("idCliente") == null) {
+        response.sendRedirect("index.jsp");
+    } else {
+        int idCliente = Integer.parseInt(request.getParameter("idCliente"));
+        Cliente cliente = new DaoCliente().get(idCliente);
+        if (cliente == null) {
+            response.sendRedirect("index.jsp");
+        } else {
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -28,25 +40,28 @@
                             </div>
                         </div>
                         <div class="span9">
-                            <h2 class="noMarginTop">José Maria de Jesus</h2>
+                            <h2 class="noMarginTop"><%=cliente.getNome()%></h2>
                             <p>
-                                <strong>ID: </strong> 888<br/>
-                                <strong>CPF:</strong> 888.888.888-88<br/>
-                                <strong>CNPJ:</strong> 888.888.888-88<br/>
+                                <strong>ID: </strong><%=cliente.getId()%><br/>
+                                <%if(cliente.isJuridica()){%>
+                                    <strong>CNPJ:</strong> <%=cliente.getIdentificacao()%><br/>
+                                <%} else {%>
+                                    <strong>CPF:</strong> <%=cliente.getIdentificacao()%><br/>
+                                <%}%>
                             </p>
                             <p>
-                                Cliente desde 08/08/2008
+                                Cliente desde <%=Util.Util.dateToString(cliente.getDataInsercao())%>
                             </p>
                             <h3>Contato</h3>
                             <p>
-                                <strong>Telefone:</strong> (44) 8888-8888<br/>
-                                <strong>Email:</strong> jose@maria.com.br
+                                <strong>Telefone:</strong><%=cliente.getTelefone()%><br/>
+                                <strong>Email:</strong><%=cliente.getEmail()%>
                             </p>
                             <h3>Endereço</h3>
                             <address>
-                                Logradouro das Maravilhas, Número, Complemento<br/>
-                                Cidade - UF<br/>
-                                <strong>CEP:</strong> 88888-888
+                                <%=cliente.getEndereco().getLogradouro()%>, <%=cliente.getEndereco().getNumero()!=-1 ? cliente.getEndereco().getNumero() : " " %>, <%=cliente.getEndereco().getComplemento()%><br/>
+                                <%=cliente.getEndereco().getCidade()%> - <%=cliente.getEndereco().getEstado()%><br/>
+                                <strong>CEP:</strong> <%=cliente.getEndereco().getCep()%>
                             </address>
 
                         </div>
@@ -60,3 +75,5 @@
         <%@include file="interfaceFooter.jsp" %>
     </body>
 </html>
+<%}
+    }%>
