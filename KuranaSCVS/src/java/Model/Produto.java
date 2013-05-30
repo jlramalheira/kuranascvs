@@ -28,17 +28,19 @@ public class Produto implements Serializable {
     private double valorCusto;
     private double valorVenda;
     private int estoqueMinimo;
+    private int estoqueAtual;
 
     public Produto() {
     }
 
-    public Produto(String nome, String codigoDeBarras, Fornecedor fornecedor, double valorCusto, double valorVenda, int estoqueMinimo) {
+    public Produto(String nome, String codigoDeBarras, Fornecedor fornecedor, double valorCusto, double valorVenda, int estoqueMinimo, int estoqueAtual) {
         this.nome = nome;
         this.codigoDeBarras = codigoDeBarras;
         this.fornecedor = fornecedor;
         this.valorCusto = valorCusto;
         this.valorVenda = valorVenda;
         this.estoqueMinimo = estoqueMinimo;
+        this.estoqueAtual = estoqueAtual;
     }
 
     public int getId() {
@@ -95,6 +97,19 @@ public class Produto implements Serializable {
 
     public void setEstoqueMinimo(int estoqueMinimo) {
         this.estoqueMinimo = estoqueMinimo;
+    }
+
+    public int getEstoqueAtual() {
+        return estoqueAtual;
+    }
+
+    public void setEstoqueAtual(int estoqueAtual) {
+        this.estoqueAtual = estoqueAtual;
+    }
+    
+    //metodos de auxilio
+    public int getLucro(){
+        return (int) ((valorVenda-valorCusto)/valorCusto);
     }
 
     @Override

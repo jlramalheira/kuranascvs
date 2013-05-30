@@ -41,10 +41,10 @@
                                     <input type="text" id="codigo-barras" class="" name="codigo-barras" value="" placeholder="Insira o código de barras"/>
                                     <label for="nome">Fornecedor</label>
                                     <select name="fornecedor">
-                                        <option value="id">Fornecedor 1</option>
-                                        <option value="id">Fornecedor 2</option>
-                                        <option value="id">Fornecedor 3</option>
-                                        <option value="id">Fornecedor 4</option>
+                                        <option value="0">Fornecedor 1</option>
+                                        <option value="1">Fornecedor 2</option>
+                                        <option value="2">Fornecedor 3</option>
+                                        <option value="3">Fornecedor 4</option>
                                     </select>
                                 </fieldset>
                                 <fieldset>

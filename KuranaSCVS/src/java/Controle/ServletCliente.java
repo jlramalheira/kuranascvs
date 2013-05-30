@@ -63,6 +63,12 @@ public class ServletCliente extends HttpServlet {
                 rd = request.getRequestDispatcher("clienteSearch.jsp");
                 rd.forward(request, response);
                 break;
+            case "Ver":
+                int idCliente = Integer.parseInt(request.getParameter("idCliente"));
+                
+                rd = request.getRequestDispatcher("cleinteView.jsp?idCliente="+idCliente);
+                rd.forward(request, response);
+                break;
             default:
                 rd.forward(request, response);
         }
