@@ -30,9 +30,12 @@
                         <div class="span9">
                             <h2 class="noMarginTop">José Maria de Jesus</h2>
                             <p>
-                                Cliente desde 08/08/2008<br/>
+                                <strong>ID: </strong> 888<br/>
                                 <strong>CPF:</strong> 888.888.888-88<br/>
-                                <strong>CNPJ:</strong> 888.888.888-88
+                                <strong>CNPJ:</strong> 888.888.888-88<br/>
+                            </p>
+                            <p>
+                                Cliente desde 08/08/2008
                             </p>
                             <h3>Contato</h3>
                             <p>
