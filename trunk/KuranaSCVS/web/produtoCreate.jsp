@@ -39,8 +39,8 @@
                                     <input type="text" id="nome" class="input-xxlarge" name="nome" value="" placeholder="Insira o nome comercial"/>
                                     <label for="codigo-barras">Código de barras</label>
                                     <input type="text" id="codigo-barras" class="" name="codigo-barras" value="" placeholder="Insira o código de barras"/>
-                                    <label for="nome">Fornecedor</label>
-                                    <select name="fornecedor">
+                                    <label for="fornecedor">Fornecedor</label>
+                                    <select id="fornecedor" name="fornecedor" class="input-xlarge">
                                         <option value="0">Fornecedor 1</option>
                                         <option value="1">Fornecedor 2</option>
                                         <option value="2">Fornecedor 3</option>
