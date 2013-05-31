@@ -9,7 +9,7 @@ body {
     min-height: 100%;
     height: auto !important;
     height: 100%;
-    /* Negative indent footer by it's height plus top/bottom */
+    /* Negative indent footer by it's height plus top/bottom paggding/margin*/
     margin: 0 auto -50px;
 }
 
