@@ -5,6 +5,7 @@
 package Dao;
 
 import Model.Fornecedor;
+import java.util.List;
 
 /**
  *
@@ -16,5 +17,12 @@ public class DaoFornecedor extends Dao<Fornecedor>{
         super(Fornecedor.class);
     }
     
-    
+    public List<Fornecedor> listByAll(String nome, String cnpj, String email, String logradouro, String cidade, String estado) {
+        return em.createQuery("SELECT e FROM Fornecedor e WHERE e.nome LIKE '%" + nome + "%' AND "
+                + "e.email LIKE '%" + email + "%' AND "
+                + "e.cnpj LIKE '%" + cnpj + "%' AND "
+                + "e.endereco.logradouro LIKE '%"+logradouro+"%' AND "
+                + "e.endereco.cidade LIKE '%"+cidade+"%' AND "
+                + "e.endereco.estado LIKE '%"+estado+"%'").getResultList();
+    }
 }

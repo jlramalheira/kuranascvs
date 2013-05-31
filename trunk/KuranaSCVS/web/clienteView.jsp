@@ -59,8 +59,7 @@
                             </p>
                             <h3>Endereço</h3>
                             <address>
-                                <%=cliente.getEndereco().getLogradouro()%>, <%=cliente.getEndereco().getNumero()!=-1 ? cliente.getEndereco().getNumero() : " " %>, <%=cliente.getEndereco().getComplemento()%><br/>
-                                <%=cliente.getEndereco().getCidade()%> - <%=cliente.getEndereco().getEstado()%><br/>
+                                <%=cliente.getEndereco().getEnderecoStr()%>
                                 <strong>CEP:</strong> <%=cliente.getEndereco().getCep()%>
                             </address>
 

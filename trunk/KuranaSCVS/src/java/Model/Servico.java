@@ -9,34 +9,28 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 
 /**
  *
  * @author Joao Luiz
  */
 @Entity
-public class Fornecedor implements Serializable {
+public class Servico implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String nome;
-    private String cnpj;
-    private String email;
-    private String telefone;
-    @OneToOne
-    private Endereco endereco;
+    private String descricao;
+    private double valor;
 
-    public Fornecedor() {
+    public Servico() {
     }
 
-    public Fornecedor(String nome, String cnpj, String email, String telefone, Endereco endereco) {
+    public Servico(String nome, String descricao, double valor) {
         this.nome = nome;
-        this.cnpj = cnpj;
-        this.email = email;
-        this.telefone = telefone;
-        this.endereco = endereco;
+        this.descricao = descricao;
+        this.valor = valor;
     }
 
     public int getId() {
@@ -55,36 +49,20 @@ public class Fornecedor implements Serializable {
         this.nome = nome;
     }
 
-    public String getCnpj() {
-        return cnpj;
+    public String getDescricao() {
+        return descricao;
     }
 
-    public void setCnpj(String cnpj) {
-        this.cnpj = cnpj;
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
-    public String getEmail() {
-        return email;
+    public double getValor() {
+        return valor;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getTelefone() {
-        return telefone;
-    }
-
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
-    }
-
-    public Endereco getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(Endereco endereco) {
-        this.endereco = endereco;
+    public void setValor(double valor) {
+        this.valor = valor;
     }
 
     @Override
@@ -97,10 +75,10 @@ public class Fornecedor implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Fornecedor)) {
+        if (!(object instanceof Servico)) {
             return false;
         }
-        Fornecedor other = (Fornecedor) object;
+        Servico other = (Servico) object;
         if (this.id != other.id) {
             return false;
         }
@@ -109,7 +87,7 @@ public class Fornecedor implements Serializable {
 
     @Override
     public String toString() {
-        return "Model.Fornecedor[ id=" + id + " ]";
+        return "Model.Servico[ id=" + id + " ]";
     }
     
 }

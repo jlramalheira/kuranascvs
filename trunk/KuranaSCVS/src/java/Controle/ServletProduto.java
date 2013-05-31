@@ -9,6 +9,7 @@ import Dao.DaoProduto;
 import Model.Fornecedor;
 import Model.Produto;
 import java.io.IOException;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -41,7 +42,19 @@ public class ServletProduto extends HttpServlet {
                 rd = request.getRequestDispatcher("produtoView.jsp?idProduto="+idProduto);
                 rd.forward(request, response);
                 break;
+            case "Pesquisar":
+                String nome = request.getParameter("nome");
+                String codigoDeBarras = request.getParameter("codigo-barras");
+                int idFornecedor = Integer.parseInt(request.getParameter("fornecedor"));
+                
+                List<Produto> produtos = daoProduto.listByNomeCodBarrasIdFornecedor(nome, codigoDeBarras, idFornecedor);
+                
+                session.setAttribute("produtos", produtos);
+                rd = request.getRequestDispatcher("produtoSearch.jsp");
+                rd.forward(request, response);
+                break;
             default:
+                rd.forward(request, response);
         }
     }
 
@@ -80,7 +93,7 @@ public class ServletProduto extends HttpServlet {
                 Produto produto = new Produto(nome, codigoDeBarras, fornecedor, valorCusto, valorVenda, estoqueMinimo,0);
                 daoProduto.insert(produto);
                 
-                rd = request.getRequestDispatcher("produtoSearch.jsp");
+                rd = request.getRequestDispatcher("produtoView.jsp?idProduto="+produto.getId());
                 rd.forward(request, response);
                 break;
             default:

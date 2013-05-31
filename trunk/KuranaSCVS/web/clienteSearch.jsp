@@ -118,3 +118,4 @@
         <%@include file="interfaceFooter.jsp" %>
     </body>
 </html>
+<%session.removeAttribute("clientes"); %>

@@ -4,13 +4,12 @@
  */
 package Controle;
 
-import Dao.DaoCliente;
 import Dao.DaoEndereco;
-import Model.Cliente;
+import Dao.DaoFornecedor;
 import Model.Endereco;
+import Model.Fornecedor;
 import java.io.IOException;
-import java.util.Calendar;
-import java.util.Date;
+import java.io.PrintWriter;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -24,10 +23,10 @@ import javax.servlet.http.HttpSession;
  *
  * @author Joao Luiz
  */
-@WebServlet(name = "Cliente", urlPatterns = {"/Cliente"})
-public class ServletCliente extends HttpServlet {
+@WebServlet(name = "Fornecedor", urlPatterns = {"/Fornecedor"})
+public class ServletFornecedor extends HttpServlet {
 
-    DaoCliente daoCliente = new DaoCliente();
+    DaoFornecedor daoFornecedor = new DaoFornecedor();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -41,32 +40,23 @@ public class ServletCliente extends HttpServlet {
         switch (operacao) {
             case "Pesquisar":
                 String nome = request.getParameter("nome");
-                boolean juridica = false;
-                String identificacao = "";
+                String cnpj = request.getParameter("cnpj");
+                ;
                 String email = request.getParameter("email");
                 String logradouro = request.getParameter("endereco-logradouro");
                 String cidade = request.getParameter("endereco-cidade");
                 String estado = request.getParameter("endereco-estado");
-                if (request.getParameter("isJuridica") != null) {
-                    juridica = true;
-                    if (!request.getParameter("cnpj").isEmpty()) {
-                        identificacao = request.getParameter("cnpj");
-                    }
-                } else {
-                    if (!request.getParameter("cpf").isEmpty()) {
-                        identificacao = request.getParameter("cpf");
-                    }
-                }
-                List<Cliente> clientes = daoCliente.listByAll(nome, identificacao, juridica, email, logradouro, cidade, estado);
-                session.setAttribute("clientes", clientes);
 
-                rd = request.getRequestDispatcher("clienteSearch.jsp");
+                List<Fornecedor> fornecedores = daoFornecedor.listByAll(nome, cnpj, email, logradouro, cidade, estado);
+                session.setAttribute("fornecedores", fornecedores);
+
+                rd = request.getRequestDispatcher("fornecedorSearch.jsp");
                 rd.forward(request, response);
                 break;
             case "Ver":
-                int idCliente = Integer.parseInt(request.getParameter("idCliente"));
+                int idFornecedor = Integer.parseInt(request.getParameter("ifFornecedor"));
 
-                rd = request.getRequestDispatcher("clienteView.jsp?idCliente=" + idCliente);
+                rd = request.getRequestDispatcher("forneedorView.jsp?idFornecedor=" + idFornecedor);
                 rd.forward(request, response);
                 break;
             default:
@@ -86,22 +76,13 @@ public class ServletCliente extends HttpServlet {
         switch (operacao) {
             case "Cadastrar":
                 String nome = request.getParameter("nome");
-                boolean juridica = false;
-                String identificacao = "";
-                String email = "";
+                String cnpj = "";
                 String telefone = "";
-                Date dataInsercao = Calendar.getInstance().getTime();
+                String email = "";
                 Endereco endereco = new Endereco("", "", -1, "", "", "");
                 boolean insereEndereco = false; //caso o endereco seja fornecido, ele é persistido no banco
-                if (request.getParameter("isJuridica") != null) {
-                    juridica = true;
-                    if (!request.getParameter("cnpj").isEmpty()) {
-                        identificacao = request.getParameter("cnpj");
-                    }
-                } else {
-                    if (!request.getParameter("cpf").isEmpty()) {
-                        identificacao = request.getParameter("cpf");
-                    }
+                if (!request.getParameter("cnpj").isEmpty()) {
+                    cnpj = request.getParameter("cnpj");
                 }
                 if (!request.getParameter("email").isEmpty()) {
                     email = request.getParameter("email");
@@ -133,24 +114,23 @@ public class ServletCliente extends HttpServlet {
                     endereco.setEstado(request.getParameter("endereco-estado"));
                     insereEndereco = true;
                 }
-
                 if (insereEndereco) {
                     new DaoEndereco().insert(endereco);
-                    Cliente cliente = new Cliente(nome, identificacao, juridica, email, telefone, endereco, dataInsercao);
+                    Fornecedor fornecedor = new Fornecedor(nome, cnpj, email, telefone, endereco);
 
-                    daoCliente.insert(cliente);
-
-                    rd = request.getRequestDispatcher("clienteView.jsp?idCliente=" + cliente.getId());
+                    daoFornecedor.insert(fornecedor);
+                    
+                    rd = request.getRequestDispatcher("fornecedorView.jsp" + fornecedor.getId());
                     rd.forward(request, response);
                 } else { //inserido sem endereco
                     Endereco e = new DaoEndereco().get(1);
-                    Cliente cliente = new Cliente(nome, identificacao, juridica, email, telefone, e, dataInsercao);
+                    Fornecedor fornecedor = new Fornecedor(nome, cnpj, email, telefone, e);
 
-                    daoCliente.insert(cliente);
-                    rd = request.getRequestDispatcher("clienteView.jsp?idCliente=" + cliente.getId());
+                    daoFornecedor.insert(fornecedor);
+                    
+                    rd = request.getRequestDispatcher("fornecedorView.jsp" + fornecedor.getId());
                     rd.forward(request, response);
                 }
-
                 break;
             default:
                 rd.forward(request, response);

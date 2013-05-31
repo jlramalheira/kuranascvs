@@ -5,7 +5,13 @@
     Description: Esse documento JSP é utilizado para
 --%>
 
+<%@page import="Model.Produto"%>
+<%@page import="Dao.DaoFornecedor"%>
+<%@page import="java.util.List"%>
+<%@page import="Model.Fornecedor"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%List<Fornecedor> fornecedores = new DaoFornecedor().list();
+List<Produto> produtos =  (List<Produto>) session.getAttribute("produtos"); %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -32,7 +38,7 @@
                         </div>
                         <div class="span9">
                             <h2 class="noMarginTop">Controle de produtos</h2>
-                            <form method="get" action="" class="well">
+                            <form method="get" action="Produto" class="well">
                                 <fieldset>
                                     <label for="nome">Nome</label>
                                     <input type="text" id="nome" class="input-xxlarge" name="nome" value="" placeholder="Insira o nome comercial"/>
@@ -41,16 +47,17 @@
                                         <input type="text" id="codigo-barras" class="" name="codigo-barras" value="" placeholder="Insira o código de barras"/>
                                         <label for="fornecedor">Fornecedor</label>
                                         <select id="fornecedor" name="fornecedor" class="input-xlarge">
-                                            <option value="id">Fornecedor 1</option>
-                                            <option value="id">Fornecedor 2</option>
-                                            <option value="id">Fornecedor 3</option>
-                                            <option value="id">Fornecedor 4</option>
+                                            <option value="0">Escolha um Fornecedor</option>
+                                            <%for (Fornecedor fornecedor : fornecedores){ %>
+                                                <option value="<%=fornecedor.getId()%>"><%=fornecedor.getNome()%></option>
+                                            <%}%>
                                         </select>
                                     </div>
                                 </fieldset>
-                                <button type="submit" name="op" value="pesquisar" class="btn btn-primary">Pesquisar</button>
+                                <button type="submit" name="operacao" value="Pesquisar" class="btn btn-primary">Pesquisar</button>
                                 <button type="button" class="btn" onclick="toggleOptions(this)">Mais Opções</button>
                             </form>
+                            <%if((produtos != null) && !(produtos.isEmpty())){ %>
                             <table class="table table-hover table-striped">
                                 <thead>
                                     <tr>
@@ -61,26 +68,17 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <%for(Produto produto : produtos){ %>
                                     <tr>
-                                        <td>88</td>
-                                        <td>Nome do produto</td>
-                                        <td>Nome do fornecedor</td>
-                                        <td>R$ 100,00</td>
+                                        <td><%=produto.getId()%></td>
+                                        <td><%=produto.getNome()%></td>
+                                        <td><%=produto.getFornecedor().getNome()%></td>
+                                        <td>R$ <%=produto.getValorVenda()%></td>
                                     </tr>
-                                    <tr>
-                                        <td>88</td>
-                                        <td>Nome do produto</td>
-                                        <td>Nome do fornecedor</td>
-                                        <td>R$ 100,00</td>
-                                    </tr>
-                                    <tr>
-                                        <td>88</td>
-                                        <td>Nome do produto</td>
-                                        <td>Nome do fornecedor</td>
-                                        <td>R$ 100,00</td>
-                                    </tr>
+                                    <%}%>
                                 </tbody>
                             </table>
+                            <%}%>
                         </div>
                     </div>
 
@@ -92,3 +90,4 @@
         <%@include file="interfaceFooter.jsp" %>
     </body>
 </html>
+<%session.removeAttribute("produtos"); %>
