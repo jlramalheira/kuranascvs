@@ -39,27 +39,19 @@
                             </div>
                             <strong>Fornecedor:</strong> Nome do Fornecedor
                             <h3>Status da compra</h3>
-                            //Compra em andamento
-                            <div class="row">
+                            //Compra andamento
+                            <form action="" method="post" class="row">
                                 <div class="span3">
-                                    <form action="" method="post">
-                                        <button type="submit" class="btn btn-block btn-info" name="operacao" value="registrar-pagamento">Registrar pagamento</button>
-                                        <button type="submit" class="btn btn-block btn-info disabled" disabled="disabled">Pagamento registrado</button>
-                                    </form>
+                                    <button type="submit" name="operacao" value="finalizar" class="btn btn-block btn-success">
+                                        Finalizar
+                                    </button>
                                 </div>
                                 <div class="span3">
-                                    <form action="" method="post">
-                                        <button type="submit" class="btn btn-block btn-info" name="operacao" value="registrar-entrega">Registrar entrega</button>
-                                        <button type="submit" class="btn btn-block btn-info disabled" disabled="disabled">Entrega registrada</button>
-                                    </form>
+                                    <button type="submit" name="operacao" value="cancelar" class="btn btn-block btn-danger">
+                                        Cancelar
+                                    </button>
                                 </div>
-                                <div class="span3">
-                                    <form action="" method="post">
-                                        <button type="submit" class="btn btn-block btn-success" name="operacao" value="finalizar">Finalizar compra</button>
-                                        <button type="submit" class="btn btn-block btn-danger" name="operacao" value="cancelar">Cancelar compra</button>
-                                    </form>
-                                </div>
-                            </div>
+                            </form>
                             <p>
                                 //Compra finalizada
                                 <span class="btn btn-block btn-success disabled">Compra finalizada</span>
@@ -94,33 +86,10 @@
                                         <td>R$ 2000,00</td>
                                         <td>
                                             <form action="" method="post" class="no-margin-bottom">
-                                                <button class="btn btn-mini btn-danger" name="operacao" value="Id" title="Excluir item">
-                                                    <i class="icon-remove icon-white"></i>
+                                                <button class="btn btn-mini btn-primary" name="editar-item" value="Id" title="Editar item">
+                                                    <i class="icon-edit icon-white"></i>
                                                 </button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Nome do produto</td>
-                                        <td>R$ 10,00</td>
-                                        <td>200</td>
-                                        <td>R$ 2000,00</td>
-                                        <td>
-                                            <form action="" method="post" class="no-margin-bottom">
-                                                <button class="btn btn-mini btn-danger" name="operacao" value="Id" title="Excluir item">
-                                                    <i class="icon-remove icon-white"></i>
-                                                </button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Nome do produto</td>
-                                        <td>R$ 10,00</td>
-                                        <td>200</td>
-                                        <td>R$ 2000,00</td>
-                                        <td>
-                                            <form action="" method="post" class="no-margin-bottom">
-                                                <button class="btn btn-mini btn-danger" name="operacao" value="Id" title="Excluir item">
+                                                <button class="btn btn-mini btn-danger" name="excuir-item" value="Id" title="Excluir item">
                                                     <i class="icon-remove icon-white"></i>
                                                 </button>
                                             </form>
