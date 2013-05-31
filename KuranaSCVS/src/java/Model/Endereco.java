@@ -16,6 +16,7 @@ import javax.persistence.Id;
  */
 @Entity
 public class Endereco implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,7 +31,7 @@ public class Endereco implements Serializable {
     public Endereco() {
     }
 
-    public Endereco(String cep,String logradouro, int numero, String complemento, String cidade, String estado) {
+    public Endereco(String cep, String logradouro, int numero, String complemento, String cidade, String estado) {
         this.cep = cep;
         this.logradouro = logradouro;
         this.numero = numero;
@@ -95,6 +96,41 @@ public class Endereco implements Serializable {
         this.estado = estado;
     }
 
+    //metodos auxiliares
+    public String getEnderecoStr() {
+        String endereco = "";
+        if (!this.logradouro.isEmpty()) {
+            endereco = this.logradouro + ", ";
+        }
+        if (this.numero > 0) {
+            endereco += this.numero;
+        } else if(!endereco.isEmpty()) {
+            endereco += "s/n";
+        }
+        if (!endereco.isEmpty()) {
+            if (!this.complemento.isEmpty()) {
+                endereco += ", " + this.complemento;
+            }
+        } else {
+            if (!this.complemento.isEmpty()) {
+                endereco += this.complemento;
+            }
+        }
+        endereco += "<br/>";
+        if (!this.cidade.isEmpty()){
+            endereco += this.cidade;
+            if (!this.estado.isEmpty()){
+                endereco += " - "+this.estado;
+            }
+        } else {
+            if (!this.estado.isEmpty()){
+                endereco += this.estado;
+            }
+        }
+        endereco += "<br/>";
+        return endereco;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -119,5 +155,4 @@ public class Endereco implements Serializable {
     public String toString() {
         return "Model.Endereco[ id=" + id + " ]";
     }
-    
 }

@@ -5,7 +5,11 @@
     Description: Esse documento JSP é utilizado para
 --%>
 
+<%@page import="Dao.DaoFornecedor"%>
+<%@page import="Model.Fornecedor"%>
+<%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%List<Fornecedor> fornecedores = new DaoFornecedor().list(); %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -41,10 +45,10 @@
                                     <input type="text" id="codigo-barras" class="" name="codigo-barras" value="" placeholder="Insira o código de barras"/>
                                     <label for="fornecedor">Fornecedor</label>
                                     <select id="fornecedor" name="fornecedor" class="input-xlarge">
-                                        <option value="0">Fornecedor 1</option>
-                                        <option value="1">Fornecedor 2</option>
-                                        <option value="2">Fornecedor 3</option>
-                                        <option value="3">Fornecedor 4</option>
+                                        <option value="0">Escolha um Fornecedor</option>
+                                        <%for (Fornecedor fornecedor : fornecedores){ %>
+                                            <option value="<%=fornecedor.getId()%>"><%=fornecedor.getNome()%></option>
+                                        <%}%>
                                     </select>
                                 </fieldset>
                                 <fieldset>

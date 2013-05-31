@@ -5,7 +5,10 @@
     Description: Esse documento JSP é utilizado para
 --%>
 
+<%@page import="Model.Fornecedor"%>
+<%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%List<Fornecedor> fornecedores = (List<Fornecedor>) session.getAttribute("fornecedores"); %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -80,9 +83,10 @@
                                         </select>
                                     </div>
                                 </fieldset>
-                                <button type="submit" name="operacao" value="Cadastrar" class="btn btn-large btn-primary">Cadastrar</button>
+                                <button type="submit" name="operacao" value="Pesquisar" class="btn btn-large btn-primary">Pesquisar</button>
                                 <button type="button" class="btn btn-large" onclick="toggleOptions(this)">Mais Opções</button>
                             </form>
+                            <%if((fornecedores != null) && (!fornecedores.isEmpty())){ %>
                             <table class="table table-hover table-striped">
                                 <thead>
                                     <tr>
@@ -92,24 +96,16 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <%for (Fornecedor fornecedor : fornecedores){ %>
                                     <tr>
-                                        <td>88</td>
-                                        <td>Nome do fornecedor</td>
-                                        <td>8888888888888888888</td>
+                                        <td><%=fornecedor.getId()%></td>
+                                        <td><%=fornecedor.getNome()%></td>
+                                        <td><%=fornecedor.getCnpj()%></td>
                                     </tr>
-                                    <tr>
-                                        <td>88</td>
-                                        <td>Nome do fornecedor</td>
-                                        <td>8888888888888888888</td>
-                                    </tr>
-                                    <tr>
-                                        <td>88</td>
-                                        <td>Nome do fornecedor</td>
-                                        <td>8888888888888888888</td>
-                                    </tr>
+                                    <%}%>
                                 </tbody>
                             </table>
-
+                            <%}%>
                         </div>
                     </div>
                 </div>
@@ -120,3 +116,4 @@
         <%@include file="interfaceFooter.jsp" %>
     </body>
 </html>
+<%session.removeAttribute("fornecedores"); %>

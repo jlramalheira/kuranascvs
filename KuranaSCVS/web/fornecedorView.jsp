@@ -5,7 +5,23 @@
     Description: Esse documento JSP é utilizado para
 --%>
 
+<%@page import="java.util.List"%>
+<%@page import="Dao.DaoProduto"%>
+<%@page import="Model.Produto"%>
+<%@page import="Model.Fornecedor"%>
+<%@page import="Dao.DaoFornecedor"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    if (request.getParameter("idFornecedor") == null) {
+        response.sendRedirect("index.jsp");
+    } else {
+        int idProduto = Integer.parseInt(request.getParameter("idFornecedor"));
+        Fornecedor fornecedor = new DaoFornecedor().get(idProduto);
+        if (fornecedor == null) {
+            response.sendRedirect("index.jsp");
+        } else {
+            List<Produto> produtos = new DaoProduto().listByFornecedor(fornecedor.getId());
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -31,54 +47,44 @@
                             </div>
                         </div>
                         <div class="span9">
-                            <h2 class="noMarginTop">Nome do fornecedor</h2>
+                            <h2 class="noMarginTop"><%=fornecedor.getNome()%></h2>
                             <p>
-                                <strong>ID: </strong>8441<br/>
-                                <strong>CNPJ: </strong>8888888<br/>
+                                <strong>ID: </strong><%=fornecedor.getId()%><br/>
+                                <strong>CNPJ: </strong><%=fornecedor.getCnpj()%><br/>
                             </p>
                             <h3>Contato</h3>
                             <p>
-                                <strong>Telefone:</strong> (44) 4444-4444<br/>
-                                <strong>Email:</strong> empresa@fornecedor.com.br
+                                <strong>Telefone:</strong> <%=fornecedor.getTelefone()%><br/>
+                                <strong>Email:</strong> <%=fornecedor.getEmail()%>
                             </p>
                             <h3>Endereço</h3>
                             <address>
-                                Logradouro do fornecedor, Numero, Complemento<br/>
-                                Cidade - UF<br/>
-                                <strong>CEP:</strong> 88888-888
+                                <%=fornecedor.getEndereco().getEnderecoStr()%><br/>
+                                <strong>CEP:</strong> <%=fornecedor.getEndereco().getCep()%>
                             </address>
                             <h3>Produtos</h3>
+                            <%if (!produtos.isEmpty()){ %>
                             <table class="table table-hover table-striped">
                                 <thead>
                                     <tr>
                                         <th>ID</th>
                                         <th>Nome</th>
-                                        <th>Fornecedor</th>
                                         <th>Valor de Venda</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <%for (Produto produto : produtos){ %>
                                     <tr>
-                                        <td>88</td>
-                                        <td>Nome do produto</td>
-                                        <td>Nome do fornecedor</td>
-                                        <td>R$ 100,00</td>
+                                        <td><%=produto.getId()%></td>
+                                        <td><%=produto.getNome()%></td>
+                                        <td>R$<%=produto.getValorVenda()%></td>
                                     </tr>
-                                    <tr>
-                                        <td>88</td>
-                                        <td>Nome do produto</td>
-                                        <td>Nome do fornecedor</td>
-                                        <td>R$ 100,00</td>
-                                    </tr>
-                                    <tr>
-                                        <td>88</td>
-                                        <td>Nome do produto</td>
-                                        <td>Nome do fornecedor</td>
-                                        <td>R$ 100,00</td>
-                                    </tr>
+                                    <%}%>
                                 </tbody>
                             </table>
-
+                            <%} else {%>
+                                <p>Não existem produtos deste fornecedor</p>
+                            <%}%>
                         </div>
                     </div>
 
@@ -90,3 +96,5 @@
         <%@include file="interfaceFooter.jsp" %>
     </body>
 </html>
+<%}
+    }%>
