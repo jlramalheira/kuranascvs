@@ -5,7 +5,11 @@
     Description: Esse documento JSP é utilizado para
 --%>
 
+<%@page import="Dao.DaoFornecedor"%>
+<%@page import="java.util.List"%>
+<%@page import="Model.Fornecedor"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%List<Fornecedor> fornecedores = new DaoFornecedor().list();%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -33,10 +37,10 @@
                                 <fieldset>
                                     <label for="fornecedor">Fornecedor</label>
                                     <select name="fornecedor">
-                                        <option value="id">Fornecedor 1</option>
-                                        <option value="id">Fornecedor 2</option>
-                                        <option value="id">Fornecedor 3</option>
-                                        <option value="id">Fornecedor 4</option>
+                                        <option value="0">Escolha um Fornecedor</option>
+                                        <%for (Fornecedor fornecedor : fornecedores){ %>
+                                            <option value="<%=fornecedor.getId()%>"><%=fornecedor.getNome()%></option>
+                                        <%}%>
                                     </select>
                                     <div class="more-options row hide">
                                         <label>Entrega</label>
