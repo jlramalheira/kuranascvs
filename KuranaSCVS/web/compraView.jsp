@@ -42,12 +42,24 @@
                             //Compra andamento
                             <form action="" method="post" class="row">
                                 <div class="span3">
-                                    <button type="submit" name="operacao" value="cancelar" class="btn btn-block btn-danger">
-                                        Cancelar
-                                    </button>
+                                    <a href="#modalCancelar" role="button" class="btn btn-block btn-danger" data-toggle="modal">Cancelar</a>
+                                    <%-- MODAL CANCELAR COMPRA --%>
+                                    <div id="modalCancelar" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                            <h3 id="myModalLabel">Finalizar compra</h3>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Deseja finalizar a compra?</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button class="btn" data-dismiss="modal" aria-hidden="true">Não</button>
+                                            <button type="submit" class="btn btn-primary" name="operacao" value="cancelar">Sim</button>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="span3">
-                                    <a href="#modalFinalizar" role="button" class="btn" data-toggle="modal">Finalizar</a>
+                                    <a href="#modalFinalizar" role="button" class="btn btn-block btn-success" data-toggle="modal">Finalizar</a>
                                     <%-- MODAL FINALIZAR COMPRA --%>
                                     <div id="modalFinalizar" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                         <div class="modal-header">
@@ -55,16 +67,13 @@
                                             <h3 id="myModalLabel">Finalizar compra</h3>
                                         </div>
                                         <div class="modal-body">
-                                            <p>One fine body…</p>
+                                            <p>Deseja finalizar a compra?</p>
                                         </div>
                                         <div class="modal-footer">
-                                            <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-                                            <button class="btn btn-primary">Save changes</button>
+                                            <button class="btn" data-dismiss="modal" aria-hidden="true">Não</button>
+                                            <button type="submit" class="btn btn-primary" name="operacao" value="finalizar">Sim</button>
                                         </div>
                                     </div>
-                                    <button type="submit" name="operacao" value="finalizar" class="btn btn-block btn-success">
-                                        Finalizar
-                                    </button>
                                 </div>
                             </form>
                             <p>
@@ -104,9 +113,23 @@
                                                 <button class="btn btn-mini btn-primary" name="editar-item" value="Id" title="Editar item">
                                                     <i class="icon-edit icon-white"></i>
                                                 </button>
-                                                <button class="btn btn-mini btn-danger" name="excuir-item" value="Id" title="Excluir item">
+                                                <a href="#modalCancelar" role="button" class="btn btn-mini btn-danger" data-toggle="modal" title="Excluir item">
                                                     <i class="icon-remove icon-white"></i>
-                                                </button>
+                                                </a>
+                                                <%-- MODAL CANCELAR COMPRA --%>
+                                                <div id="modalExcluirItem" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                                        <h3 id="myModalLabel">Finalizar compra</h3>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <p>Deseja finalizar a compra?</p>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button class="btn" data-dismiss="modal" aria-hidden="true">Não</button>
+                                                        <button type="submit" class="btn btn-primary" name="excuir-item" value="Id">Sim</button>
+                                                    </div>
+                                                </div>
                                             </form>
                                         </td>
                                     </tr>
