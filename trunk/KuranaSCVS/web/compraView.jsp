@@ -47,10 +47,10 @@
                                     <div id="modalCancelar" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                         <div class="modal-header">
                                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                            <h3 id="myModalLabel">Finalizar compra</h3>
+                                            <h3 id="myModalLabel">Cancelar compra</h3>
                                         </div>
                                         <div class="modal-body">
-                                            <p>Deseja finalizar a compra?</p>
+                                            <p>Deseja cancelar a compra?</p>
                                         </div>
                                         <div class="modal-footer">
                                             <button class="btn" data-dismiss="modal" aria-hidden="true">Não</button>
@@ -120,10 +120,10 @@
                                                 <div id="modalExcluirItem" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                                     <div class="modal-header">
                                                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                                        <h3 id="myModalLabel">Finalizar compra</h3>
+                                                        <h3 id="myModalLabel">Excluir item da compra</h3>
                                                     </div>
                                                     <div class="modal-body">
-                                                        <p>Deseja finalizar a compra?</p>
+                                                        <p>Deseja excluir o item da compra?</p>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button class="btn" data-dismiss="modal" aria-hidden="true">Não</button>
