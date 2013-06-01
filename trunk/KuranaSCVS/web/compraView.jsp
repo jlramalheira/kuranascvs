@@ -113,7 +113,7 @@
                                                 <button class="btn btn-mini btn-primary" name="editar-item" value="Id" title="Editar item">
                                                     <i class="icon-edit icon-white"></i>
                                                 </button>
-                                                <a href="#modalCancelar" role="button" class="btn btn-mini btn-danger" data-toggle="modal" title="Excluir item">
+                                                <a href="#modalExcluirItem" role="button" class="btn btn-mini btn-danger" data-toggle="modal" title="Excluir item">
                                                     <i class="icon-remove icon-white"></i>
                                                 </a>
                                                 <%-- MODAL CANCELAR COMPRA --%>
