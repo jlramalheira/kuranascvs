@@ -9,6 +9,7 @@
 <%@page import="java.util.List"%>
 <%@page import="Model.Fornecedor"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%List<Fornecedor> fornecedores = new DaoFornecedor().list(); %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -32,11 +33,14 @@
                         </div>
                         <div class="span9">
                             <h2>Controle de compras</h2>
-                            <form class="well" method="get" action="Fornecedor">
+                            <form class="well" method="get" action="Compra">
                                 <fieldset>
                                     <label for="fornecedor">Fornecedor</label>
                                     <select name="fornecedor" class="input-xlarge">
                                         <option value="0">Escolha um Fornecedor</option>
+                                        <%for (Fornecedor fornecedor : fornecedores){ %>
+                                            <option value="<%=fornecedor.getId()%>"><%=fornecedor.getNome()%></option>
+                                        <%}%>
                                     </select>
                                     <div class="more-options hide">
                                         <label><strong>Data do Pedido</strong></label>
@@ -81,7 +85,7 @@
 
                                     </div>
                                 </fieldset>
-                                <button type="submit" name="operacao" value="Cadastrar" class="btn btn-large btn-primary">Cadastrar</button>
+                                <button type="submit" name="operacao" value="Pesquisar" class="btn btn-large btn-primary">Pesquisar</button>
                                 <button type="button" class="btn btn-large" onclick="toggleOptions(this)">Mais Opções</button>
                             </form>
 

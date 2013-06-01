@@ -97,6 +97,23 @@ public class Compra implements Serializable {
     public void setItensCompra(List<Item> itensCompra) {
         this.itensCompra = itensCompra;
     }
+    
+    //metodos de auxilio
+    public double getSomaValoresItens(){
+        double soma = 0;
+        for (Item item : this.itensCompra){
+            soma += item.getProduto().getValorCusto();
+        }
+        return soma;
+    }
+    
+    public double getSomaQuantidadeItens(){
+        double soma = 0;
+        for (Item item : this.itensCompra){
+            soma += item.getQuantidade();
+        }
+        return soma;
+    }
 
     @Override
     public int hashCode() {

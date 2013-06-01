@@ -33,7 +33,7 @@
                         </div>
                         <div class="span9">
                             <h2>Cadastrar nova compra</h2>
-                            <form class="well" method="get" action="Compra">
+                            <form class="well" method="POST" action="Compra">
                                 <fieldset>
                                     <legend>Informações</legend>
                                     <label><strong>Data: 05/05/2005</strong></label>

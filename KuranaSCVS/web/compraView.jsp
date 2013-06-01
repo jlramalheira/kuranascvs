@@ -5,7 +5,20 @@
     Description: Esse documento JSP é utilizado para
 --%>
 
+<%@page import="Model.Item"%>
+<%@page import="Model.Compra"%>
+<%@page import="Dao.DaoCompra"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    if (request.getParameter("idCompra") == null) {
+        response.sendRedirect("index.jsp");
+    } else {
+        int idCompra = Integer.parseInt(request.getParameter("idCompra"));
+        Compra compra = new DaoCompra().get(idCompra);
+        if (compra == null) {
+            response.sendRedirect("index.jsp");
+        } else {
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -28,19 +41,20 @@
                             </div>
                         </div>
                         <div class="span9">
-                            <h2 class="noMarginTop">Compra #0111</h2>
+                            <h2 class="noMarginTop">Compra #<%=compra.getId()%></h2>
                             <div class="row">
                                 <div class="span2">
-                                    <strong>Data:</strong> 08/08/2008
+                                    <strong>Data:</strong> <%=Util.Util.dateToString(compra.getDataPedido())%>
                                 </div>
                                 <div class="span2">
-                                    <strong>Entrega:</strong> 08/08/2008
+                                    <strong>Entrega:</strong> <%=compra.getDataEntrega()!= null ? Util.Util.dateToString(compra.getDataEntrega()) : "Não Entrege" %>
                                 </div>
                             </div>
-                            <strong>Fornecedor:</strong> Nome do Fornecedor
+                            <strong>Fornecedor:</strong> <%=compra.getFornecedor().getNome()%>
                             <h3>Status da compra</h3>
-                            //Compra andamento
-                            <form action="" method="post" class="row">
+                            <%if(compra.getStatusCompra() == Compra.ANDAMENTO){ %>
+                            <form action="Compra" method="post" class="row">
+                                <input type="hidden" name="idCompra" value="<%=compra.getId()%>" />
                                 <div class="span3">
                                     <a href="#modalCancelar" role="button" class="btn btn-block btn-danger" data-toggle="modal">Cancelar</a>
                                     <%-- MODAL CANCELAR COMPRA --%>
@@ -54,7 +68,7 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button class="btn" data-dismiss="modal" aria-hidden="true">Não</button>
-                                            <button type="submit" class="btn btn-primary" name="operacao" value="cancelar">Sim</button>
+                                            <button type="submit" class="btn btn-primary" name="operacao" value="Cancelar">Sim</button>
                                         </div>
                                     </div>
                                 </div>
@@ -71,26 +85,29 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button class="btn" data-dismiss="modal" aria-hidden="true">Não</button>
-                                            <button type="submit" class="btn btn-primary" name="operacao" value="finalizar">Sim</button>
+                                            <button type="submit" class="btn btn-primary" name="operacao" value="Finalizar">Sim</button>
                                         </div>
                                     </div>
                                 </div>
                             </form>
+                            <%} else if(compra.getStatusCompra() == Compra.FINALIZADA){ %>
                             <p>
-                                //Compra finalizada
                                 <span class="btn btn-block btn-success disabled">Compra finalizada</span>
                             </p>
+                            <%}else{%>
                             <p>
-                                //Compra Cancelada
                                 <span class="btn btn-block btn-danger disabled">Compra cancelada</span>
                             </p>
+                            <%}%>
                             <div class="row">
                                 <div class="span6">
                                     <h3 class="noMarginTop">Itens da compra</h3>
                                 </div>
+                                <%if (compra.getStatusCompra() == Compra.ANDAMENTO) {%>
                                 <div class="span3">
                                     <a href="#" class="btn btn-block btn-primary margin-top">Adicionar item de compra</a>
                                 </div>
+                                <%}%>
                             </div>
                             <table class="table table-hover table-striped">
                                 <thead>
@@ -103,11 +120,13 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <%for (Item item : compra.getItensCompra()){ %>
                                     <tr>
-                                        <td>Nome do produto</td>
-                                        <td>R$ 10,00</td>
-                                        <td>200</td>
-                                        <td>R$ 2000,00</td>
+                                        <td><%=item.getProduto().getNome()%></td>
+                                        <td><%=item.getProduto().getValorCusto()%></td>
+                                        <td><%=item.getQuantidade()%></td>
+                                        <td><%=item.getValorCustoTotal()%></td>
+                                        <%if (compra.getStatusCompra() == Compra.ANDAMENTO) {%>
                                         <td>
                                             <form action="" method="post" class="no-margin-bottom">
                                                 <button class="btn btn-mini btn-primary" name="editar-item" value="Id" title="Editar item">
@@ -132,13 +151,15 @@
                                                 </div>
                                             </form>
                                         </td>
+                                        <%}%>
                                     </tr>
+                                    <%}%>
                                 </tbody>
                                 <tfoot>
                                     <tr>
                                         <th colspan="2">Total</th>
-                                        <th>600</th>
-                                        <th>R$ 6000,00</th>
+                                        <th><%=compra.getSomaQuantidadeItens()%></th>
+                                        <th><%=compra.getSomaValoresItens()%></th>
                                     </tr>
                                 </tfoot>
                             </table>
@@ -152,3 +173,5 @@
         <%@include file="interfaceFooter.jsp" %>
     </body>
 </html>
+<%}
+    }%>
