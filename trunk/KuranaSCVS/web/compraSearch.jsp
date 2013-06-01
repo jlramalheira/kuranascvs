@@ -9,7 +9,6 @@
 <%@page import="java.util.List"%>
 <%@page import="Model.Fornecedor"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%List<Fornecedor> fornecedores = new DaoFornecedor().list();%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -36,20 +35,86 @@
                             <form class="well" method="get" action="Fornecedor">
                                 <fieldset>
                                     <label for="fornecedor">Fornecedor</label>
-                                    <select name="fornecedor">
+                                    <select name="fornecedor" class="input-xlarge">
                                         <option value="0">Escolha um Fornecedor</option>
-                                        <%for (Fornecedor fornecedor : fornecedores){ %>
-                                            <option value="<%=fornecedor.getId()%>"><%=fornecedor.getNome()%></option>
-                                        <%}%>
                                     </select>
-                                    <div class="more-options row hide">
-                                        <label>Entrega</label>
-                                        
+                                    <div class="more-options hide">
+                                        <label><strong>Data do Pedido</strong></label>
+                                        <div class="row">
+                                            <div class="span3">
+                                                <label for="pedido-inicio">Inicio</label>
+                                                <input type="date" id="pedido-inicio"
+                                                       name="pedido-inicio"/>
+                                            </div>
+                                            <div class="span3">
+                                                <label for="pedido-fim">Fim</label>
+                                                <input type="date" id="pedido-fim"
+                                                       name="pedido-fim"/>
+                                            </div>
+                                        </div>
+                                        <label><strong>Data de Entrega</strong></label>
+                                        <div class="row">
+                                            <div class="span3">
+                                                <label for="entrega-inicio">Inicio</label>
+                                                <input type="date" id="entrega-inicio"
+                                                       name="entrega-inicio"/>
+                                            </div>
+                                            <div class="span3">
+                                                <label for="entrega-fim">Fim</label>
+                                                <input type="date" id="entrega-fim"
+                                                       name="entrega-fim"/>
+                                            </div>
+                                        </div>
+                                        <label class="radio">
+                                            <input type="radio" name="status" value="0"/>
+                                            Em andamento
+                                        </label>
+                                        <label class="radio">
+                                            <input type="radio" name="status" value="1"/>
+                                            Finalizada
+                                        </label>
+                                        <label class="radio">
+                                            <input type="radio" name="status" value="2"/>
+                                            Cancelada
+                                        </label>
+
+
                                     </div>
                                 </fieldset>
                                 <button type="submit" name="operacao" value="Cadastrar" class="btn btn-large btn-primary">Cadastrar</button>
                                 <button type="button" class="btn btn-large" onclick="toggleOptions(this)">Mais Opções</button>
                             </form>
+
+                            <table class="table table-hover table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Fornecedor</th>
+                                        <th>Pedido</th>
+                                        <th>Entrega</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>0001</td>
+                                        <td>Nome do Fornecedor</td>
+                                        <td>05/05/2005</td>
+                                        <td>05/05/2005</td>
+                                        <td>
+                                            <span class="btn btn-mini btn-primary disabled" title="Em andamento">
+                                                <i class="icon-random icon-white"></i>
+                                            </span>
+                                            <span class="btn btn-mini btn-success disabled" title="Finalizada">
+                                                <i class="icon-ok icon-white"></i>
+                                            </span>
+                                            <span class="btn btn-mini btn-danger disabled" title="Cancelada">
+                                                <i class="icon-remove icon-white"></i>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
