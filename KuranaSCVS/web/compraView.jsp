@@ -42,13 +42,14 @@
                             //Compra andamento
                             <form action="" method="post" class="row">
                                 <div class="span3">
-                                    <button type="submit" name="operacao" value="finalizar" class="btn btn-block btn-success">
-                                        Finalizar
+                                    <button type="submit" name="operacao" value="cancelar" class="btn btn-block btn-danger">
+                                        Cancelar
                                     </button>
                                 </div>
                                 <div class="span3">
-                                    <button type="submit" name="operacao" value="cancelar" class="btn btn-block btn-danger">
-                                        Cancelar
+                                    <a href="#modalFinalizar" role="button" class="btn" data-toggle="modal">Finalizar</a>
+                                    <button type="submit" name="operacao" value="finalizar" class="btn btn-block btn-success">
+                                        Finalizar
                                     </button>
                                 </div>
                             </form>
@@ -104,9 +105,22 @@
                                     </tr>
                                 </tfoot>
                             </table>
-
                         </div>
                     </div>
+                </div>
+            </div>
+            <%-- MODAL FINALIZAR COMPRA --%>
+            <div id="modalFinalizar" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h3 id="myModalLabel">Finalizar compra</h3>
+                </div>
+                <div class="modal-body">
+                    <p>One fine body…</p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+                    <button class="btn btn-primary">Save changes</button>
                 </div>
             </div>
             <div id="push"></div>
