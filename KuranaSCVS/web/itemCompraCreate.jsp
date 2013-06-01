@@ -31,16 +31,15 @@
                             <form action="" method="post" class="well">
                                 <fieldset>
                                     <legend>Item da Compra #000</legend>
-                                    <input type="hidden" name="compra-id" value="id"/>
                                     <label for="produto-nome">Produto</label>
-                                    <input type="hidden" name="produto-id" value="id"/>
+                                    <input id="produto-id" type="hidden" name="produto-id" value="id"/>
                                     <input type="text" id="produto-nome" class="input-xxlarge"
                                            name="produto-nome" value="" autocomplete="off"
                                            data-provide="typeahead"
                                            data-itens="4"
                                            data-source='["1 - 10 - Mouse","2 - 20 - Teclado","3 - 30 - Monitor","4 - 40 - Cartucho","5 - 50 - Maria"]'
                                            placeholder="Insira o nome do produto"/>
-                                    <label>Custo Unitário</label>
+                                    <label>Valor Unitário</label>
                                     <input id="produto-preco" type="text"
                                            class="input-small" disabled="disabled"
                                            name="custo" value="0" />
@@ -59,7 +58,7 @@
                                                />
                                         <span class="add-on">%</span>
                                     </div>
-                                    <label>Custo Total</label>
+                                    <label>Valor Total</label>
                                     <input id="total" type="text"
                                            class="input-small" disabled="disabled"
                                            name="custo" value="0" />
@@ -101,10 +100,12 @@
 
             $("#produto-nome").change(function(){
                 var produtoPreco = parseFloat(this.value.split(" - ")[1]);
-                if(isNaN(produtoPreco)){
+                var produtoId = parseInt(this.value.split(" - ")[0]);
+                if(isNaN(produtoPreco) && (isNaN(produtoId))){
                     $("#produto-preco").val(0);
                 }else{
                     $("#produto-preco").val(produtoPreco);
+                    $("#produto-id").val(produtoId);
                 }
                 alterarTotal();
             });
