@@ -128,7 +128,7 @@ public class ServletFornecedor extends HttpServlet {
 
                     daoFornecedor.insert(fornecedor);
                     
-                    rd = request.getRequestDispatcher("fornecedorView.jsp" + fornecedor.getId());
+                    rd = request.getRequestDispatcher("fornecedorView.jsp?idFornecedor=" + fornecedor.getId());
                     rd.forward(request, response);
                 }
                 break;

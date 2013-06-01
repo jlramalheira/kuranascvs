@@ -22,6 +22,9 @@ public class Util {
     }
 
     public static Date stringToDate(String data) {
+        if (data.isEmpty()){
+            return null;
+        }
         try {
             return dateFormat.parse(data);
         } catch (ParseException ex) {

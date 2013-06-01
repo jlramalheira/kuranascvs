@@ -24,10 +24,14 @@ public class Item implements Serializable {
     @OneToOne
     private Produto produto;
     private int quantidade;
-    @OneToOne
-    private Venda venda;
-    @OneToOne
-    private Compra compra;
+
+    public Item() {
+    }
+
+    public Item(Produto produto, int quantidade, Venda venda) {
+        this.produto = produto;
+        this.quantidade = quantidade;
+    }
 
     public int getId() {
         return id;
@@ -35,6 +39,31 @@ public class Item implements Serializable {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public Produto getProduto() {
+        return produto;
+    }
+
+    public void setProduto(Produto produto) {
+        this.produto = produto;
+    }
+
+    public int getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
+    }
+    
+    //metodos auxiliares
+    public double getValorCustoTotal(){
+        return this.produto.getValorCusto() * this.quantidade;
+    }
+    
+    public double getValorVendaTotal(){
+        return this.produto.getValorVenda() * this.quantidade;
     }
 
     @Override
