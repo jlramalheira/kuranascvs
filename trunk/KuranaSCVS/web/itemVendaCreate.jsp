@@ -1,6 +1,6 @@
 <%--
-    Document   : itemCompraEdit
-    Created on : 01/06/2013, 13:35:22
+    Document   : itemSelectProduto
+    Created on : 31/05/2013, 22:28:38
     Author     : Max
     Description: Esse documento JSP é utilizado para
 --%>
@@ -20,27 +20,26 @@
                         <div class="span3">
                             <div class="well sidebar-nav">
                                 <ul class="nav nav-list">
-                                    <li class="nav-header">Compras</li>
+                                    <li class="nav-header">Vendas</li>
                                     <li><a href="#">Pesquisar</a></li>
                                     <li><a href="#">Cadastrar nova</a></li>
                                 </ul>
                             </div>
                         </div>
                         <div class="span9">
-                            <h2 class="noMarginTop">Editar item de compra</h2>
+                            <h2 class="noMarginTop">Inserir novo item de venda</h2>
                             <form action="" method="post" class="well">
                                 <fieldset>
-                                    <legend>Item da Compra #000</legend>
-                                    <input type="hidden" name="compra-id" value="id"/>
+                                    <legend>Item da Venda #000</legend>
                                     <label for="produto-nome">Produto</label>
-                                    <input type="hidden" name="produto-id" value="id"/>
+                                    <input id="produto-id" type="hidden" name="produto-id" value="id"/>
                                     <input type="text" id="produto-nome" class="input-xxlarge"
                                            name="produto-nome" value="" autocomplete="off"
                                            data-provide="typeahead"
                                            data-itens="4"
                                            data-source='["1 - 10 - Mouse","2 - 20 - Teclado","3 - 30 - Monitor","4 - 40 - Cartucho","5 - 50 - Maria"]'
                                            placeholder="Insira o nome do produto"/>
-                                    <label>Custo Unitário</label>
+                                    <label>Valor Unitário</label>
                                     <input id="produto-preco" type="text"
                                            class="input-small" disabled="disabled"
                                            name="custo" value="0" />
@@ -59,13 +58,13 @@
                                                />
                                         <span class="add-on">%</span>
                                     </div>
-                                    <label>Custo Total</label>
+                                    <label>Valor Total</label>
                                     <input id="total" type="text"
                                            class="input-small" disabled="disabled"
                                            name="custo" value="0" />
 
                                 </fieldset>
-                                <button type="submit" class="btn btn-primary btn-large" name="operacao" value="edit">Editar item</button>
+                                <button type="submit" class="btn btn-primary btn-large" name="operacao" value="create">Adicionar item</button>
                                 <button type="submit" class="btn btn-large" name="operacao" value="cancel">Voltar</button>
                             </form>
 
@@ -101,10 +100,12 @@
 
             $("#produto-nome").change(function(){
                 var produtoPreco = parseFloat(this.value.split(" - ")[1]);
-                if(isNaN(produtoPreco)){
+                var produtoId = parseInt(this.value.split(" - ")[0]);
+                if(isNaN(produtoPreco) && (isNaN(produtoId))){
                     $("#produto-preco").val(0);
                 }else{
                     $("#produto-preco").val(produtoPreco);
+                    $("#produto-id").val(produtoId);
                 }
                 alterarTotal();
             });
