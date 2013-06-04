@@ -123,7 +123,7 @@
                                     <%for (Item item : compra.getItensCompra()){ %>
                                     <tr>
                                         <td><%=item.getProduto().getNome()%></td>
-                                        <td><%=item.getProduto().getValorCusto()%></td>
+                                        <td><%=item.getValor()%></td>
                                         <td><%=item.getQuantidade()%></td>
                                         <td><%=item.getValorCustoTotal()%></td>
                                         <%if (compra.getStatusCompra() == Compra.ANDAMENTO) {%>
