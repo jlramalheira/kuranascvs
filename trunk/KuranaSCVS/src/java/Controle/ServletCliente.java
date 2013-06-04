@@ -140,15 +140,14 @@ public class ServletCliente extends HttpServlet {
 
                     daoCliente.insert(cliente);
 
-                    rd = request.getRequestDispatcher("clienteView.jsp?idCliente=" + cliente.getId());
-                    rd.forward(request, response);
+                    response.sendRedirect("clienteView.jsp?idCliente=" + cliente.getId());
                 } else { //inserido sem endereco
                     Endereco e = new DaoEndereco().get(1);
                     Cliente cliente = new Cliente(nome, identificacao, juridica, email, telefone, e, dataInsercao);
 
                     daoCliente.insert(cliente);
-                    rd = request.getRequestDispatcher("clienteView.jsp?idCliente=" + cliente.getId());
-                    rd.forward(request, response);
+
+                    response.sendRedirect("clienteView.jsp?idCliente=" + cliente.getId());
                 }
 
                 break;
