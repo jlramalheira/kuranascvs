@@ -62,8 +62,7 @@ public class ServletItem extends HttpServlet {
                 
                 new DaoCompra().update(compra);
                 
-                rd = request.getRequestDispatcher("compraView?idCompra="+compra.getId());
-                rd.forward(request, response);
+                response.sendRedirect("compraView?idCompra="+compra.getId());
                 break;
             default:
                 rd.forward(request, response);

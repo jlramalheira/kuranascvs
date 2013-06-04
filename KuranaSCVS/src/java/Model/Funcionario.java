@@ -20,6 +20,11 @@ import javax.persistence.Temporal;
  */
 @Entity
 public class Funcionario implements Serializable {
+
+    public static final int ADMINISTRADOR = 0;
+    public static final int ATENDENTE = 1;
+    public static final int CAIXA = 2;
+    public static final int TECNICO = 2;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,20 +40,24 @@ public class Funcionario implements Serializable {
     private List<Date> dataAdmissao;
     private List<Date> dataDemissao;
     private double salario;
+    private boolean contratado;
+    private int cargo;
 
     public Funcionario() {
     }
 
-    public Funcionario(String nome, String cpf, String telefone, Endereco endereco, String email, Date dataNascimento, List<Date> dataAdmissao, List<Date> dataDemissao, double salario) {
+    public Funcionario(String nome, String cpf, String telefone, Endereco endereco, int cargo, String email, Date dataNascimento, List<Date> dataAdmissao, List<Date> dataDemissao, double salario, boolean contratado) {
         this.nome = nome;
         this.cpf = cpf;
         this.telefone = telefone;
         this.endereco = endereco;
+        this.cargo = cargo;
         this.email = email;
         this.dataNascimento = dataNascimento;
         this.dataAdmissao = dataAdmissao;
         this.dataDemissao = dataDemissao;
         this.salario = salario;
+        this.contratado = contratado;
     }
 
     public int getId() {
@@ -131,6 +140,46 @@ public class Funcionario implements Serializable {
         this.salario = salario;
     }
 
+    public boolean isContratado() {
+        return contratado;
+    }
+
+    public void setContratado(boolean contratado) {
+        this.contratado = contratado;
+    }
+
+    public int getCargo() {
+        return cargo;
+    }
+
+    public void setCargo(int cargo) {
+        this.cargo = cargo;
+    }
+
+    //metodos auxiliares
+    public void addAdmissao(Date dataAdmissao) {
+        this.dataAdmissao.add(dataAdmissao);
+    }
+
+    public void addDemissao(Date dataDemissao) {
+        this.dataDemissao.add(dataDemissao);
+    }
+
+    public String getCargoStr() {
+        switch (this.cargo) {
+            case 0:
+                return "Adiministrador";
+            case 1:
+                return "Atendente";
+            case 2:
+                return "Caixa";
+            case 3:
+                return "Técnico";
+            default:
+                return "";
+        }
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -155,5 +204,4 @@ public class Funcionario implements Serializable {
     public String toString() {
         return "Model.Funcionario[ id=" + id + " ]";
     }
-    
 }

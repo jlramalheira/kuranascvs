@@ -4,8 +4,16 @@
  */
 package Controle;
 
+import Dao.DaoEndereco;
+import Dao.DaoFuncionario;
+import Model.Endereco;
+import Model.Funcionario;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,6 +29,8 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "Funcionario", urlPatterns = {"/Funcionario"})
 public class ServletFuncionario extends HttpServlet {
 
+    DaoFuncionario daoFuncionario = new DaoFuncionario();
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -34,10 +44,111 @@ public class ServletFuncionario extends HttpServlet {
         RequestDispatcher rd = request.getRequestDispatcher("erro.jsp");
 
         String operacao = request.getParameter("operacao");
-        
-        switch (operacao){
+
+        switch (operacao) {
             case "Cadastrar":
+                String nome = request.getParameter("nome");
+                String cpf = request.getParameter("cpf");
+                Date dataNascimento = null;
+                double salarioBase = Double.parseDouble(request.getParameter("salario-base"));
+                String email = "";
+                String telefone = "";
+
+                List<Date> datasAdimissao = new ArrayList<Date>();
+                List<Date> datasDemissao = new ArrayList<Date>();
+                Date dataInsercao = Calendar.getInstance().getTime();
+                datasAdimissao.add(dataInsercao);
+
+                int cargo = Integer.parseInt(request.getParameter("cargo"));
+                Endereco endereco = new Endereco("", "", -1, "", "", "");
+                boolean insereEndereco = false; //caso o endereco seja fornecido, ele é persistido no banco
+
+                if (!request.getParameter("data-nascimento").isEmpty()) {
+                    String dataNasc = request.getParameter("data-nascimento");
+                    dataNasc = dataNasc.substring(8) + "/" + dataNasc.substring(5, 7) + "/" + dataNasc.substring(0, 4);
+                    dataNascimento = Util.Util.stringToDate(dataNasc);
+                }
+                if (!request.getParameter("email").isEmpty()) {
+                    email = request.getParameter("email");
+                }
+                if (!request.getParameter("telefone").isEmpty()) {
+                    telefone = request.getParameter("telefone");
+                }
+                if (!request.getParameter("endereco-cep").isEmpty()) {
+                    endereco.setCep(request.getParameter("endereco-cep"));
+                    insereEndereco = true;
+                }
+                if (!request.getParameter("endereco-logradouro").isEmpty()) {
+                    endereco.setLogradouro(request.getParameter("endereco-logradouro"));
+                    insereEndereco = true;
+                }
+                if (!request.getParameter("endereco-numero").isEmpty()) {
+                    endereco.setNumero(Integer.parseInt(request.getParameter("endereco-numero")));
+                    insereEndereco = true;
+                }
+                if (!request.getParameter("endereco-complemento").isEmpty()) {
+                    endereco.setComplemento(request.getParameter("endereco-complemento"));
+                    insereEndereco = true;
+                }
+                if (!request.getParameter("endereco-cidade").isEmpty()) {
+                    endereco.setCidade(request.getParameter("endereco-cidade"));
+                    insereEndereco = true;
+                }
+                if (!request.getParameter("endereco-estado").isEmpty()) {
+                    endereco.setEstado(request.getParameter("endereco-estado"));
+                    insereEndereco = true;
+                }
+
+                if (insereEndereco) {
+                    new DaoEndereco().insert(endereco);
+                    Funcionario funcionario = new Funcionario(nome, cpf, telefone, endereco, cargo, email, dataNascimento, datasAdimissao, datasDemissao, salarioBase, true);
+
+                    daoFuncionario.insert(funcionario);
+
+                    response.sendRedirect("funcionarioView.jsp?idFuncionario=" + funcionario.getId());
+                } else { //inserido sem endereco
+                    Endereco e = new DaoEndereco().get(1);
+                    Funcionario funcionario = new Funcionario(nome, cpf, telefone, e, cargo, email, dataNascimento, datasAdimissao, datasDemissao, salarioBase, true);
+
+                    daoFuncionario.insert(funcionario);
+                    response.sendRedirect("funcionarioView.jsp?idFuncionario=" + funcionario.getId());
+                }
+
+                break;
+            case "Admitir":
+                int idFuncionarioAdmitir = Integer.parseInt(request.getParameter("idFuncionario"));
+
+                double novoSalario = 0;
+
+                Funcionario funcionarioAdmitir = daoFuncionario.get(idFuncionarioAdmitir);
                 
+                if (!request.getParameter("salario-base").isEmpty()) {
+                    novoSalario = Double.parseDouble(request.getParameter("salario-base"));
+                    funcionarioAdmitir.setSalario(novoSalario);
+                }
+
+
+                funcionarioAdmitir.setContratado(true);
+                Date dataAdmissao = Calendar.getInstance().getTime();
+                funcionarioAdmitir.addAdmissao(dataAdmissao);
+
+
+                daoFuncionario.update(funcionarioAdmitir);
+
+                response.sendRedirect("funcionarioView.jsp?idFuncionario=" + funcionarioAdmitir.getId());
+                break;
+            case "Demitir":
+                int idFuncionarioDemitir = Integer.parseInt(request.getParameter("idFuncionario"));
+
+                Funcionario funcionarioDemitir = daoFuncionario.get(idFuncionarioDemitir);
+
+                funcionarioDemitir.setContratado(false);
+                Date dataDemissao = Calendar.getInstance().getTime();
+                funcionarioDemitir.addDemissao(dataDemissao);
+
+                daoFuncionario.update(funcionarioDemitir);
+
+                response.sendRedirect("funcionarioView.jsp?idFuncionario=" + funcionarioDemitir.getId());
                 break;
             default:
                 rd.forward(request, response);

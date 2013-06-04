@@ -29,7 +29,7 @@
                         </div>
                         <div class="span9">
                             <h2>Inserir cadastro de Funcionário</h2>
-                            <form class="well">
+                            <form class="well" action="Funcionario" method="POST">
                                 <fieldset>
                                     <legend>Informações</legend>
                                     <label for="nome">Nome</label>
@@ -46,6 +46,21 @@
                                     <input type="date" id="data-nascimento" class=""
                                            required="required"
                                            name="data-nascimento"/>
+                                    <label for="salario-base">Salário base</label>
+                                    <div class="input-prepend">
+                                        <span class="add-on">R$</span>
+                                        <input type="text" id="salario-base" 
+                                               class="input-small" name="salario-base"
+                                               required="required" value=""/>
+                                    </div>
+                                    <label for="cargo">Cargo</label>
+                                    <select name="cargo">
+                                        <option value="-1">Escolha um cargo</option>
+                                        <option value="0">Administrador</option>
+                                        <option value="1">Atentende</option>
+                                        <option value="2">Caixa</option>
+                                        <option value="3">Técnico</option>
+                                    </select>
                                 </fieldset>
                                 <fieldset>
                                     <legend>Contato</legend>
