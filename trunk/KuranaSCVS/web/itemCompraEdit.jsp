@@ -5,7 +5,35 @@
     Description: Esse documento JSP é utilizado para
 --%>
 
+<%@page import="Dao.DaoItem"%>
+<%@page import="Model.Item"%>
+<%@page import="Dao.DaoProduto"%>
+<%@page import="Model.Produto"%>
+<%@page import="java.util.List"%>
+<%@page import="Dao.DaoCompra"%>
+<%@page import="Model.Compra"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    if (request.getParameter("idCompra") == null || request.getParameter("idItem") == null) {
+        response.sendRedirect("index.jsp");
+    } else {
+        int idCompra = Integer.parseInt(request.getParameter("idCompra"));
+        int idItem = Integer.parseInt(request.getParameter("idItem"));
+        Compra compra = new DaoCompra().get(idCompra);
+        Item item = new DaoItem().get(idItem);
+        if (compra == null || item == null) {
+            response.sendRedirect("index.jsp");
+        } else {
+            List<Produto> produtos = new DaoProduto().listByFornecedor(compra.getFornecedor().getId());
+            String produtosAutoComplete = "[";
+            for (Produto produto : produtos) {
+                produtosAutoComplete += "\"" + produto.getId() + " - " + produto.getValorCusto() + " - " + produto.getNome() + "\",";
+            }
+            if (produtos.size() > 0) {
+                produtosAutoComplete = produtosAutoComplete.substring(0, produtosAutoComplete.length() - 1);
+            }
+            produtosAutoComplete += "]";
+%>
 <html>
     <head>
         <%@include file="interfaceHead.jsp" %>
@@ -111,3 +139,5 @@
         </script>
     </body>
 </html>
+<%}
+    }%>

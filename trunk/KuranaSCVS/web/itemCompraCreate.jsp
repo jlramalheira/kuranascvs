@@ -5,7 +5,31 @@
     Description: Esse documento JSP é utilizado para
 --%>
 
+<%@page import="Dao.DaoProduto"%>
+<%@page import="Model.Produto"%>
+<%@page import="java.util.List"%>
+<%@page import="Dao.DaoCompra"%>
+<%@page import="Model.Compra"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    if (request.getParameter("idCompra") == null) {
+        response.sendRedirect("index.jsp");
+    } else {
+        int idCompra = Integer.parseInt(request.getParameter("idCompra"));
+        Compra compra = new DaoCompra().get(idCompra);
+        if (compra == null) {
+            response.sendRedirect("index.jsp");
+        } else {
+            List<Produto> produtos = new DaoProduto().listByFornecedor(compra.getFornecedor().getId());
+            String produtosAutoComplete = "[";
+            for (Produto produto : produtos) {
+                produtosAutoComplete += "\"" + produto.getId() + " - " + produto.getValorCusto() + " - " + produto.getNome() + "\",";
+            }
+            if (produtos.size() > 0) {
+                produtosAutoComplete = produtosAutoComplete.substring(0, produtosAutoComplete.length() - 1);
+            }
+            produtosAutoComplete += "]";
+%>
 <html>
     <head>
         <%@include file="interfaceHead.jsp" %>
@@ -28,16 +52,17 @@
                         </div>
                         <div class="span9">
                             <h2 class="noMarginTop">Inserir novo item de compra</h2>
-                            <form action="" method="post" class="well">
+                            <form action="Item" method="post" class="well">
                                 <fieldset>
-                                    <legend>Item da Compra #000</legend>
+                                    <legend>Item da Compra #<%=compra.getId()%></legend>
                                     <label for="produto-nome">Produto</label>
                                     <input id="produto-id" type="hidden" name="produto-id" value="id"/>
+                                    <input type="hidden" name="idCompra" value="<%=compra.getId()%>"/>
                                     <input type="text" id="produto-nome" class="input-xxlarge"
                                            name="produto-nome" value="" autocomplete="off"
                                            data-provide="typeahead"
-                                           data-itens="4"
-                                           data-source='["1 - 10 - Mouse","2 - 20 - Teclado","3 - 30 - Monitor","4 - 40 - Cartucho","5 - 50 - Maria"]'
+                                           data-itens="<%=produtos.size()%>"
+                                           data-source='<%=produtosAutoComplete%>'
                                            placeholder="Insira o nome do produto"/>
                                     <label>Valor Unitário</label>
                                     <input id="produto-preco" type="text"
@@ -61,10 +86,10 @@
                                     <label>Valor Total</label>
                                     <input id="total" type="text"
                                            class="input-small" disabled="disabled"
-                                           name="custo" value="0" />
+                                           name="total" value="0" />
 
                                 </fieldset>
-                                <button type="submit" class="btn btn-primary btn-large" name="operacao" value="create">Adicionar item</button>
+                                <button type="submit" class="btn btn-primary btn-large" name="operacao" value="Cadastrar Compra">Adicionar item</button>
                                 <button type="submit" class="btn btn-large" name="operacao" value="cancel">Voltar</button>
                             </form>
 
@@ -112,3 +137,5 @@
         </script>
     </body>
 </html>
+<%}
+    }%>

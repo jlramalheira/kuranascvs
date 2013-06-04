@@ -114,6 +114,10 @@ public class Compra implements Serializable {
         }
         return soma;
     }
+    
+    public void insertItem(Item item){
+        this.itensCompra.add(item);
+    }
 
     @Override
     public int hashCode() {
