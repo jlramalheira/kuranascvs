@@ -126,8 +126,8 @@
                                         <td><%=item.getValor()%></td>
                                         <td><%=item.getQuantidade()%></td>
                                         <td><%=item.getValorTotal()%></td>
-                                        <%if (compra.getStatusCompra() == Compra.ANDAMENTO) {%>
                                         <td>
+                                        <%if (compra.getStatusCompra() == Compra.ANDAMENTO) {%>
                                             <form action="ItemCompra" method="post" class="no-margin-bottom">
                                                 <input type="hidden" name="idCompra" value="<%=compra.getId()%>" />
                                                 <input type="hidden" name="idItem" value="<%=item.getId()%>" />
@@ -152,8 +152,8 @@
                                                     </div>
                                                 </div>
                                             </form>
-                                        </td>
                                         <%}%>
+                                        </td>
                                     </tr>
                                     <%}%>
                                 </tbody>
