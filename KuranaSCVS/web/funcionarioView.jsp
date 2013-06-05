@@ -8,7 +8,7 @@
 <%@page import="Dao.DaoFuncionario"%>
 <%@page import="Model.Funcionario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%    
+<%
     if (request.getParameter("idFuncionario") == null) {
         response.sendRedirect("index.jsp");
     } else {
@@ -64,7 +64,7 @@
                                 <div class="span3">
                                     <form method="post" action="Funcionario">
                                         <input type="hidden" name="idFuncionario" value="<%=funcionario.getId()%>" />
-                                        <a href="#modalAdmitir" role="button" class="btn btn-block btn-primary" data-toggle="modal">Admitir</a>
+                                        <a href="#modalAdmitir" role="button" class="btn btn-block btn-primary margin-top" data-toggle="modal">Admitir</a>
                                         <div id="modalAdmitir" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                             <div class="modal-header">
                                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -75,7 +75,7 @@
                                                 <label for="salario-base">Salário base</label>
                                                 <div class="input-prepend">
                                                     <span class="add-on">R$</span>
-                                                    <input type="text" id="salario-base" 
+                                                    <input type="text" id="salario-base"
                                                            class="input-small" name="salario-base" value=""/>
                                                 </div>
                                             </div>
@@ -90,7 +90,7 @@
                                 <div class="span3">
                                     <form method="post" action="Funcionario">
                                         <input type="hidden" name="idFuncionario" value="<%=funcionario.getId()%>" />
-                                        <a href="#modalDemitir" role="button" class="btn btn-block btn-primary" data-toggle="modal">Demitir</a>
+                                        <a href="#modalDemitir" role="button" class="btn btn-block btn-primary margin-top" data-toggle="modal">Demitir</a>
                                         <div id="modalDemitir" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                             <div class="modal-header">
                                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>

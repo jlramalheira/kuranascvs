@@ -4,7 +4,6 @@
     Author     : Max
     Description: Esse documento JSP é utilizado para
 --%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -49,7 +48,7 @@
                                     <label for="salario-base">Salário base</label>
                                     <div class="input-prepend">
                                         <span class="add-on">R$</span>
-                                        <input type="text" id="salario-base" 
+                                        <input type="text" id="salario-base"
                                                class="input-small" name="salario-base"
                                                required="required" value=""/>
                                     </div>
@@ -113,13 +112,12 @@
                                         <option value="TO">Tocantins</option>
                                     </select>
                                 </fieldset>
-                                <button type="submit" name="operacao" value="Cadastrar" class="btn btn-large btn-primary">Cadastrar</button>
-
+                                <button type="submit" name="operacao" value="Cadastrar" class="btn btn-large btn-primary">
+                                    Cadastrar
+                                </button>
                             </form>
-
                         </div>
                     </div>
-
                 </div>
             </div>
             <div id="push"></div>
