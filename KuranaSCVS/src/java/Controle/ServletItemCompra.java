@@ -11,6 +11,7 @@ import Model.Compra;
 import Model.Item;
 import Model.Produto;
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,10 +22,11 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author jota
+ * @author Joao Luiz
  */
-@WebServlet(name = "Item", urlPatterns = {"/Item"})
-public class ServletItem extends HttpServlet {
+@WebServlet(name = "ItemCompra", urlPatterns = {"/ItemCompra"})
+public class ServletItemCompra extends HttpServlet {
+
     DaoItem daoItem = new DaoItem();
     
     @Override
@@ -71,7 +73,7 @@ public class ServletItem extends HttpServlet {
                 
                 double custo = total / quantidade;
                 
-                Item item = new Item(produto, quantidade,custo);
+                Item item = new Item(produto, null, quantidade,custo);
                 daoItem.insert(item);
                 
                 compra.insertItem(item);
@@ -128,5 +130,4 @@ public class ServletItem extends HttpServlet {
                 rd.forward(request, response);
         }
     }
-
 }

@@ -5,7 +5,20 @@
     Description: Esse documento JSP é utilizado para
 --%>
 
+<%@page import="Model.Item"%>
+<%@page import="Model.Venda"%>
+<%@page import="Dao.DaoVenda"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    if (request.getParameter("idVenda") == null) {
+        response.sendRedirect("index.jsp");
+    } else {
+        int idVenda = Integer.parseInt(request.getParameter("idVenda"));
+        Venda venda = new DaoVenda().get(idVenda);
+        if (venda == null) {
+            response.sendRedirect("index.jsp");
+        } else {
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -28,18 +41,18 @@
                             </div>
                         </div>
                         <div class="span9">
-                            <h2 class="noMarginTop">Venda #0111</h2>
+                            <h2 class="noMarginTop">Venda #<%=venda.getId()%></h2>
                             <div class="row">
                                 <div class="span2">
-                                    <strong>Data:</strong> 08/08/2008
+                                    <strong>Data:</strong> <%=venda.getDataPedido()%>
                                 </div>
                                 <div class="span2">
-                                    <strong>Entrega:</strong> 08/08/2008
+                                    <strong>Entrega:</strong> <%=venda.getDataEntrega()!= null ? Util.Util.dateToString(venda.getDataEntrega()) : "Não Entrege" %>
                                 </div>
                             </div>
-                            <strong>Cliente:</strong> Nome do Cliente
+                            <strong>Cliente:</strong> <%=venda.getCliente().getNome()%>
                             <h3>Status da venda</h3>
-                            //Venda andamento
+                            <%if(venda.getStatusVenda() == Venda.ANDAMENTO){ %>
                             <form action="" method="post" class="row">
                                 <div class="span3">
                                     <a href="#modalCancelar" role="button" class="btn btn-block btn-danger" data-toggle="modal">Cancelar</a>
@@ -76,21 +89,24 @@
                                     </div>
                                 </div>
                             </form>
+                            <%}else if (venda.getStatusVenda() == Venda.FINALIZADA){ %>
                             <p>
-                                //Venda finalizada
                                 <span class="btn btn-block btn-success disabled">Venda finalizada</span>
                             </p>
+                            <%}else{%>
                             <p>
-                                //Venda Cancelada
                                 <span class="btn btn-block btn-danger disabled">Venda cancelada</span>
                             </p>
+                            <%}%>
                             <div class="row">
                                 <div class="span6">
                                     <h3 class="noMarginTop">Serviços</h3>
                                 </div>
+                                <%if(venda.getStatusVenda() == Venda.ANDAMENTO){ %>
                                 <div class="span3">
                                     <a href="#" class="btn btn-block btn-primary margin-top">Adicionar serviço</a>
                                 </div>
+                                <%}%>
                             </div>
                             <table class="table table-hover table-striped">
                                 <thead>
@@ -103,6 +119,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <%for (Item item : venda.getItensServico()){ %>
                                     <tr>
                                         <td>Nome do serviço</td>
                                         <td>R$ 10,00</td>
@@ -133,6 +150,7 @@
                                             </form>
                                         </td>
                                     </tr>
+                                    <%}%>
                                 </tbody>
                                 <tfoot>
                                     <tr>
@@ -146,9 +164,11 @@
                                 <div class="span6">
                                     <h3 class="noMarginTop">Itens da venda</h3>
                                 </div>
+                                <%if(venda.getStatusVenda() == Venda.ANDAMENTO){ %>
                                 <div class="span3">
                                     <a href="#" class="btn btn-block btn-primary margin-top">Adicionar item de venda</a>
                                 </div>
+                                <%}%>
                             </div>
                             <table class="table table-hover table-striped">
                                 <thead>
@@ -210,3 +230,5 @@
         <%@include file="interfaceFooter.jsp" %>
     </body>
 </html>
+<%}
+    }%>

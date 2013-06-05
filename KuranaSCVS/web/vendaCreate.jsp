@@ -5,9 +5,21 @@
     Description: Esse documento JSP é utilizado para
 --%>
 
+<%@page import="Dao.DaoCliente"%>
+<%@page import="Model.Cliente"%>
+<%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<!DOCTYPE html>
+<%List<Cliente> clientes = new DaoCliente().list();
+    String clienteAutoComplete = "[";
+    for (Cliente cliente : clientes) {
+        clienteAutoComplete += "\"" + cliente.getId() + " - " + cliente.getNome() + "\",";
+    }
+    if (clientes.size() > 0) {
+        clienteAutoComplete = clienteAutoComplete.substring(0, clienteAutoComplete.length() - 1);
+    }
+    clienteAutoComplete += "]";
+%>
 <html>
     <head>
         <%@include file="interfaceHead.jsp" %>
@@ -30,17 +42,17 @@
                         </div>
                         <div class="span9">
                             <h2 class="noMarginTop">Cadastrar venda</h2>
-                            <form action="" method="post" class="well">
+                            <form action="Venda" method="post" class="well">
                                 <fieldset>
                                     <label for="cliente">Cliente</label>
                                     <input type="text" id="cliente" class="input-xxlarge"
                                            name="cliente" value="" autocomplete="off"
                                            data-provide="typeahead"
-                                           data-itens="4"
-                                           data-source='["1 - José Maria","2 - João Maria","3 - Marco Intercomp","4 - Jota Bota","5 - Joaquina"]'
+                                           data-itens="<%=clientes.size()%>"
+                                           data-source='<%=clienteAutoComplete%>'
                                            placeholder="Insira o nome do cliente"/>
                                 </fieldset>
-                                <button type="submit" class="btn btn-primary btn-large" name="operacao" value="create">Cadastrar</button>
+                                <button type="submit" class="btn btn-primary btn-large" name="operacao" value="Cadastrar">Cadastrar</button>
                             </form>
 
                         </div>
@@ -51,5 +63,5 @@
         </div>
         <%-- FOOTER --%>
         <%@include file="interfaceFooter.jsp" %>
-    </body>
+    </body>    
 </html>

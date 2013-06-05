@@ -23,13 +23,14 @@ public class Item implements Serializable {
     private int id;
     @OneToOne
     private Produto produto;
+    private Servico servico;
     private int quantidade;
     private double valor;
 
     public Item() {
     }
 
-    public Item(Produto produto, int quantidade, double valor) {
+    public Item(Produto produto, Servico servico, int quantidade, double valor) {
         this.produto = produto;
         this.quantidade = quantidade;
         this.valor = valor;
@@ -65,6 +66,14 @@ public class Item implements Serializable {
 
     public void setValor(double valor) {
         this.valor = valor;
+    }
+
+    public Servico getServico() {
+        return servico;
+    }
+
+    public void setServico(Servico servico) {
+        this.servico = servico;
     }
     
     //metodos auxiliares
