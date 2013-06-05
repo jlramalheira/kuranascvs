@@ -65,6 +65,7 @@ List<Produto> produtos =  (List<Produto>) session.getAttribute("produtos"); %>
                                         <th>Nome</th>
                                         <th>Fornecedor</th>
                                         <th>Valor de Venda</th>
+                                        <th>Estoque</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -74,6 +75,7 @@ List<Produto> produtos =  (List<Produto>) session.getAttribute("produtos"); %>
                                         <td><%=produto.getNome()%></td>
                                         <td><%=produto.getFornecedor().getNome()%></td>
                                         <td>R$ <%=produto.getValorVenda()%></td>
+                                        <td><%=produto.getEstoqueAtual()%></td>
                                     </tr>
                                     <%}%>
                                 </tbody>

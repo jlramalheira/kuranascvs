@@ -74,6 +74,30 @@ public class ServletVenda extends HttpServlet {
                     rd.forward(request, response);
                 }
                 break;
+            case "Cancelar":
+                int idVendaCancelar = Integer.parseInt(request.getParameter("idVenda"));
+                
+                Venda vendaCancelar = daoVenda.get(idVendaCancelar);
+                
+                vendaCancelar.setStatusVenda(Venda.CANCELADA);
+                
+                daoVenda.update(vendaCancelar);
+                
+                response.sendRedirect("vendaView.jsp?idVenda="+idVendaCancelar);
+                break;
+                
+            case "Finalizar":
+                int idVendaFinalizar = Integer.parseInt(request.getParameter("idVenda"));
+                
+                Venda vendaFinalizar = daoVenda.get(idVendaFinalizar);
+                
+                vendaFinalizar.setStatusVenda(Venda.FINALIZADA);
+                Date dataEntrega = Calendar.getInstance().getTime();
+                vendaFinalizar.setDataEntrega(dataEntrega);
+                daoVenda.update(vendaFinalizar);
+                
+                response.sendRedirect("vendaView.jsp?idVenda="+idVendaFinalizar);
+                break;
             default:
                 rd.forward(request, response);
         }

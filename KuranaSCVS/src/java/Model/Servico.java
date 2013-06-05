@@ -23,14 +23,16 @@ public class Servico implements Serializable {
     private String nome;
     private String descricao;
     private double valor;
+    private boolean ativo;
 
     public Servico() {
     }
 
-    public Servico(String nome, String descricao, double valor) {
+    public Servico(String nome, String descricao, double valor, boolean ativo) {
         this.nome = nome;
         this.descricao = descricao;
         this.valor = valor;
+        this.ativo = ativo;
     }
 
     public int getId() {
@@ -63,6 +65,14 @@ public class Servico implements Serializable {
 
     public void setValor(double valor) {
         this.valor = valor;
+    }
+
+    public boolean isAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
     }
 
     @Override

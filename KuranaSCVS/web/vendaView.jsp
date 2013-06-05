@@ -44,7 +44,7 @@
                             <h2 class="noMarginTop">Venda #<%=venda.getId()%></h2>
                             <div class="row">
                                 <div class="span2">
-                                    <strong>Data:</strong> <%=venda.getDataPedido()%>
+                                    <strong>Data:</strong> <%=Util.Util.dateToString(venda.getDataPedido())%>
                                 </div>
                                 <div class="span2">
                                     <strong>Entrega:</strong> <%=venda.getDataEntrega() != null ? Util.Util.dateToString(venda.getDataEntrega()) : "Não Entrege"%>
@@ -53,7 +53,8 @@
                             <strong>Cliente:</strong> <%=venda.getCliente().getNome()%>
                             <h3>Status da venda</h3>
                             <%if (venda.getStatusVenda() == Venda.ANDAMENTO) {%>
-                            <form action="" method="post" class="row">
+                            <form action="Venda" method="post" class="row">
+                                <input type="hidden" name="idVenda" value="<%=venda.getId()%>" />
                                 <div class="span3">
                                     <a href="#modalCancelar" role="button" class="btn btn-block btn-danger" data-toggle="modal">Cancelar</a>
                                     <%-- MODAL CANCELAR VENDA --%>
@@ -67,7 +68,7 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button class="btn" data-dismiss="modal" aria-hidden="true">Não</button>
-                                            <button type="submit" class="btn btn-primary" name="operacao" value="cancelar">Sim</button>
+                                            <button type="submit" class="btn btn-primary" name="operacao" value="Cancelar">Sim</button>
                                         </div>
                                     </div>
                                 </div>
@@ -84,7 +85,7 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button class="btn" data-dismiss="modal" aria-hidden="true">Não</button>
-                                            <button type="submit" class="btn btn-primary" name="operacao" value="finalizar">Sim</button>
+                                            <button type="submit" class="btn btn-primary" name="operacao" value="Finalizar">Sim</button>
                                         </div>
                                     </div>
                                 </div>
@@ -221,8 +222,8 @@
                                 <tfoot>
                                     <tr>
                                         <th colspan="2">Total</th>
-                                        <th>600</th>
-                                        <th>R$ 6000,00</th>
+                                        <th><%=venda.getSomaQuantidadeItensVenda()%></th>
+                                        <th>R$ <%=venda.getSomaValoresItensVenda()%></th>
                                     </tr>
                                 </tfoot>
                             </table>
