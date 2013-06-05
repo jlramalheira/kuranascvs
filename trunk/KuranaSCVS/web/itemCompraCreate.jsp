@@ -23,7 +23,7 @@
             List<Produto> produtos = new DaoProduto().listByFornecedor(compra.getFornecedor().getId());
             String produtosAutoComplete = "[";
             for (Produto produto : produtos) {
-                produtosAutoComplete += "\"" + produto.getId() + " - " + produto.getValorCusto() + " - " + produto.getNome() + "\",";
+                produtosAutoComplete += "\"" + produto.getId() + " - " + produto.getValorCusto() + " - " + produto.getCodigoDeBarras() + " - " + produto.getNome() + "\",";
             }
             if (produtos.size() > 0) {
                 produtosAutoComplete = produtosAutoComplete.substring(0, produtosAutoComplete.length() - 1);
@@ -40,6 +40,7 @@
             <%@include file="interfaceHeader.jsp" %>
             <div id="main">
                 <div class="container">
+                    <%=produtosAutoComplete %>
                     <div class="row">
                         <div class="span3">
                             <div class="well sidebar-nav">
@@ -68,6 +69,8 @@
                                     <input id="produto-preco" type="text"
                                            class="input-small" disabled="disabled"
                                            name="custo" value="0" />
+                                    <input id="preco" type="hidden"
+                                           name="preco" value="0" />
                                     <label for="quantidade">Quantidade</label>
                                     <div class="input-append">
                                         <input type="number" id="quantidade" class="input-small"
@@ -128,9 +131,11 @@
                 var produtoId = parseInt(this.value.split(" - ")[0]);
                 if(isNaN(produtoPreco) && (isNaN(produtoId))){
                     $("#produto-preco").val(0);
+                    $("#preco").val(0);
                 }else{
                     $("#produto-preco").val(produtoPreco);
                     $("#produto-id").val(produtoId);
+                    $("#preco").val(produtoPreco);
                 }
                 alterarTotal();
             });

@@ -188,10 +188,13 @@ public class ServletCompra extends HttpServlet {
                 Compra compraFinaliza = daoCompra.get(idCompraFinaliza);
 
                 compraFinaliza.setStatusCompra(Compra.FINALIZADA);
-
+                Date dataEntrega = Calendar.getInstance().getTime();
+                compraFinaliza.setDataEntrega(dataEntrega);
+                
                 daoCompra.update(compraFinaliza);
 
                 response.sendRedirect("compraView.jsp?idCompra=" + compraFinaliza.getId());
+                break;
             default:
                 rd.forward(request, response);
         }

@@ -11,7 +11,6 @@ import Model.Compra;
 import Model.Item;
 import Model.Produto;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -31,6 +30,22 @@ public class ServletItem extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        HttpSession session = request.getSession(true);
+        RequestDispatcher rd = request.getRequestDispatcher("erro.jsp");
+
+        String operacao = request.getParameter("operacao");
+        
+        switch (operacao) {
+            case "Editar Item":
+                int idCompra = Integer.parseInt(request.getParameter("idCompra"));
+                int idItem = Integer.parseInt(request.getParameter("idItem"));
+                response.sendRedirect("compraView.jsp?idCompra="+idCompra+"&idItem="+idItem);
+                break;
+            default:
+                rd.forward(request, response);
+        }
+        
         
     }
 
@@ -52,8 +67,7 @@ public class ServletItem extends HttpServlet {
                 Produto produto = new DaoProduto().get(idProduto);
                 
                 int quantidade = Integer.parseInt(request.getParameter("quantidade"));
-                System.out.println(request.getParameter("total"));
-                double custo = Double.parseDouble(request.getParameter("total"));
+                double custo = Double.parseDouble(request.getParameter("preco"));
                 
                 Item item = new Item(produto, quantidade,custo);
                 daoItem.insert(item);
@@ -62,7 +76,20 @@ public class ServletItem extends HttpServlet {
                 
                 new DaoCompra().update(compra);
                 
-                response.sendRedirect("compraView?idCompra="+compra.getId());
+                response.sendRedirect("compraView.jsp?idCompra="+compra.getId());
+                break;
+            case "Excluir Item":
+                int idCompraExclui = Integer.parseInt(request.getParameter("idCompra"));
+                int idItem = Integer.parseInt(request.getParameter("idItem"));
+                
+                Compra compraExclui = new DaoCompra().get(idCompraExclui);
+                Item itemExclui = daoItem.get(idItem);
+                
+                compraExclui.getItensCompra().remove(itemExclui);
+                
+                daoItem.remove(idItem);
+                
+                response.sendRedirect("compraView.jsp?idCompra="+compraExclui.getId());
                 break;
             default:
                 rd.forward(request, response);
