@@ -40,7 +40,6 @@
             <%@include file="interfaceHeader.jsp" %>
             <div id="main">
                 <div class="container">
-                    <%=produtosAutoComplete %>
                     <div class="row">
                         <div class="span3">
                             <div class="well sidebar-nav">
@@ -69,8 +68,6 @@
                                     <input id="produto-preco" type="text"
                                            class="input-small" disabled="disabled"
                                            name="custo" value="0" />
-                                    <input id="preco" type="hidden"
-                                           name="preco" value="0" />
                                     <label for="quantidade">Quantidade</label>
                                     <div class="input-append">
                                         <input type="number" id="quantidade" class="input-small"
@@ -90,6 +87,8 @@
                                     <input id="total" type="text"
                                            class="input-small" disabled="disabled"
                                            name="total" value="0" />
+                                    <input id="precoTotal" type="hidden"
+                                           name="precoTotal" value="0" />
 
                                 </fieldset>
                                 <button type="submit" class="btn btn-primary btn-large" name="operacao" value="Cadastrar Compra">Adicionar item</button>
@@ -113,8 +112,10 @@
                 var custo = (precoUnitario - (precoUnitario * desconto)) * quantidade;
                 if(isNaN(custo)){
                     $("#total").val(0);
+                    $("#precoTotal").val(0);
                 }else{
                     $("#total").val(custo);
+                    $("#precoTotal").val(custo);
                 }
             }
 
@@ -135,7 +136,6 @@
                 }else{
                     $("#produto-preco").val(produtoPreco);
                     $("#produto-id").val(produtoId);
-                    $("#preco").val(produtoPreco);
                 }
                 alterarTotal();
             });

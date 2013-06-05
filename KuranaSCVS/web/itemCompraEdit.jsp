@@ -56,11 +56,12 @@
                         </div>
                         <div class="span9">
                             <h2 class="noMarginTop">Editar item de compra</h2>
-                            <form action="" method="post" class="well">
+                            <form action="Item" method="post" class="well">
                                 <fieldset>
                                     <legend>Item da Compra #<%=compra.getId()%></legend>
-                                    <input id="produto-id" type="hidden" name="produto-id" value="id"/>
+                                    <input id="produto-id" type="hidden" name="produto-id" value="<%=item.getProduto().getId()%>"/>
                                     <input type="hidden" name="idCompra" value="<%=compra.getId()%>"/>
+                                    <input type="hidden" name="idItem" value="<%=item.getId()%>"/>
                                     <label for="produto-nome">Produto</label>
                                     <input type="hidden" name="produto-id" value="id"/>
                                     <input type="text" id="produto-nome" class="input-xxlarge"
@@ -92,10 +93,12 @@
                                     <input id="total" type="text"
                                            class="input-small" disabled="disabled"
                                            name="custo" value="<%=item.getValorTotal()%>" />
+                                    <input id="precoTotal" type="hidden"
+                                           name="precoTotal" value="0" />
 
                                 </fieldset>
-                                <button type="submit" class="btn btn-primary btn-large" name="operacao" value="edit">Editar item</button>
-                                <button type="submit" class="btn btn-large" name="operacao" value="cancel">Voltar</button>
+                                <button type="submit" class="btn btn-primary btn-large" name="operacao" value="Editar">Editar item</button>
+                                <button type="submit" class="btn btn-large" name="operacao" value="Cancelar">Voltar</button>
                             </form>
 
                         </div>
@@ -115,8 +118,10 @@
                 var custo = (precoUnitario - (precoUnitario * desconto)) * quantidade;
                 if(isNaN(custo)){
                     $("#total").val(0);
+                    $("#precoTotal").val(0);
                 }else{
                     $("#total").val(custo);
+                    $("#precoTotal").val(custo);
                 }
             }
 

@@ -131,7 +131,7 @@
                                             <form action="Item" method="post" class="no-margin-bottom">
                                                 <input type="hidden" name="idCompra" value="<%=compra.getId()%>" />
                                                 <input type="hidden" name="idItem" value="<%=item.getId()%>" />
-                                                <button class="btn btn-mini btn-primary" name="operacao" value="Editar Item" formmethod="get" title="Editar item">
+                                                <button type="submit" class="btn btn-mini btn-primary" name="operacao" value="Editar Item" formaction="Item" formmethod="get" title="Editar item">
                                                     <i class="icon-edit icon-white"></i>
                                                 </button>
                                                 <a href="#modalExcluirItem" role="button" class="btn btn-mini btn-danger" data-toggle="modal" title="Excluir item">
