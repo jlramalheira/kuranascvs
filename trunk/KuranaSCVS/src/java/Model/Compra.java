@@ -102,7 +102,7 @@ public class Compra implements Serializable {
     public double getSomaValoresItens(){
         double soma = 0;
         for (Item item : this.itensCompra){
-            soma += item.getProduto().getValorCusto();
+            soma += item.getValorTotal() * item.getQuantidade();
         }
         return soma;
     }

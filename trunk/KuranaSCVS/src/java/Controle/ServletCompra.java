@@ -8,6 +8,7 @@ import Dao.DaoCompra;
 import Dao.DaoFornecedor;
 import Model.Compra;
 import Model.Fornecedor;
+import Model.Item;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -52,7 +53,7 @@ public class ServletCompra extends HttpServlet {
                 String dataPedidoInicio = request.getParameter("pedido-inicio");
                 if (dataPedidoInicio.isEmpty()) {
                     dataPedidoInicio = null;
-                } 
+                }
                 String dataPedidoFim = request.getParameter("pedido-fim");
                 if (dataPedidoFim.isEmpty()) {
                     dataPedidoFim = null;
@@ -67,12 +68,6 @@ public class ServletCompra extends HttpServlet {
                 }
 
                 List<Compra> compras = null;
-                System.out.println(idFornecedor);
-                System.out.println(status);
-                System.out.println(dataPedidoInicio);
-                System.out.println(dataPedidoFim);
-                System.out.println(dataEntregaInicio);
-                System.out.println(dataEntregaFim);
 
                 //verifica qual list deve pegar
                 if (dataPedidoInicio != null) {
@@ -142,7 +137,6 @@ public class ServletCompra extends HttpServlet {
                 }
 
                 session.setAttribute("compras", compras);
-                System.out.println(compras);
                 rd = request.getRequestDispatcher("compraSearch.jsp");
                 rd.forward(request, response);
                 break;
@@ -190,7 +184,11 @@ public class ServletCompra extends HttpServlet {
                 compraFinaliza.setStatusCompra(Compra.FINALIZADA);
                 Date dataEntrega = Calendar.getInstance().getTime();
                 compraFinaliza.setDataEntrega(dataEntrega);
-                
+
+                //atualiza os estoques
+                for (Item item : compraFinaliza.getItensCompra()) {
+                    item.getProduto().setEstoqueAtual(item.getProduto().getEstoqueAtual() + item.getQuantidade());
+                }
                 daoCompra.update(compraFinaliza);
 
                 response.sendRedirect("compraView.jsp?idCompra=" + compraFinaliza.getId());

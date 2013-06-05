@@ -5,11 +5,13 @@
     Description: Esse documento JSP é utilizado para
 --%>
 
+<%@page import="Model.Compra"%>
 <%@page import="Dao.DaoFornecedor"%>
 <%@page import="java.util.List"%>
 <%@page import="Model.Fornecedor"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%List<Fornecedor> fornecedores = new DaoFornecedor().list(); %>
+<%List<Fornecedor> fornecedores = new DaoFornecedor().list();
+List<Compra> compras = (List<Compra>) session.getAttribute("compras"); %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -88,7 +90,7 @@
                                 <button type="submit" name="operacao" value="Pesquisar" class="btn btn-large btn-primary">Pesquisar</button>
                                 <button type="button" class="btn btn-large" onclick="toggleOptions(this)">Mais Opções</button>
                             </form>
-
+                            <%if((compras!=null) && (!compras.isEmpty())){ %>        
                             <table class="table table-hover table-striped">
                                 <thead>
                                     <tr>
@@ -100,25 +102,32 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <%for (Compra compra : compras){ %>
                                     <tr>
-                                        <td>0001</td>
-                                        <td>Nome do Fornecedor</td>
-                                        <td>05/05/2005</td>
-                                        <td>05/05/2005</td>
+                                        <td><%=compra.getId()%></td>
+                                        <td><%=compra.getFornecedor().getNome()%></td>
+                                        <td><%=Util.Util.dateToString(compra.getDataPedido())%></td>
+                                        <td><%=compra.getDataEntrega()!= null ? Util.Util.dateToString(compra.getDataEntrega()) : "Não Entrege" %></td>
                                         <td>
+                                            <%if(compra.getStatusCompra() == Compra.ANDAMENTO){ %>
                                             <span class="btn btn-mini btn-primary disabled" title="Em andamento">
                                                 <i class="icon-random icon-white"></i>
                                             </span>
+                                            <%} else if(compra.getStatusCompra() == Compra.FINALIZADA){ %>
                                             <span class="btn btn-mini btn-success disabled" title="Finalizada">
                                                 <i class="icon-ok icon-white"></i>
                                             </span>
+                                            <%} else {%>
                                             <span class="btn btn-mini btn-danger disabled" title="Cancelada">
                                                 <i class="icon-remove icon-white"></i>
                                             </span>
+                                            <%}%>
                                         </td>
                                     </tr>
+                                    <%}%>
                                 </tbody>
                             </table>
+                            <%}%>
                         </div>
                     </div>
                 </div>
