@@ -159,7 +159,8 @@ public class ServletCompra extends HttpServlet {
 
                 Fornecedor fornecedor = new DaoFornecedor().get(idFornecedor);
                 Date dataCompra = Calendar.getInstance().getTime();
-                Compra compra = new Compra(dataCompra, null, fornecedor, Compra.ANDAMENTO, null);
+                List<Item> itensCompra = new ArrayList<Item>();
+                Compra compra = new Compra(dataCompra, null, fornecedor, Compra.ANDAMENTO, itensCompra);
 
                 daoCompra.insert(compra);
 

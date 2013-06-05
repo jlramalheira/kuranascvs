@@ -21,6 +21,10 @@ import javax.persistence.Temporal;
  */
 @Entity
 public class Venda implements Serializable {
+    public static final int ANDAMENTO = 0;
+    public static final int FINALIZADA = 1;
+    public static final int CANCELADA = 2;
+    
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,13 +38,116 @@ public class Venda implements Serializable {
     private int statusVenda;
     @OneToMany
     private List<Item> itensVenda;
-    private double valorTotal;
+    @OneToMany
+    private List<Item> itensServico;
+
+    public Venda() {
+    }
+
+    public Venda(Date dataPedido, Date dataEntrega, Cliente cliente, int statusVenda, List<Item> itensVenda, List<Item> itensServico) {
+        this.dataPedido = dataPedido;
+        this.dataEntrega = dataEntrega;
+        this.cliente = cliente;
+        this.statusVenda = statusVenda;
+        this.itensVenda = itensVenda;
+        this.itensServico = itensServico;
+    }
+    
     public int getId() {
         return id;
     }
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public Date getDataPedido() {
+        return dataPedido;
+    }
+
+    public void setDataPedido(Date dataPedido) {
+        this.dataPedido = dataPedido;
+    }
+
+    public Date getDataEntrega() {
+        return dataEntrega;
+    }
+
+    public void setDataEntrega(Date dataEntrega) {
+        this.dataEntrega = dataEntrega;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public int getStatusVenda() {
+        return statusVenda;
+    }
+
+    public void setStatusVenda(int statusVenda) {
+        this.statusVenda = statusVenda;
+    }
+
+    public List<Item> getItensVenda() {
+        return itensVenda;
+    }
+
+    public void setItensVenda(List<Item> itensVenda) {
+        this.itensVenda = itensVenda;
+    }
+
+    public List<Item> getItensServico() {
+        return itensServico;
+    }
+
+    public void setItensServico(List<Item> itensServico) {
+        this.itensServico = itensServico;
+    }
+    
+    //metodos de auxilio
+    public double getSomaValoresItensVenda(){
+        double soma = 0;
+        for (Item item : this.itensVenda){
+            soma += item.getValorTotal() * item.getQuantidade();
+        }
+        return soma;
+    }
+    
+    public double getSomaQuantidadeItensVenda(){
+        double soma = 0;
+        for (Item item : this.itensVenda){
+            soma += item.getQuantidade();
+        }
+        return soma;
+    }
+    
+    public void insertItemVenda(Item item){
+        this.itensVenda.add(item);
+    }
+    
+    public double getSomaValoresItensServico(){
+        double soma = 0;
+        for (Item item : this.itensServico){
+            soma += item.getValorTotal() * item.getQuantidade();
+        }
+        return soma;
+    }
+    
+    public double getSomaQuantidadeItensServico(){
+        double soma = 0;
+        for (Item item : this.itensServico){
+            soma += item.getQuantidade();
+        }
+        return soma;
+    }
+    
+    public void insertItemServico(Item item){
+        this.itensServico.add(item);
     }
 
     @Override

@@ -56,7 +56,7 @@
                         </div>
                         <div class="span9">
                             <h2 class="noMarginTop">Editar item de compra</h2>
-                            <form action="Item" method="post" class="well">
+                            <form action="ItemCompra" method="post" class="well">
                                 <fieldset>
                                     <legend>Item da Compra #<%=compra.getId()%></legend>
                                     <input id="produto-id" type="hidden" name="produto-id" value="<%=item.getProduto().getId()%>"/>
