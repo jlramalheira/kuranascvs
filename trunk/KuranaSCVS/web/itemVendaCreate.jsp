@@ -5,7 +5,33 @@
     Description: Esse documento JSP é utilizado para
 --%>
 
+<%@page import="Dao.DaoProduto"%>
+<%@page import="Model.Produto"%>
+<%@page import="java.util.List"%>
+<%@page import="Model.Venda"%>
+<%@page import="Dao.DaoVenda"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    if (request.getParameter("idVenda") == null) {
+        response.sendRedirect("index.jsp");
+    } else {
+        int idVenda = Integer.parseInt(request.getParameter("idVenda"));
+        Venda venda = new DaoVenda().get(idVenda);
+        if (venda == null) {
+            response.sendRedirect("index.jsp");
+        } else {
+            List<Produto> produtos = new DaoProduto().list();
+            String produtosAutoComplete = "[";
+            for (Produto produto : produtos) {
+                if (produto.getEstoqueAtual() > 0) {
+                    produtosAutoComplete += "\"" + produto.getId() + " - " + produto.getValorCusto() + " - " + produto.getCodigoDeBarras() + " - " + produto.getNome() + "\",";
+                }
+            }
+            if (produtos.size() > 0) {
+                produtosAutoComplete = produtosAutoComplete.substring(0, produtosAutoComplete.length() - 1);
+            }
+            produtosAutoComplete += "]";
+%>
 <html>
     <head>
         <%@include file="interfaceHead.jsp" %>
@@ -112,3 +138,5 @@
         </script>
     </body>
 </html>
+<%}
+    }%>

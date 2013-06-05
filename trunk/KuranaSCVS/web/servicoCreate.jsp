@@ -32,7 +32,7 @@
                         </div>
                         <div class="span9">
                             <h2 class="noMarginTop">Cadastrar novo serviço</h2>
-                            <form action="" method="post" class="well">
+                            <form action="Servico" method="post" class="well">
                                 <fieldset>
                                     <legend>Informações</legend>
                                     <label for="nome">Nome</label>

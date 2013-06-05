@@ -5,7 +5,10 @@
     Description: Esse documento JSP é utilizado para
 --%>
 
+<%@page import="Model.Servico"%>
+<%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%List<Servico> servicos = (List<Servico>) session.getAttribute("servicos"); %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -32,7 +35,7 @@
                         </div>
                         <div class="span9">
                             <h2 class="noMarginTop">Controle de Serviços</h2>
-                            <form class="well">
+                            <form class="well" action="Servico" method="get">
                                 <fieldset>
                                     <label for="nome">Nome</label>
                                     <input type="text" name="nome" value=""
@@ -52,11 +55,20 @@
                                                id="descricao" class="input-xxlarge"
                                                placeholder=""
                                                />
+                                        <label class="radio">
+                                            <input type="radio" name="ativo" value="true"/>
+                                            Ativa
+                                        </label>
+                                        <label class="radio">
+                                            <input type="radio" name="ativo" value="false"/>
+                                            Inativa
+                                        </label>
                                     </div>
                                 </fieldset>
                                 <button type="submit" name="operacao" value="Pesquisar" class="btn btn-primary">Pesquisar</button>
                                 <button type="button" class="btn" onclick="toggleOptions(this)">Mais Opções</button>
                             </form>
+                            <%if ((servicos != null) && (!servicos.isEmpty())){ %>
                             <table class="table table-hover table-striped">
                                 <thead>
                                     <tr>
@@ -67,27 +79,17 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <%for (Servico servico : servicos){ %>
                                     <tr>
-                                        <td>0945</td>
-                                        <td>Nome do servico</td>
-                                        <td>R$ 10,00</td>
-                                        <td>Ativo</td>
+                                        <td><%=servico.getId()%></td>
+                                        <td><%=servico.getNome()%></td>
+                                        <td>R$ <%=servico.getValor()%></td>
+                                        <td><%=servico.isAtivo()? "Ativo" : "Inativo"%></td>
                                     </tr>
-                                    <tr>
-                                        <td>0945</td>
-                                        <td>Nome do servico</td>
-                                        <td>R$ 10,00</td>
-                                        <td>Ativo</td>
-                                    </tr>
-                                    <tr>
-                                        <td>0945</td>
-                                        <td>Nome do servico</td>
-                                        <td>R$ 10,00</td>
-                                        <td>Ativo</td>
-                                    </tr>
+                                    <%}%>
                                 </tbody>
                             </table>
-
+                            <%}%>
 
                         </div>
                     </div>

@@ -5,7 +5,19 @@
     Description: Esse documento JSP é utilizado para
 --%>
 
+<%@page import="Model.Servico"%>
+<%@page import="Dao.DaoServico"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%    
+    if (request.getParameter("idServico") == null) {
+        response.sendRedirect("index.jsp");
+    } else {
+        int idServico = Integer.parseInt(request.getParameter("idServico"));
+        Servico servico = new DaoServico().get(idServico);
+        if (servico == null) {
+            response.sendRedirect("index.jsp");
+        } else {
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -31,22 +43,23 @@
                             </div>
                         </div>
                         <div class="span9">
-                            <h2 class="noMarginTop">Serviço #001</h2>
+                            <h2 class="noMarginTop">Serviço #<%=servico.getId()%></h2>
                             <p>
-                                <strong>Status:</strong> Ativo/Inativo<br/>
-                                <strong>Valor:</strong> R$ 10,00<br/>
+                                <strong>Status:</strong> <%=servico.isAtivo() ? "Ativo" : "Inativo"%><br/>
+                                <strong>Valor:</strong> R$ <%=servico.getValor()%><br/>
                             </p>
-                            <h3>Nome do Serviço</h3>
+                            <h3><%=servico.getNome()%></h3>
                             <p>
-                                Descrição do serviço Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis eleifend hendrerit orci, ac rutrum magna gravida id. Quisque elit ligula, viverra eget facilisis quis, lacinia id risus. Quisque fermentum leo turpis, porttitor hendrerit orci. Ut ligula dolor, feugiat et ultricies quis, viverra ac elit. Praesent vestibulum tincidunt commodo. Fusce suscipit condimentum venenatis. Mauris id neque orci, eu volutpat sapien.
+                                <%=servico.getDescricao()%>
                             </p>
                             <div>
                                 <a href="#" class="btn btn-large btn-primary">Editar Serviço</a>
-                                <a href="#" class="btn btn-large btn-success">Ativar Serviço</a>
+                                <%if (servico.isAtivo()) {                                        %>
                                 <a href="#" class="btn btn-large btn-danger">Desativar Serviço</a>
+                                <%} else {%>
+                                <a href="#" class="btn btn-large btn-success">Ativar Serviço</a>
+                                <%}%>
                             </div>
-
-
                         </div>
                     </div>
 
@@ -58,3 +71,5 @@
         <%@include file="interfaceFooter.jsp" %>
     </body>
 </html>
+<% }
+    }%>
