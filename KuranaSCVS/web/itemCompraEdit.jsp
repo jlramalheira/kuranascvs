@@ -58,25 +58,26 @@
                             <h2 class="noMarginTop">Editar item de compra</h2>
                             <form action="" method="post" class="well">
                                 <fieldset>
-                                    <legend>Item da Compra #000</legend>
-                                    <input type="hidden" name="compra-id" value="id"/>
+                                    <legend>Item da Compra #<%=compra.getId()%></legend>
+                                    <input id="produto-id" type="hidden" name="produto-id" value="id"/>
+                                    <input type="hidden" name="idCompra" value="<%=compra.getId()%>"/>
                                     <label for="produto-nome">Produto</label>
                                     <input type="hidden" name="produto-id" value="id"/>
                                     <input type="text" id="produto-nome" class="input-xxlarge"
-                                           name="produto-nome" value="" autocomplete="off"
+                                           name="produto-nome" value="<%=item.getProduto().getNome()%>" autocomplete="off"
                                            data-provide="typeahead"
-                                           data-itens="4"
-                                           data-source='["1 - 10 - Mouse","2 - 20 - Teclado","3 - 30 - Monitor","4 - 40 - Cartucho","5 - 50 - Maria"]'
+                                           data-itens="<%=produtos.size()%>"
+                                           data-source='<%=produtosAutoComplete%>'
                                            placeholder="Insira o nome do produto"/>
                                     <label>Custo Unitário</label>
                                     <input id="produto-preco" type="text"
                                            class="input-small" disabled="disabled"
-                                           name="custo" value="0" />
+                                           name="custo" value="<%=item.getValor()%>" />
                                     <label for="quantidade">Quantidade</label>
                                     <div class="input-append">
                                         <input type="number" id="quantidade" class="input-small"
                                                min="1"
-                                               name="quantidade" value="1"
+                                               name="quantidade" value="<%=item.getQuantidade()%>"
                                                />
                                         <span class="add-on">unidades</span>
                                     </div>
@@ -90,7 +91,7 @@
                                     <label>Custo Total</label>
                                     <input id="total" type="text"
                                            class="input-small" disabled="disabled"
-                                           name="custo" value="0" />
+                                           name="custo" value="<%=item.getValorTotal()%>" />
 
                                 </fieldset>
                                 <button type="submit" class="btn btn-primary btn-large" name="operacao" value="edit">Editar item</button>

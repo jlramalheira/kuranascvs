@@ -60,7 +60,7 @@
                                 <div class="span6">
                                     <h3>Admissões</h3>
                                 </div>
-                                <%if (!funcionario.isContratado()) {                                        %>
+                                <%if (!funcionario.isContratado()) {%>
                                 <div class="span3">
                                     <form method="post" action="Funcionario">
                                         <input type="hidden" name="idFuncionario" value="<%=funcionario.getId()%>" />

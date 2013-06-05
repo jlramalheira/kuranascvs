@@ -68,12 +68,8 @@ public class Item implements Serializable {
     }
     
     //metodos auxiliares
-    public double getValorCustoTotal(){
-        return this.produto.getValorCusto() * this.quantidade;
-    }
-    
-    public double getValorVendaTotal(){
-        return this.produto.getValorVenda() * this.quantidade;
+    public double getValorTotal(){
+        return this.getValor() * this.quantidade;
     }
 
     @Override
