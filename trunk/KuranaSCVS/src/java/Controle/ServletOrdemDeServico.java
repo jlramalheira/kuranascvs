@@ -45,6 +45,14 @@ public class ServletOrdemDeServico extends HttpServlet {
                 rd = request.getRequestDispatcher("ordemView.jsp?idOrdem=" + idOrdem);
                 rd.forward(request, response);
                 break;
+            case "Index":
+                rd = request.getRequestDispatcher("ordemSearch.jsp");
+                rd.forward(request, response);
+                break;
+            case "Novo":
+                rd = request.getRequestDispatcher("ordemCreate.jsp");
+                rd.forward(request, response);
+                break;
             default:
                 rd.forward(request, response);
         }

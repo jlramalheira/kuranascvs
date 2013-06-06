@@ -5,6 +5,7 @@
 package Controle;
 
 import Dao.DaoCliente;
+import Dao.DaoProduto;
 import Dao.DaoVenda;
 import Model.Cliente;
 import Model.Item;
@@ -309,6 +310,11 @@ public class ServletVenda extends HttpServlet {
                 Venda vendaCancelar = daoVenda.get(idVendaCancelar);
 
                 vendaCancelar.setStatusVenda(Venda.CANCELADA);
+                
+                for (Item item : vendaCancelar.getItensVenda()){
+                    item.getProduto().setEstoqueAtual(item.getProduto().getEstoqueAtual() + item.getQuantidade());
+                    new DaoProduto().update(item.getProduto());
+                }
 
                 daoVenda.update(vendaCancelar);
 
