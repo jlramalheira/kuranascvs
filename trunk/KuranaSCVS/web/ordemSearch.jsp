@@ -28,11 +28,11 @@
                             <div class="well sidebar-nav">
                                 <ul class="nav nav-list">
                                     <li class="nav-header">Ordens</li>
-                                    <li><a href="#">Pesquisar</a></li>
-                                    <li><a href="#">Cadastrar nova</a></li>
+                                    <li><a href="Servico?operacao=Index">Pesquisar</a></li>
+                                    <li><a href="Servico?operacao=Novo">Cadastrar nova</a></li>
                                     <li class="nav-header">Serviços</li>
-                                    <li><a href="#">Pesquisar</a></li>
-                                    <li><a href="#">Cadastrar novo</a></li>
+                                    <li><a href="OrdemDeServico?operacao=Index">Pesquisar</a></li>
+                                    <li><a href="OrdemDeServico?operacao=Novo">Cadastrar novo</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -126,7 +126,7 @@
                                             <span class="btn btn-mini btn-danger disabled" title="Cancelada">
                                                 <i class="icon-remove icon-white"></i>
                                             </span>
-                                            <%}%>                                            
+                                            <%}%>
                                         </td>
                                     </tr>
                                     <%}%>
