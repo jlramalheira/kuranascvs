@@ -34,6 +34,39 @@ public class ServletFuncionario extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        HttpSession session = request.getSession(true);
+        RequestDispatcher rd = request.getRequestDispatcher("erro.jsp");
+
+        String operacao = request.getParameter("operacao");
+
+        switch (operacao) {
+            case "Pesquisar":
+                String nome = request.getParameter("nome");
+                String cpf = request.getParameter("cpf");
+                int cargo = Integer.parseInt(request.getParameter("cargo"));
+                String email = request.getParameter("email");
+                String telefone = request.getParameter("telefone");
+                String logradouro = request.getParameter("endereco-logradouro");
+                String cidade = request.getParameter("endereco-cidade");
+                String estado = request.getParameter("endereco-estado");
+
+                List<Funcionario> funcionarios = null;
+                if (cargo >= 0) {
+                    funcionarios = daoFuncionario.listByAll(nome, cpf, cargo, email, telefone, logradouro, cidade, estado);
+                } else {
+                    funcionarios = daoFuncionario.listByAllMenosCargo(nome, cpf, email, telefone, logradouro, cidade, estado);
+
+                }
+
+                session.setAttribute("funcionarios", funcionarios);
+
+                rd = request.getRequestDispatcher("funcionarioSearch.jsp");
+                rd.forward(request, response);
+                break;
+            default:
+                rd.forward(request, response);
+        }
     }
 
     @Override
@@ -121,7 +154,7 @@ public class ServletFuncionario extends HttpServlet {
                 double novoSalario = 0;
 
                 Funcionario funcionarioAdmitir = daoFuncionario.get(idFuncionarioAdmitir);
-                
+
                 if (!request.getParameter("salario-base").isEmpty()) {
                     novoSalario = Double.parseDouble(request.getParameter("salario-base"));
                     funcionarioAdmitir.setSalario(novoSalario);
