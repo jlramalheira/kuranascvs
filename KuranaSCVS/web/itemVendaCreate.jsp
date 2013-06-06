@@ -24,7 +24,7 @@
             String produtosAutoComplete = "[";
             for (Produto produto : produtos) {
                 if (produto.getEstoqueAtual() > 0) {
-                    produtosAutoComplete += "\"" + produto.getId() + " - " + produto.getValorCusto() + " - " + produto.getEstoqueAtual() + " - " + produto.getCodigoDeBarras() + " - " + produto.getNome() + "\",";
+                    produtosAutoComplete += "\"" + produto.getId() + " - " + produto.getValorVenda() + " - " + produto.getEstoqueAtual() + " - " + produto.getCodigoDeBarras() + " - " + produto.getNome() + "\",";
                 }
             }
             if (produtos.size() > 0) {

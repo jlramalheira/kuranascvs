@@ -103,7 +103,7 @@ public class Venda implements Serializable {
     public double getSomaValoresItensVenda(){
         double soma = 0;
         for (Item item : this.itensVenda){
-            soma += item.getValorTotal() * item.getQuantidade();
+            soma += item.getValorTotal();
         }
         return soma;
     }

@@ -33,6 +33,7 @@ public class Item implements Serializable {
 
     public Item(Produto produto, Servico servico, int quantidade, double valor) {
         this.produto = produto;
+        this.servico = servico;
         this.quantidade = quantidade;
         this.valor = valor;
     }

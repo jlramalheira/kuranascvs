@@ -4,13 +4,23 @@
  */
 package Controle;
 
+import Dao.DaoItem;
+import Dao.DaoProduto;
+import Dao.DaoServico;
+import Dao.DaoVenda;
+import Model.Item;
+import Model.Produto;
+import Model.Servico;
+import Model.Venda;
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -18,74 +28,111 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "ItemServico", urlPatterns = {"/ItemServico"})
 public class ServletItemServico extends HttpServlet {
+DaoItem daoItem = new DaoItem();
 
-    /**
-     * Processes requests for both HTTP
-     * <code>GET</code> and
-     * <code>POST</code> methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        try {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ServletItemServico</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ServletItemServico at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        } finally {            
-            out.close();
-        }
-    }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP
-     * <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        request.setCharacterEncoding("UTF-8");
+        HttpSession session = request.getSession(true);
+        RequestDispatcher rd = request.getRequestDispatcher("erro.jsp");
+
+        String operacao = request.getParameter("operacao");
+        
+        switch (operacao) {
+            case "Editar":
+                int idVenda = Integer.parseInt(request.getParameter("idVenda"));
+                int idItem = Integer.parseInt(request.getParameter("idItem"));
+                response.sendRedirect("itemVendaEdit.jsp?idVenda="+idVenda+"&idItem="+idItem);
+                break;
+            default:
+                rd.forward(request, response);
+        }
     }
 
-    /**
-     * Handles the HTTP
-     * <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
-    }
+        request.setCharacterEncoding("UTF-8");
+        HttpSession session = request.getSession(true);
+        RequestDispatcher rd = request.getRequestDispatcher("erro.jsp");
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
+        String operacao = request.getParameter("operacao");
+
+        switch (operacao) {
+            case "Adicionar":
+                int idVenda = Integer.parseInt(request.getParameter("idVenda"));
+                int idServico = Integer.parseInt(request.getParameter("servico-id"));
+
+                Venda venda = new DaoVenda().get(idVenda);
+                Servico servico = new DaoServico().get(idServico);
+
+                int quantidade = Integer.parseInt(request.getParameter("quantidade"));
+                double total = Double.parseDouble(request.getParameter("precoTotal"));
+
+                double custo = total / quantidade;
+
+                new DaoServico().update(servico);
+
+                Item item = new Item(null, servico, quantidade, custo);
+                daoItem.insert(item);
+
+                venda.insertItemVenda(item);
+
+                new DaoVenda().update(venda);
+
+                response.sendRedirect("vendaView.jsp?idVenda=" + venda.getId());
+                break;
+            case "Excluir":
+                int idVendaExclui = Integer.parseInt(request.getParameter("idVenda"));
+                int idItem = Integer.parseInt(request.getParameter("idItem"));
+
+                Venda vendaExclui = new DaoVenda().get(idVendaExclui);
+                Item itemExclui = daoItem.get(idItem);
+
+                vendaExclui.getItensVenda().remove(itemExclui);
+
+                daoItem.remove(idItem);
+
+                response.sendRedirect("vendaView.jsp?idVenda=" + vendaExclui.getId());
+                break;
+            case "Editar":
+                int idVendaEditar = Integer.parseInt(request.getParameter("idVenda"));
+                int idItemEditar = Integer.parseInt(request.getParameter("idItem"));
+                int idProdutoEditar = Integer.parseInt(request.getParameter("servico-id"));
+
+                Venda vendaEditar = new DaoVenda().get(idVendaEditar);
+                Produto produtoEditar = new DaoProduto().get(idProdutoEditar);
+                Item itemEditar = daoItem.get(idItemEditar);
+
+                vendaEditar.getItensVenda().remove(itemEditar);
+
+                int quantidadeEditar = Integer.parseInt(request.getParameter("quantidade"));
+                double totalEditar = Double.parseDouble(request.getParameter("precoTotal"));
+                double custoEditar = totalEditar / quantidadeEditar;
+
+                if (quantidadeEditar != itemEditar.getQuantidade()) {
+                    int qtde = quantidadeEditar - itemEditar.getQuantidade();
+                    produtoEditar.setEstoqueAtual(produtoEditar.getEstoqueAtual() + qtde);
+                }
+                itemEditar.setProduto(produtoEditar);
+                itemEditar.setQuantidade(quantidadeEditar);
+                itemEditar.setValor(custoEditar);
+
+                daoItem.update(itemEditar);
+                vendaEditar.getItensVenda().add(itemEditar);
+                new DaoVenda().update(vendaEditar);
+
+                response.sendRedirect("vendaView.jsp?idVenda=" + idVendaEditar);
+
+                break;
+            case "Cancelar":
+                int idVendaCancela = Integer.parseInt(request.getParameter("idVenda"));
+
+                response.sendRedirect("vendaView.jsp?idVenda=" + idVendaCancela);
+                break;
+            default:
+                rd.forward(request, response);
+        }
+    }
 }

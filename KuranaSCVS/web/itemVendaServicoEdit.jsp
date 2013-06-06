@@ -5,7 +5,35 @@
     Description: Esse documento JSP é utilizado para
 --%>
 
+<%@page import="Dao.DaoItem"%>
+<%@page import="Model.Item"%>
+<%@page import="Dao.DaoServico"%>
+<%@page import="Model.Servico"%>
+<%@page import="java.util.List"%>
+<%@page import="Dao.DaoVenda"%>
+<%@page import="Model.Venda"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%    
+    if (request.getParameter("idVenda") == null) {
+        response.sendRedirect("index.jsp");
+    } else {
+        int idVenda = Integer.parseInt(request.getParameter("idVenda"));
+        int idItem = Integer.parseInt(request.getParameter("idItem"));
+        Venda venda = new DaoVenda().get(idVenda);
+        Item item = new DaoItem().get(idItem);
+        if (venda == null || item == null) {
+            response.sendRedirect("index.jsp");
+        } else {
+            List<Servico> servicos = new DaoServico().list();
+            String servicoAutoComplete = "[";
+            for (Servico servico : servicos) {
+                    servicoAutoComplete += "\"" + servico.getId() + " - " + servico.getValor() + " - " + servico.getNome() + "\",";
+            }
+            if (servicos.size() > 0) {
+                servicoAutoComplete = servicoAutoComplete.substring(0, servicoAutoComplete.length() - 1);
+            }
+            servicoAutoComplete += "]";
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -31,24 +59,24 @@
                             <h2 class="noMarginTop">Editar item de serviço na venda</h2>
                             <form action="" method="post" class="well">
                                 <fieldset>
-                                    <legend>Venda #000</legend>
+                                    <legend>Venda #<%=venda.getId()%></legend>
                                     <label for="servico-nome">Serviço</label>
-                                    <input id="servico-id" type="hidden" name="produto-id" value="id"/>
+                                    <input id="servico-id" type="hidden" name="servico-id" value="<%=item.getServico().getId()%>"/>
                                     <input type="text" id="servico-nome" class="input-xxlarge"
-                                           name="servico-nome" value="" autocomplete="off"
+                                           name="servico-nome" value="<%=item.getServico().getNome()%>" autocomplete="off"
                                            data-provide="typeahead"
-                                           data-itens="4"
-                                           data-source='["1 - 10 - Conserto","2 - 20 - Manutencao","3 - 30 - Entrega","4 - 40 - Limpeza","5 - 50 - Impressão"]'
+                                           data-itens="<%=servicos.size()%>"
+                                           data-source='<%=servicoAutoComplete%>'
                                            placeholder="Insira o nome do serviço"/>
                                     <label>Valor Unitário</label>
                                     <input id="servico-preco" type="text"
                                            class="input-small" disabled="disabled"
-                                           name="custo" value="0" />
+                                           name="custo" value="<%=item.getValor()%>" />
                                     <label for="quantidade">Quantidade</label>
                                     <div class="input-append">
                                         <input type="number" id="quantidade" class="input-small"
                                                min="1"
-                                               name="quantidade" value="1"
+                                               name="quantidade" value="<%=item.getQuantidade()%>"
                                                />
                                         <span class="add-on">unidades</span>
                                     </div>
@@ -62,11 +90,13 @@
                                     <label>Valor Total</label>
                                     <input id="total" type="text"
                                            class="input-small" disabled="disabled"
-                                           name="custo" value="0" />
+                                           name="custo" value="<%=item.getValorTotal()%>" />
+                                    <input id="precoTotal" type="hidden"
+                                           name="precoTotal" value="<%=item.getValorTotal()%>" />
 
                                 </fieldset>
-                                <button type="submit" class="btn btn-primary btn-large" name="operacao" value="edit">Editar item</button>
-                                <button type="submit" class="btn btn-large" name="operacao" value="cancel">Voltar</button>
+                                <button type="submit" class="btn btn-primary btn-large" name="operacao" value="Editar">Editar item</button>
+                                <button type="submit" class="btn btn-large" name="operacao" value="Cancelar">Voltar</button>
                             </form>
 
 
@@ -86,8 +116,10 @@
                 var custo = (precoUnitario - (precoUnitario * desconto)) * quantidade;
                 if(isNaN(custo)){
                     $("#total").val(0);
+                    $("#precoTotal").val(0);
                 }else{
                     $("#total").val(custo);
+                    $("#precoTotal").val(custo);
                 }
             }
 

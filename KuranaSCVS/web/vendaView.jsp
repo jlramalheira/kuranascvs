@@ -109,7 +109,7 @@
                                 </div>
                                 <%}%>
                             </div>
-                            
+
                             <div class="row">
                                 <div class="span6">
                                     <h3 class="noMarginTop">Itens da venda</h3>
@@ -131,7 +131,8 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <%for (Item item : venda.getItensVenda()) {%>
+                                    <%for (Item item : venda.getItensVenda()) {
+                                            if (item.getProduto() != null) {%>
                                     <tr>
                                         <td><%=item.getProduto().getNome()%></td>
                                         <td><%=item.getValor()%></td>
@@ -166,6 +167,42 @@
                                             <%}%>
                                         </td>
                                     </tr>
+                                    <%} else if (item.getServico() != null) {%>
+                                    <tr>
+                                        <td><%=item.getServico().getNome()%></td>
+                                        <td><%=item.getValor()%></td>
+                                        <td><%=item.getQuantidade()%></td>
+                                        <td>R$ <%=item.getValorTotal()%></td>
+                                        <td>
+                                            <%if (venda.getStatusVenda() == Venda.ANDAMENTO) {%>
+                                            <form action="ItemServico" method="post" class="no-margin-bottom">
+                                                <input type="hidden" name="idVenda" value="<%=venda.getId()%>" />
+                                                <input type="hidden" name="idItem" value="<%=item.getId()%>" />
+                                                <button type="submit" class="btn btn-mini btn-primary" formaction="ItemServico" formmethod="GET" name="operacao" value="Editar" title="Editar Item">
+                                                    <i class="icon-edit icon-white"></i>
+                                                </button>
+                                                <a href="#modalExcluirItem" role="button" class="btn btn-mini btn-danger" data-toggle="modal" title="Excluir item">
+                                                    <i class="icon-remove icon-white"></i>
+                                                </a>
+                                                <%-- MODAL EXCLUIR ITEM DA VENDA --%>
+                                                <div id="modalExcluirItem" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                                        <h3 id="myModalLabel">Excluir item da venda</h3>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <p>Deseja excluir o item da venda?</p>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button class="btn" data-dismiss="modal" aria-hidden="true">Não</button>
+                                                        <button type="submit" class="btn btn-primary" name="operacao" value="Excluir">Sim</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                            <%}%>
+                                        </td>
+                                    </tr>
+                                    <%}%>
                                     <%}%>
                                 </tbody>
                                 <tfoot>

@@ -5,7 +5,31 @@
     Description: Esse documento JSP é utilizado para
 --%>
 
+<%@page import="Dao.DaoServico"%>
+<%@page import="Model.Servico"%>
+<%@page import="java.util.List"%>
+<%@page import="Dao.DaoVenda"%>
+<%@page import="Model.Venda"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%    
+    if ((request.getParameter("idVenda") == null) || (request.getParameter("idItem") == null)) {
+        response.sendRedirect("index.jsp");
+    } else {
+        int idVenda = Integer.parseInt(request.getParameter("idVenda"));
+        Venda venda = new DaoVenda().get(idVenda);
+        if (venda == null) {
+            response.sendRedirect("index.jsp");
+        } else {
+            List<Servico> servicos = new DaoServico().list();
+            String servicoAutoComplete = "[";
+            for (Servico servico : servicos) {
+                    servicoAutoComplete += "\"" + servico.getId() + " - " + servico.getValor() + " - " + servico.getNome() + "\",";
+            }
+            if (servicos.size() > 0) {
+                servicoAutoComplete = servicoAutoComplete.substring(0, servicoAutoComplete.length() - 1);
+            }
+            servicoAutoComplete += "]";
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -29,16 +53,17 @@
                         </div>
                         <div class="span9">
                             <h2 class="noMarginTop">Inserir item de serviço na venda</h2>
-                            <form action="" method="post" class="well">
+                            <form action="ItemServico" method="post" class="well">
                                 <fieldset>
-                                    <legend>Venda #000</legend>
+                                    <legend>Venda #<%=venda.getId()%></legend>
                                     <label for="servico-nome">Serviço</label>
-                                    <input id="servico-id" type="hidden" name="produto-id" value="id"/>
+                                    <input id="servico-id" type="hidden" name="servico-id" value="id"/>
+                                    <input type="hidden" name="idVenda" value="<%=venda.getId()%>"/>
                                     <input type="text" id="servico-nome" class="input-xxlarge"
                                            name="servico-nome" value="" autocomplete="off"
                                            data-provide="typeahead"
-                                           data-itens="4"
-                                           data-source='["1 - 10 - Conserto","2 - 20 - Manutencao","3 - 30 - Entrega","4 - 40 - Limpeza","5 - 50 - Impressão"]'
+                                           data-itens="<%=servicos.size()%>"
+                                           data-source='<%=servicoAutoComplete%>'
                                            placeholder="Insira o nome do serviço"/>
                                     <label>Valor Unitário</label>
                                     <input id="servico-preco" type="text"
@@ -63,10 +88,12 @@
                                     <input id="total" type="text"
                                            class="input-small" disabled="disabled"
                                            name="custo" value="0" />
+                                    <input id="precoTotal" type="hidden"
+                                           name="precoTotal" value="0" />
 
                                 </fieldset>
-                                <button type="submit" class="btn btn-primary btn-large" name="operacao" value="create">Adicionar item</button>
-                                <button type="submit" class="btn btn-large" name="operacao" value="cancel">Voltar</button>
+                                <button type="submit" class="btn btn-primary btn-large" name="operacao" value="Adicionar">Adicionar item</button>
+                                <button type="submit" class="btn btn-large" name="operacao" value="Cancelar">Voltar</button>
                             </form>
 
 
@@ -86,8 +113,10 @@
                 var custo = (precoUnitario - (precoUnitario * desconto)) * quantidade;
                 if(isNaN(custo)){
                     $("#total").val(0);
+                    $("#precoTotal").val(0);
                 }else{
                     $("#total").val(custo);
+                    $("#precoTotal").val(custo);
                 }
             }
 
@@ -113,3 +142,5 @@
         </script>
     </body>
 </html>
+<%}
+    }%>
