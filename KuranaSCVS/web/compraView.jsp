@@ -46,8 +46,8 @@
                                 <div class="span2">
                                     <strong>Data:</strong> <%=Util.Util.dateToString(compra.getDataPedido())%>
                                 </div>
-                                <div class="span2">
-                                    <strong>Entrega:</strong> <%=compra.getDataEntrega()!= null ? Util.Util.dateToString(compra.getDataEntrega()) : "--" %>
+                                <div class="span3">
+                                    <strong>Entrega:</strong> <%=compra.getDataEntrega()!= null ? Util.Util.dateToString(compra.getDataEntrega()) : "Não entregue" %>
                                 </div>
                             </div>
                             <strong>Fornecedor:</strong> <%=compra.getFornecedor().getNome()%>
@@ -105,7 +105,7 @@
                                 </div>
                                 <%if (compra.getStatusCompra() == Compra.ANDAMENTO) {%>
                                 <div class="span3">
-                                    <a href="Produto?operacao=AdicionarItemCompra&idCompra=<%=venda.getId()%>" class="btn btn-block btn-primary margin-top">Adicionar item de compra</a>
+                                    <a href="Produto?operacao=AdicionarItemCompra&idCompra=<%=compra.getId()%>" class="btn btn-block btn-primary margin-top">Adicionar item de compra</a>
                                 </div>
                                 <%}%>
                             </div>

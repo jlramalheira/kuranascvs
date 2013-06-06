@@ -27,6 +27,8 @@
                                     <li class="nav-header">Vendas</li>
                                     <li><a href="Venda?operacao=Index">Pesquisar</a></li>
                                     <li><a href="Venda?operacao=Novo">Cadastrar nova</a></li>
+                                    <li class="nav-header">Relatórios</li>
+                                    <li><a href="Venda?operacao=VerRelatorioPeriodo">Relatório por período</a></li>
                                 </ul>
                             </div>
                         </div>
