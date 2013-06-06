@@ -89,6 +89,12 @@
 
                             <div class="row">
                                 <div class="span9">
+                                    <span class="btn btn-block btn-warning disabled">Atenção! Ordem de serviço atrasada</span>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="span9">
                                     <span class="btn btn-block btn-success disabled">Ordem de serviço finalizada</span>
                                 </div>
                             </div>
