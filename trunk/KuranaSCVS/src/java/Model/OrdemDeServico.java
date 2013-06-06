@@ -40,8 +40,20 @@ public class OrdemDeServico implements Serializable {
     private List<Produto> produtos;
     @OneToMany
     private List<Servico> servicos;
-    
-    
+
+    public OrdemDeServico() {
+    }
+
+    public OrdemDeServico(Date dataEmissao, Date previsaoConclusao, Date dataConclusao, String descricao, Cliente cliente, List<Funcionario> funcionarios, List<Produto> produtos, List<Servico> servicos) {
+        this.dataEmissao = dataEmissao;
+        this.previsaoConclusao = previsaoConclusao;
+        this.dataConclusao = dataConclusao;
+        this.descricao = descricao;
+        this.cliente = cliente;
+        this.funcionarios = funcionarios;
+        this.produtos = produtos;
+        this.servicos = servicos;
+    }
 
     public int getId() {
         return id;
@@ -49,6 +61,70 @@ public class OrdemDeServico implements Serializable {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public Date getDataEmissao() {
+        return dataEmissao;
+    }
+
+    public void setDataEmissao(Date dataEmissao) {
+        this.dataEmissao = dataEmissao;
+    }
+
+    public Date getPrevisaoConclusao() {
+        return previsaoConclusao;
+    }
+
+    public void setPrevisaoConclusao(Date previsaoConclusao) {
+        this.previsaoConclusao = previsaoConclusao;
+    }
+
+    public Date getDataConclusao() {
+        return dataConclusao;
+    }
+
+    public void setDataConclusao(Date dataConclusao) {
+        this.dataConclusao = dataConclusao;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public List<Funcionario> getFuncionarios() {
+        return funcionarios;
+    }
+
+    public void setFuncionarios(List<Funcionario> funcionarios) {
+        this.funcionarios = funcionarios;
+    }
+
+    public List<Produto> getProdutos() {
+        return produtos;
+    }
+
+    public void setProdutos(List<Produto> produtos) {
+        this.produtos = produtos;
+    }
+
+    public List<Servico> getServicos() {
+        return servicos;
+    }
+
+    public void setServicos(List<Servico> servicos) {
+        this.servicos = servicos;
     }
 
     @Override

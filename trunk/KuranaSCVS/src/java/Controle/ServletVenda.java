@@ -50,10 +50,164 @@ public class ServletVenda extends HttpServlet {
                 rd.forward(request, response);
                 break;
             case "Ver" :
-                rd = request.getRequestDispatcher("vendaView.jsp");
+                int idVenda = Integer.parseInt(request.getParameter("idVenda"));
+                rd = request.getRequestDispatcher("vendaView.jsp?idVenda="+idVenda);
                 rd.forward(request, response);
                 break;
             case "Pesquisar" :
+                
+                String cliente = request.getParameter("cliente");
+                
+                String dataPedidoInicio = request.getParameter("pedido-inicio");
+                if (dataPedidoInicio.isEmpty()) {
+                    dataPedidoInicio = null;
+                }
+                String dataPedidoFim = request.getParameter("pedido-fim");
+                if (dataPedidoFim.isEmpty()) {
+                    dataPedidoFim = null;
+                }
+                String dataEntregaInicio = request.getParameter("entrega-inicio");
+                if (dataEntregaInicio.isEmpty()) {
+                    dataEntregaInicio = null;
+                }
+                String dataEntregaFim = request.getParameter("entrega-fim");
+                if (dataEntregaFim.isEmpty()) {
+                    dataEntregaFim = null;
+                }
+                
+                int status = -1;
+                if (request.getParameter("status") != null){
+                    status = Integer.parseInt(request.getParameter("status"));
+                }
+                List<Venda> vendas = null;
+                if (status > 0){
+                    if (dataPedidoInicio != null){
+                        if (dataPedidoFim != null){
+                            if (dataEntregaInicio != null){
+                                if (dataEntregaFim != null){
+                                    vendas = daoVenda.listByAll(cliente, dataPedidoInicio, dataPedidoFim, dataEntregaInicio, dataEntregaFim, status);
+                                } else {
+                                    vendas = daoVenda.listByDataPedidoInicioPedidoFimEntregaIncioStatus(cliente, dataPedidoInicio, dataPedidoFim, dataEntregaInicio, status);
+                                }
+                            } else {
+                                if (dataEntregaFim != null){
+                                    vendas = daoVenda.listByDataPedidoInicioPedidoFimEntregaFimStatus(cliente, dataPedidoInicio, dataPedidoFim, dataEntregaFim, status);
+                                } else {
+                                    vendas = daoVenda.listByDataPedidoInicioFimStatus(cliente, dataPedidoInicio, dataPedidoFim, status);
+                                }
+                            }
+                        } else {
+                            if (dataEntregaInicio != null){
+                                if (dataEntregaFim != null){
+                                    vendas = daoVenda.listByDataPedidoInicioEntregaIncioEntregaFimStatus(cliente, dataPedidoInicio, dataEntregaInicio, dataEntregaFim, status);
+                                } else {
+                                    vendas = daoVenda.listByDataPedidoInicioEntregaInicioStatus(cliente, dataPedidoInicio, dataEntregaInicio, status);
+                                }
+                            } else {
+                                if (dataEntregaFim != null){
+                                    vendas = daoVenda.listByDataPedidoInicioEntregaFimStatus(cliente, dataPedidoInicio, dataEntregaFim, status);
+                                } else {
+                                    vendas = daoVenda.listByDataPedidoInicioStatus(cliente, dataPedidoInicio, status);
+                                }
+                            }
+                        }
+                    } else {
+                        if (dataPedidoFim != null){
+                            if (dataEntregaInicio != null){
+                                if (dataEntregaFim != null){
+                                    vendas = daoVenda.listByDataPedidoFimEntregaIncioEntregaFimStatus(cliente, dataPedidoFim, dataEntregaInicio, dataEntregaFim, status);
+                                } else {
+                                    vendas = daoVenda.listByDataPedidoFimEntregaInicioStatus(cliente, dataPedidoFim, dataEntregaInicio, status);
+                                }
+                            } else {
+                                if (dataEntregaFim != null){
+                                    vendas = daoVenda.listByDataPedidoFimEntregaFimStatus(cliente, dataPedidoFim, dataEntregaFim, status);
+                                } else {
+                                    vendas = daoVenda.listByDataEntregaFimStatus(cliente, dataEntregaFim, status);
+                                }
+                            }
+                        } else {
+                            if (dataEntregaInicio != null){
+                                if (dataEntregaFim != null){
+                                    vendas = daoVenda.listByDataEntregaInicioFimStatus(cliente, dataEntregaInicio, dataEntregaFim, status);
+                                } else {
+                                    vendas = daoVenda.listByDataEntregaInicioStatus(cliente, dataEntregaInicio, status);
+                                }
+                            } else {
+                                if (dataEntregaFim != null){
+                                    vendas = daoVenda.listByDataEntregaFimStatus(cliente, dataEntregaFim, status);
+                                } else {
+                                    vendas = daoVenda.listSimple(cliente, status);
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    if (dataPedidoInicio != null){
+                        if (dataPedidoFim != null){
+                            if (dataEntregaInicio != null){
+                                if (dataEntregaFim != null){
+                                    vendas = daoVenda.listByAllMenosStatus(cliente, dataPedidoInicio, dataPedidoFim, dataEntregaInicio, dataEntregaFim);
+                                } else {
+                                    vendas = daoVenda.listByDataPedidoInicioPedidoFimEntregaIncio(cliente, dataPedidoInicio, dataPedidoFim, dataEntregaInicio);
+                                }
+                            } else {
+                                if (dataEntregaFim != null){
+                                    vendas = daoVenda.listByDataPedidoInicioPedidoFimEntregaFim(cliente, dataPedidoInicio, dataPedidoFim, dataEntregaFim);
+                                } else {
+                                    vendas = daoVenda.listByDataPedidoInicioFim(cliente, dataPedidoInicio, dataPedidoFim);
+                                }
+                            }
+                        } else {
+                            if (dataEntregaInicio != null){
+                                if (dataEntregaFim != null){
+                                    vendas = daoVenda.listByDataPedidoInicioEntregaIncioEntregaFim(cliente, dataPedidoInicio, dataEntregaInicio, dataEntregaFim);
+                                } else {
+                                    vendas = daoVenda.listByDataPedidoInicioEntregaInicio(cliente, dataPedidoInicio, dataEntregaInicio);
+                                }
+                            } else {
+                                if (dataEntregaFim != null){
+                                    vendas = daoVenda.listByDataPedidoInicioEntregaFim(cliente, dataPedidoInicio, dataEntregaFim);
+                                } else {
+                                    vendas = daoVenda.listByDataPedidoInicio(cliente, dataPedidoInicio);
+                                }
+                            }
+                        }
+                    } else {
+                        if (dataPedidoFim != null){
+                            if (dataEntregaInicio != null){
+                                if (dataEntregaFim != null){
+                                    vendas = daoVenda.listByDataPedidoFimEntregaIncioEntregaFim(cliente, dataPedidoFim, dataEntregaInicio, dataEntregaFim);
+                                } else {
+                                    vendas = daoVenda.listByDataPedidoFimEntregaInicio(cliente, dataPedidoFim, dataEntregaInicio);
+                                }
+                            } else {
+                                if (dataEntregaFim != null){
+                                    vendas = daoVenda.listByDataPedidoFimEntregaFim(cliente, dataPedidoFim, dataEntregaFim);
+                                } else {
+                                    vendas = daoVenda.listByDataEntregaFim(cliente, dataEntregaFim);
+                                }
+                            }
+                        } else {
+                            if (dataEntregaInicio != null){
+                                if (dataEntregaFim != null){
+                                    vendas = daoVenda.listByDataEntregaInicioFim(cliente, dataEntregaInicio, dataEntregaFim);
+                                } else {
+                                    vendas = daoVenda.listByDataEntregaInicio(cliente, dataEntregaInicio);
+                                }
+                            } else {
+                                if (dataEntregaFim != null){
+                                    vendas = daoVenda.listByDataEntregaFim(cliente, dataEntregaFim);
+                                } else {
+                                    vendas = daoVenda.listByCliente(cliente);
+                                }
+                            }
+                        }
+                    }
+                }
+                
+                session.setAttribute("vendas", vendas);
+                
                 rd = request.getRequestDispatcher("vendaSearch.jsp");
                 rd.forward(request, response);
                 break;

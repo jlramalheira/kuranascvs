@@ -5,7 +5,21 @@
     Description: Esse documento JSP é utilizado para
 --%>
 
+<%@page import="Dao.DaoCliente"%>
+<%@page import="Model.Cliente"%>
+<%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+List<Cliente> clientes = new DaoCliente().list();
+    String clienteAutoComplete = "[";
+    for (Cliente cliente : clientes) {
+        clienteAutoComplete += "\"" + cliente.getId() + " - " + cliente.getNome() + "\",";
+    }
+    if (clientes.size() > 0) {
+        clienteAutoComplete = clienteAutoComplete.substring(0, clienteAutoComplete.length() - 1);
+    }
+    clienteAutoComplete += "]";
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -32,7 +46,7 @@
                         </div>
                         <div class="span9">
                             <h2 class="noMarginTop">Cadastrar Ordem de Serviço</h2>
-                            <form action="" method="post" class="well">
+                            <form action="OrdemDeServico" method="post" class="well">
                                 <fieldset>
                                     <legend>Informações</legend>
                                     <label for="cliente">Cliente</label>
@@ -40,8 +54,8 @@
                                            id="cliente" class="input-xxlarge" required="" autocomplete="off"
                                            placeholder="Insira o nome do cliente"
                                            data-provide="typeahead"
-                                           data-itens="4"
-                                           data-source='["1 - Marco","2 - Joao","3 - Max","4 - Eliza"]'/>
+                                           data-itens="<%=clientes.size()%>"
+                                           data-source='<%=clienteAutoComplete%>'/>
 
                                     <label for="previsao">Previsão de conclusão</label>
                                     <input type="date" name="previsao"

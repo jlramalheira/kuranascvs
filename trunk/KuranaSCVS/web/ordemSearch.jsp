@@ -5,7 +5,13 @@
     Description: Esse documento JSP é utilizado para
 --%>
 
+<%@page import="java.util.Calendar"%>
+<%@page import="java.util.Date"%>
+<%@page import="Model.OrdemDeServico"%>
+<%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%List<OrdemDeServico> ordens = (List<OrdemDeServico>) session.getAttribute("ordens");
+Date hoje = Calendar.getInstance().getTime(); %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -82,21 +88,24 @@
                                 <button type="submit" name="operacao" value="Pesquisar" class="btn btn-primary">Pesquisar</button>
                                 <button type="button" class="btn" onclick="toggleOptions(this)">Mais Opções</button>
                             </form>
+                            <%if((ordens != null) && (!ordens.isEmpty())){ %>
                             <table class="table table-hover table-striped table-row-click">
                                 <thead>
                                     <tr>
                                         <th>#</th>
                                         <th>Cliente</th>
                                         <th>Pedido</th>
-                                        <th>Entrega</th>
+                                        <th>Previsão</th>
+                                        <th>Conclusao</th>
                                         <th>Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr onclick="location = 'Venda?operacao=Ver&idCompra='">
-                                        <td>1</td>
-                                        <td>Marcão Intercomp</td>
-                                        <td>01/01/2001</td>
+                                    <%for (OrdemDeServico ordem : ordens){ %>
+                                    <tr onclick="location = 'Venda?operacao=Ver&idOrdem=<%=ordem.getId()%>'">
+                                        <td>ordem.getCliente()</td>
+                                        <td><%=ordem.getCliente() != null ? ordem.getCliente().getNome() : "" %></td>
+                                        <td>ordem.getCliente()</td>
                                         <td>02/02/2002</td>
                                         <td>
 
@@ -115,6 +124,7 @@
                                             </span>
                                         </td>
                                     </tr>
+                                    <%}%>
                                     <tr onclick="location = 'Venda?operacao=Ver&idCompra='">
                                         <td>1</td>
                                         <td>Marcão Intercomp</td>
@@ -161,7 +171,7 @@
                                     </tr>
                                 </tbody>
                             </table>
-
+                            <%}%>
                         </div>
                     </div>
                 </div>
