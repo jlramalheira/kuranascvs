@@ -41,12 +41,12 @@
                                         <div class="span3">
                                             <label for="periodo-inicio">Inicio</label>
                                             <input type="date" id="periodo-inicio"
-                                                   name="periodo-inicio"/>
+                                                   name="periodo-inicio" value="<%=request.getAttribute("dataInicio") != null ? request.getAttribute("dataInicio") : "Nao"%>" />
                                         </div>
                                         <div class="span3">
                                             <label for="periodo-fim">Fim</label>
                                             <input type="date" id="periodo-fim"
-                                                   name="periodo-fim" />
+                                                   name="periodo-fim" value="<%=request.getAttribute("dataFim") != null ? request.getAttribute("dataFim") : "Nao"%>" />
                                         </div>
                                     </div>
                                 </fieldset>
