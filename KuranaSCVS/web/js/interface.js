@@ -3,6 +3,8 @@
  * and open the template in the editor.
  */
 
+
+
 function toggleOptions(t){
     if($(t).hasClass("active")){
         $(t).removeClass("active");
