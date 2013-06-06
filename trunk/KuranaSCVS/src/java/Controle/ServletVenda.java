@@ -51,7 +51,7 @@ public class ServletVenda extends HttpServlet {
                 if (dataFim.isEmpty()) {
                     dataFim = null;
                 }
-                
+
                 List<Venda> vendasPeriodo = null;
                 if (dataInicio != null){
                     if (dataFim != null){
@@ -80,7 +80,7 @@ public class ServletVenda extends HttpServlet {
                     }
                     ganhoTotal += venda.getSomaValoresItensVenda();
                 }
-                
+
                 request.setAttribute("vendasPeriodo", vendasPeriodo);
                 request.setAttribute("canceladas", canceladas);
                 request.setAttribute("finalizadas", finalizadas);
@@ -88,14 +88,14 @@ public class ServletVenda extends HttpServlet {
                 request.setAttribute("ganhoTotal", ganhoTotal);
                 request.setAttribute("dataInicio", dataInicio);
                 request.setAttribute("dataFim", dataFim);
-                
-                
+
+
                 rd = request.getRequestDispatcher("vendasRelatorioPeriodo.jsp");
                 rd.forward(request, response);
-                
+
                 break;
-            case "Ver Relatorio Periodo":
-                rd = request.getRequestDispatcher("verRelatorioPeriodo.jsp");
+            case "VerRelatorioPeriodo":
+                rd = request.getRequestDispatcher("vendasRelatorioPeriodo.jsp");
                 rd.forward(request, response);
                 break;
             case "Index" :
@@ -108,7 +108,7 @@ public class ServletVenda extends HttpServlet {
                 break;
             case "Ver" :
                 int idVenda = Integer.parseInt(request.getParameter("idVenda"));
-                
+
                 rd = request.getRequestDispatcher("vendaView.jsp?idVenda="+idVenda);
                 rd.forward(request, response);
                 break;
