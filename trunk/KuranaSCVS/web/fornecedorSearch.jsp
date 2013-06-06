@@ -87,7 +87,7 @@
                                 <button type="button" class="btn" onclick="toggleOptions(this)">Mais Opções</button>
                             </form>
                             <%if((fornecedores != null) && (!fornecedores.isEmpty())){ %>
-                            <table class="table table-hover table-striped">
+                            <table class="table table-hover table-striped table-row-click">
                                 <thead>
                                     <tr>
                                         <th>ID</th>
@@ -97,7 +97,7 @@
                                 </thead>
                                 <tbody>
                                     <%for (Fornecedor fornecedor : fornecedores){ %>
-                                    <tr>
+                                    <tr onclick="location = 'Fornecedor?operacao=Ver&idFornecedor=<%=fornecedor.getId()%>'">
                                         <td><%=fornecedor.getId()%></td>
                                         <td><%=fornecedor.getNome()%></td>
                                         <td><%=fornecedor.getCnpj()%></td>
