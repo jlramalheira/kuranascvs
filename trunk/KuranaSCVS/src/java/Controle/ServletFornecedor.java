@@ -54,9 +54,9 @@ public class ServletFornecedor extends HttpServlet {
                 rd.forward(request, response);
                 break;
             case "Ver":
-                int idFornecedor = Integer.parseInt(request.getParameter("ifFornecedor"));
+                int idFornecedor = Integer.parseInt(request.getParameter("idFornecedor"));
 
-                rd = request.getRequestDispatcher("forneedorView.jsp?idFornecedor=" + idFornecedor);
+                rd = request.getRequestDispatcher("fornecedorView.jsp?idFornecedor=" + idFornecedor);
                 rd.forward(request, response);
                 break;
             case "Index":
