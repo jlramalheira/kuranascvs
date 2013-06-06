@@ -59,7 +59,7 @@ public class ServletFuncionario extends HttpServlet {
 
                 }
 
-                session.setAttribute("funcionarios", funcionarios);
+                request.setAttribute("funcionarios", funcionarios);
 
                 rd = request.getRequestDispatcher("funcionarioSearch.jsp");
                 rd.forward(request, response);

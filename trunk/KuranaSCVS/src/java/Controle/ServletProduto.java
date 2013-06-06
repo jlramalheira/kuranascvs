@@ -49,7 +49,7 @@ public class ServletProduto extends HttpServlet {
 
                 List<Produto> produtos = daoProduto.listByNomeCodBarrasIdFornecedor(nome, codigoDeBarras, idFornecedor);
 
-                session.setAttribute("produtos", produtos);
+                request.setAttribute("produtos", produtos);
                 rd = request.getRequestDispatcher("produtoSearch.jsp");
                 rd.forward(request, response);
                 break;

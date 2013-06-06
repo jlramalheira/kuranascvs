@@ -10,7 +10,7 @@
 <%@page import="Model.OrdemDeServico"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%List<OrdemDeServico> ordens = (List<OrdemDeServico>) session.getAttribute("ordens");
+<%List<OrdemDeServico> ordens = (List<OrdemDeServico>) request.getAttribute("ordens");
     Date hoje = Calendar.getInstance().getTime();%>
 <!DOCTYPE html>
 <html>
