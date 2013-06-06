@@ -64,6 +64,18 @@ public class ServletFuncionario extends HttpServlet {
                 rd = request.getRequestDispatcher("funcionarioSearch.jsp");
                 rd.forward(request, response);
                 break;
+            case "Index" :
+                rd = request.getRequestDispatcher("funcionarioSearch.jsp");
+                rd.forward(request, response);
+                break;
+            case "Novo" :
+                rd = request.getRequestDispatcher("funcionarioCreate.jsp");
+                rd.forward(request, response);
+                break;
+            case "Ver" :
+                rd = request.getRequestDispatcher("funcionarioView.jsp");
+                rd.forward(request, response);
+                break;
             default:
                 rd.forward(request, response);
         }

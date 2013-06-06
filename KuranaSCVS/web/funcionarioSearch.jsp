@@ -25,8 +25,8 @@
                             <div class="well sidebar-nav">
                                 <ul class="nav nav-list">
                                     <li class="nav-header">Funcionários</li>
-                                    <li><a href="#">Pesquisar</a></li>
-                                    <li><a href="#">Cadastrar novo</a></li>
+                                    <li><a href="Funcionario?operacao=Index">Pesquisar</a></li>
+                                    <li><a href="Funcionario?operacao=Novo">Cadastrar novo</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -96,7 +96,7 @@
                                 <button type="button" class="btn" onclick="toggleOptions(this)">Mais Opções</button>
                             </form>
                             <%if ((funcionarios != null) && (!funcionarios.isEmpty())) {%>
-                            <table class="table table-striped table-hover">
+                            <table class="table table-striped table-hover table-row-click">
                                 <thead>
                                     <tr>
                                         <th>ID</th>
@@ -107,7 +107,7 @@
                                 </thead>
                                 <tbody>
                                     <%for (Funcionario funcionario : funcionarios){ %>
-                                    <tr>
+                                    <tr onclick="location = 'Funcionario?operacao=Ver&idFuncionario=<%=funcionario.getId()%>'">
                                         <td><%=funcionario.getId()%></td>
                                         <td><%=funcionario.getNome()%></td>
                                         <td><%=funcionario.getCpf()%></td>
