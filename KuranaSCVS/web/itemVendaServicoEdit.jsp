@@ -14,7 +14,7 @@
 <%@page import="Model.Venda"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%    
-    if (request.getParameter("idVenda") == null) {
+    if ((request.getParameter("idVenda") == null) || (request.getParameter("idItem") == null)) {
         response.sendRedirect("index.jsp");
     } else {
         int idVenda = Integer.parseInt(request.getParameter("idVenda"));

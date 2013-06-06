@@ -11,7 +11,7 @@
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%List<OrdemDeServico> ordens = (List<OrdemDeServico>) session.getAttribute("ordens");
-Date hoje = Calendar.getInstance().getTime(); %>
+    Date hoje = Calendar.getInstance().getTime();%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -88,87 +88,48 @@ Date hoje = Calendar.getInstance().getTime(); %>
                                 <button type="submit" name="operacao" value="Pesquisar" class="btn btn-primary">Pesquisar</button>
                                 <button type="button" class="btn" onclick="toggleOptions(this)">Mais Opções</button>
                             </form>
-                            <%if((ordens != null) && (!ordens.isEmpty())){ %>
+                            <%if ((ordens != null) && (!ordens.isEmpty())) {%>
                             <table class="table table-hover table-striped table-row-click">
                                 <thead>
                                     <tr>
                                         <th>#</th>
                                         <th>Cliente</th>
-                                        <th>Pedido</th>
+                                        <th>Emissão</th>
                                         <th>Previsão</th>
                                         <th>Conclusao</th>
                                         <th>Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <%for (OrdemDeServico ordem : ordens){ %>
+                                    <%for (OrdemDeServico ordem : ordens) {%>
                                     <tr onclick="location = 'Venda?operacao=Ver&idOrdem=<%=ordem.getId()%>'">
-                                        <td>ordem.getCliente()</td>
-                                        <td><%=ordem.getCliente() != null ? ordem.getCliente().getNome() : "" %></td>
-                                        <td>ordem.getCliente()</td>
-                                        <td>02/02/2002</td>
+                                        <td><%=ordem.getId()%></td>
+                                        <td><%=ordem.getCliente() != null ? ordem.getCliente().getNome() : ""%></td>
+                                        <td><%=Util.Util.dateToString(ordem.getDataEmissao())%></td>
+                                        <td><%=Util.Util.dateToString(ordem.getPrevisaoConclusao())%></td>
+                                        <td><%=ordem.getDataConclusao() != null ? Util.Util.dateToString(ordem.getPrevisaoConclusao()) : "Não concluida"%></td>
                                         <td>
-
+                                            <%if (ordem.getStatusOrdem() == OrdemDeServico.ANDAMENTO) {%>
                                             <span class="btn btn-mini btn-primary disabled" title="Em andamento">
                                                 <i class="icon-random icon-white"></i>
                                             </span>
-
-                                            <span class="btn btn-mini btn-success disabled" title="Finalizada">
-                                                <i class="icon-ok icon-white"></i>
-                                            </span>
-                                            <span class="btn btn-mini btn-danger disabled" title="Cancelada">
-                                                <i class="icon-remove icon-white"></i>
-                                            </span>
+                                            <% if (hoje.after(ordem.getPrevisaoConclusao())) {%>
                                             <span class="btn btn-mini btn-warning disabled" title="Atrasada">
                                                 <i class="icon-exclamation-sign icon-white"></i>
                                             </span>
+                                            <%}
+                                            } else if (ordem.getStatusOrdem() == OrdemDeServico.FINALIZADA) {%>
+                                            <span class="btn btn-mini btn-success disabled" title="Finalizada">
+                                                <i class="icon-ok icon-white"></i>
+                                            </span>
+                                            <%} else if (ordem.getStatusOrdem() == OrdemDeServico.CANCELADA) {%>
+                                            <span class="btn btn-mini btn-danger disabled" title="Cancelada">
+                                                <i class="icon-remove icon-white"></i>
+                                            </span>
+                                            <%}%>                                            
                                         </td>
                                     </tr>
                                     <%}%>
-                                    <tr onclick="location = 'Venda?operacao=Ver&idCompra='">
-                                        <td>1</td>
-                                        <td>Marcão Intercomp</td>
-                                        <td>01/01/2001</td>
-                                        <td>02/02/2002</td>
-                                        <td>
-
-                                            <span class="btn btn-mini btn-primary disabled" title="Em andamento">
-                                                <i class="icon-random icon-white"></i>
-                                            </span>
-
-                                            <span class="btn btn-mini btn-success disabled" title="Finalizada">
-                                                <i class="icon-ok icon-white"></i>
-                                            </span>
-                                            <span class="btn btn-mini btn-danger disabled" title="Cancelada">
-                                                <i class="icon-remove icon-white"></i>
-                                            </span>
-                                            <span class="btn btn-mini btn-warning disabled" title="Atrasada">
-                                                <i class="icon-exclamation-sign icon-white"></i>
-                                            </span>
-                                        </td>
-                                    </tr>
-                                    <tr onclick="location = 'Venda?operacao=Ver&idCompra='">
-                                        <td>1</td>
-                                        <td>Marcão Intercomp</td>
-                                        <td>01/01/2001</td>
-                                        <td>02/02/2002</td>
-                                        <td>
-
-                                            <span class="btn btn-mini btn-primary disabled" title="Em andamento">
-                                                <i class="icon-random icon-white"></i>
-                                            </span>
-
-                                            <span class="btn btn-mini btn-success disabled" title="Finalizada">
-                                                <i class="icon-ok icon-white"></i>
-                                            </span>
-                                            <span class="btn btn-mini btn-danger disabled" title="Cancelada">
-                                                <i class="icon-remove icon-white"></i>
-                                            </span>
-                                            <span class="btn btn-mini btn-warning disabled" title="Atrasada">
-                                                <i class="icon-exclamation-sign icon-white"></i>
-                                            </span>
-                                        </td>
-                                    </tr>
                                 </tbody>
                             </table>
                             <%}%>

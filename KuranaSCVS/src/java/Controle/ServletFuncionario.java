@@ -73,7 +73,9 @@ public class ServletFuncionario extends HttpServlet {
                 rd.forward(request, response);
                 break;
             case "Ver" :
-                rd = request.getRequestDispatcher("funcionarioView.jsp");
+                int idFuncionario = Integer.parseInt(request.getParameter("idFuncionario"));
+                
+                rd = request.getRequestDispatcher("funcionarioView.jsp?idFuncionario="+idFuncionario);
                 rd.forward(request, response);
                 break;
             default:
@@ -150,13 +152,13 @@ public class ServletFuncionario extends HttpServlet {
 
                     daoFuncionario.insert(funcionario);
 
-                    response.sendRedirect("funcionarioView.jsp?idFuncionario=" + funcionario.getId());
+                    response.sendRedirect("Funcionario?operacao=Ver&idFuncionario=" + funcionario.getId());
                 } else { //inserido sem endereco
                     Endereco e = new DaoEndereco().get(1);
                     Funcionario funcionario = new Funcionario(nome, cpf, telefone, e, cargo, email, dataNascimento, datasAdimissao, datasDemissao, salarioBase, true);
 
                     daoFuncionario.insert(funcionario);
-                    response.sendRedirect("funcionarioView.jsp?idFuncionario=" + funcionario.getId());
+                    response.sendRedirect("Funcionario?operacao=VeridFuncionario=" + funcionario.getId());
                 }
 
                 break;

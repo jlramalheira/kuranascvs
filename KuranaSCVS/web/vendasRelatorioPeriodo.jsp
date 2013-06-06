@@ -5,7 +5,10 @@
     Description: Esse documento JSP é utilizado para
 --%>
 
+<%@page import="Model.Venda"%>
+<%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%List<Venda> vendas = (List<Venda>) request.getAttribute("vendasPeriodo");%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -31,7 +34,7 @@
                         </div>
                         <div class="span9">
                             <h2 class="noMarginTop">Relatório de Vendas por período</h2>
-                            <form action="" method="get" class="well">
+                            <form action="Venda" method="get" class="well">
                                 <fieldset>
                                     <legend>Escolha o período</legend>
                                     <div class="row">
@@ -48,7 +51,7 @@
                                     </div>
                                 </fieldset>
                                 <button type="submit" class="btn btn-primary"
-                                        name="operacao" value="RelatorioPeriodo">
+                                        name="operacao" value="Relatorio Periodo">
                                     Gerar Relatório
                                 </button>
                             </form>
@@ -56,17 +59,18 @@
                                 <div class="span3">
                                     <h3>Informações</h3>
                                     <p>
-                                        <strong>Vendas realizadas: </strong>##<br/>
+                                        <strong>Vendas realizadas: </strong><%=vendas != null ? vendas.size() : 0%><br/>
                                     </p>
                                     <hr/>
                                     <p>
-                                        <strong>Ganho total: </strong>R$ ##
+                                        <strong>Ganho total: </strong>R$ <%=request.getAttribute("ganhoTotal")!=null?request.getAttribute("ganhoTotal") : 0%>
                                     </p>
                                 </div>
                                 <div class="span6">
                                     <div id="chart_div"></div>
                                 </div>
                             </div>
+                            <%if ((vendas != null) && (!vendas.isEmpty())) {%>
                             <h3>Vendas Realizadas</h3>
                             <table class="table table-hover table-striped table-row-click">
                                 <thead>
@@ -79,25 +83,32 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr onclick="location = 'Venda?operacao=Ver&idVenda='">
-                                        <td>111</td>
-                                        <td>Marcão</td>
-                                        <td>01/01/2005</td>
-                                        <td>01/01/2005</td>
+                                    <%for (Venda venda : vendas) {%>
+                                    <tr onclick="location = 'Venda?operacao=Ver&idVenda=<%=venda.getId()%>'">
+                                        <td><%=venda.getId()%></td>
+                                        <td><%=venda.getCliente().getNome()%></td>
+                                        <td><%=Util.Util.dateToString(venda.getDataPedido())%></td>
+                                        <td><%=venda.getDataEntrega() != null ? Util.Util.dateToString(venda.getDataEntrega()) : "Não Entrege"%></td>
                                         <td>
+                                            <%if (venda.getStatusVenda() == Venda.ANDAMENTO) {                                                    %>
                                             <span class="btn btn-mini btn-primary disabled" title="Em andamento">
                                                 <i class="icon-random icon-white"></i>
                                             </span>
+                                            <%} else if (venda.getStatusVenda() == Venda.FINALIZADA) {%>
                                             <span class="btn btn-mini btn-success disabled" title="Finalizada">
                                                 <i class="icon-ok icon-white"></i>
                                             </span>
+                                            <%} else {%>
                                             <span class="btn btn-mini btn-danger disabled" title="Cancelada">
                                                 <i class="icon-remove icon-white"></i>
                                             </span>
+                                            <%}%>
                                         </td>
                                     </tr>
+                                    <%}%>
                                 </tbody>
                             </table>
+                            <%}%>
                         </div>
                     </div>
                 </div>
@@ -124,9 +135,9 @@
                 data.addColumn('string', 'Status');
                 data.addColumn('number', 'Quantidade');
                 data.addRows([
-                    ['Cancelada', 3],
-                    ['Finalizada', 1],
-                    ['Em andamento', 1]
+                    ['Cancelada', <%=request.getAttribute("canceladas")%>],
+                    ['Finalizada', <%=request.getAttribute("finalizadas")%>],
+                    ['Em andamento', <%=request.getAttribute("andamento")%>]
                 ]);
 
                 // Set chart options

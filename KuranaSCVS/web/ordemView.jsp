@@ -5,7 +5,22 @@
     Description: Esse documento JSP é utilizado para
 --%>
 
+<%@page import="java.util.Calendar"%>
+<%@page import="java.util.Date"%>
+<%@page import="Dao.DaoOrdemDeServico"%>
+<%@page import="Model.OrdemDeServico"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    if (request.getParameter("idOrdem") == null) {
+        response.sendRedirect("index.jsp");
+    } else {
+        int idOrdem = Integer.parseInt(request.getParameter("idOrdem"));
+        OrdemDeServico ordem = new DaoOrdemDeServico().get(idOrdem);
+        if (ordem == null) {
+            response.sendRedirect("index.jsp");
+        } else {
+            Date hoje = Calendar.getInstance().getTime();
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -31,26 +46,28 @@
                             </div>
                         </div>
                         <div class="span9">
-                            <h2 class="noMarginTop">Ordem de Serviço #0888</h2>
+                            <h2 class="noMarginTop">Ordem de Serviço #<%=ordem.getId()%></h2>
                             <div class="row">
                                 <div class="span3">
-                                    <strong>Emissão: </strong>08/08/2008
+                                    <strong>Emissão: </strong><%=Util.Util.dateToString(ordem.getDataEmissao())%>
                                 </div>
                                 <div class="span3">
-                                    <strong>Previsão de conclusão: </strong>08/08/2008
+                                    <strong>Previsão de conclusão: </strong><%=Util.Util.dateToString(ordem.getPrevisaoConclusao())%>
                                 </div>
                                 <div class="span3">
-                                    <strong>Conclusão: </strong>08/08/2008
+                                    <strong>Conclusão: </strong><%=ordem.getDataConclusao() != null ? Util.Util.dateToString(ordem.getDataEmissao()) : "Não Concluida"%>
                                 </div>
                             </div>
                             <p>
-                                <strong>Descrição: </strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis eleifend hendrerit orci, ac rutrum magna gravida id. Quisque elit ligula, viverra eget facilisis quis, lacinia id risus. Quisque fermentum leo turpis, porttitor hendrerit orci. Ut ligula dolor, feugiat et ultricies quis, viverra ac elit. Praesent vestibulum tincidunt commodo. Fusce suscipit condimentum venenatis. Mauris id neque orci, eu volutpat sapien.
+                                <strong>Descrição: </strong> <%=ordem.getDescricao()%>
                             </p>
                             <p>
-                                <strong>Cliente:</strong> Nome do Cliente
+                                <strong>Cliente:</strong> <%=ordem.getCliente().getNome()%>
                             </p>
                             <h3>Status</h3>
-                            <form action="" method="post" class="row">
+                            <%if (ordem.getStatusOrdem() == OrdemDeServico.ANDAMENTO) {%>
+                            <form action="OrdemDeServico" method="post" class="row">
+                                <input type="hidden" name="idOrdem" value="<%=ordem.getId()%>"/>
                                 <div class="span3">
                                     <a href="#modalCancelar" role="button" class="btn btn-block btn-danger" data-toggle="modal">Cancelar</a>
                                     <%-- MODAL CANCELAR VENDA --%>
@@ -86,30 +103,35 @@
                                     </div>
                                 </div>
                             </form>
-
+                            <%if (hoje.after(ordem.getPrevisaoConclusao())) {%>
                             <div class="row">
                                 <div class="span9">
                                     <span class="btn btn-block btn-warning disabled">Atenção! Ordem de serviço atrasada</span>
                                 </div>
                             </div>
-
+                            <%}
+                            } else if (ordem.getStatusOrdem() == OrdemDeServico.FINALIZADA) {%>
                             <div class="row">
                                 <div class="span9">
                                     <span class="btn btn-block btn-success disabled">Ordem de serviço finalizada</span>
                                 </div>
                             </div>
+                            <%} else {%>
                             <div class="row">
                                 <div class="span9">
                                     <span class="btn btn-block btn-danger disabled">Ordem de serviço cancelada</span>
                                 </div>
                             </div>
+                            <%}%>
                             <div class="row">
                                 <div class="span6">
                                     <h3>Serviços</h3>
                                 </div>
+                                <%if (ordem.getStatusOrdem() == OrdemDeServico.ANDAMENTO) {%>
                                 <div class="span3">
                                     <a href="#" class="btn btn-block btn-primary margin-top">Adicionar serviço</a>
                                 </div>
+                                <%}%>
                             </div>
                             <table class="table table-hover table-striped">
                                 <thead>
@@ -128,6 +150,7 @@
                                         <td>1</td>
                                         <td>R$ 100,00</td>
                                         <td>
+                                            <%if (ordem.getStatusOrdem() == OrdemDeServico.ANDAMENTO) {%>
                                             <form action="ItemServico" method="post" class="no-margin-bottom">
                                                 <button type="submit" class="btn btn-mini btn-primary" formaction="ItemServico" formmethod="GET" name="operacao" value="Editar" title="Editar item">
                                                     <i class="icon-edit icon-white"></i>
@@ -150,6 +173,7 @@
                                                     </div>
                                                 </div>
                                             </form>
+                                            <%}%>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -167,9 +191,11 @@
                                 <div class="span6">
                                     <h3>Itens da venda</h3>
                                 </div>
+                                <%if (ordem.getStatusOrdem() == OrdemDeServico.ANDAMENTO) {%>
                                 <div class="span3">
                                     <a href="#" class="btn btn-block btn-primary margin-top">Adicionar item de venda</a>
                                 </div>
+                                <%}%>
                             </div>
 
                             <table class="table table-hover table-striped">
@@ -190,6 +216,7 @@
                                         <td>2</td>
                                         <td>R$ 20,00</td>
                                         <td>
+                                            <%if (ordem.getStatusOrdem() == OrdemDeServico.ANDAMENTO) {%>
                                             <form action="ItemVenda" method="post" class="no-margin-bottom">
                                                 <button type="submit" class="btn btn-mini btn-primary" formaction="ItemVenda" formmethod="GET" name="operacao" value="Editar" title="Editar Item">
                                                     <i class="icon-edit icon-white"></i>
@@ -212,6 +239,7 @@
                                                     </div>
                                                 </div>
                                             </form>
+                                            <%}%>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -229,9 +257,11 @@
                                 <div class="span6">
                                     <h3>Responsáveis</h3>
                                 </div>
+                                <%if (ordem.getStatusOrdem() == OrdemDeServico.ANDAMENTO) {%>
                                 <div class="span3">
                                     <a href="#" class="btn btn-block btn-primary margin-top">Adicionar funcionário</a>
                                 </div>
+                                <%}%>
                             </div>
                             <table class="table table-hover table-striped">
                                 <thead>
@@ -246,6 +276,7 @@
                                         <td>Nome do Funcionário</td>
                                         <td>Estagiário</td>
                                         <td>
+                                            <%if (ordem.getStatusOrdem() == OrdemDeServico.ANDAMENTO) {%>
                                             <form action="ItemFuncionario" method="post" class="no-margin-bottom">
                                                 <a href="#modalExcluirFuncionario" role="button" class="btn btn-mini btn-danger" data-toggle="modal" title="Excluir item">
                                                     <i class="icon-remove icon-white"></i>
@@ -265,6 +296,7 @@
                                                     </div>
                                                 </div>
                                             </form>
+                                            <%}%>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -279,3 +311,5 @@
         <%@include file="interfaceFooter.jsp" %>
     </body>
 </html>
+<%}
+    }%>

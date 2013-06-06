@@ -53,6 +53,18 @@ public class ServletProduto extends HttpServlet {
                 rd = request.getRequestDispatcher("produtoSearch.jsp");
                 rd.forward(request, response);
                 break;
+            case "AdicionarItemVenda":
+                int idVenda = Integer.parseInt(request.getParameter("idVenda"));
+                
+                rd = request.getRequestDispatcher("itemVendaCreate.jsp?idVenda="+idVenda);
+                rd.forward(request, response);
+                break;
+            case "AdicionarItemCompra":
+                int idCompra = Integer.parseInt(request.getParameter("idCompra"));
+                
+                rd = request.getRequestDispatcher("itemCompraCreate.jsp?idVenda="+idCompra);
+                rd.forward(request, response);
+                break;
             case "Index":
                 rd = request.getRequestDispatcher("produtoSearch.jsp");
                 rd.forward(request, response);

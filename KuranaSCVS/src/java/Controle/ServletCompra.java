@@ -28,22 +28,22 @@ import javax.servlet.http.HttpSession;
  */
 @WebServlet(name = "Compra", urlPatterns = {"/Compra"})
 public class ServletCompra extends HttpServlet {
-
+    
     DaoCompra daoCompra = new DaoCompra();
-
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         HttpSession session = request.getSession(true);
         RequestDispatcher rd = request.getRequestDispatcher("erro.jsp");
-
+        
         String operacao = request.getParameter("operacao");
-
+        
         switch (operacao) {
             case "Pesquisar":
                 int idFornecedor = Integer.parseInt(request.getParameter("fornecedor"));
-
+                
                 int status = -1;
                 if (request.getParameter("status") != null) {
                     status = Integer.parseInt(request.getParameter("status"));
@@ -66,7 +66,7 @@ public class ServletCompra extends HttpServlet {
                 if (dataEntregaFim.isEmpty()) {
                     dataEntregaFim = null;
                 }
-
+                
                 List<Compra> compras = null;
 
                 //verifica qual list deve pegar
@@ -135,20 +135,22 @@ public class ServletCompra extends HttpServlet {
                         }
                     }
                 }
-
+                
                 session.setAttribute("compras", compras);
                 rd = request.getRequestDispatcher("compraSearch.jsp");
                 rd.forward(request, response);
                 break;
-            case "Index" :
+            case "Index":
                 rd = request.getRequestDispatcher("compraSearch.jsp");
                 rd.forward(request, response);
                 break;
-            case "Ver" :
-                rd = request.getRequestDispatcher("compraView.jsp");
+            case "Ver":
+                int idCompra = Integer.parseInt("idCompra");
+                
+                rd = request.getRequestDispatcher("compraView.jsp?idCompra="+idCompra);
                 rd.forward(request, response);
                 break;
-            case "Novo" :
+            case "Novo":
                 rd = request.getRequestDispatcher("compraCreate.jsp");
                 rd.forward(request, response);
                 break;
@@ -156,44 +158,48 @@ public class ServletCompra extends HttpServlet {
                 rd.forward(request, response);
         }
     }
-
+    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         HttpSession session = request.getSession(true);
         RequestDispatcher rd = request.getRequestDispatcher("erro.jsp");
-
+        
         String operacao = request.getParameter("operacao");
         switch (operacao) {
             case "Cadastrar":
                 int idFornecedor = Integer.parseInt(request.getParameter("fornecedor"));
-
-                Fornecedor fornecedor = new DaoFornecedor().get(idFornecedor);
-                Date dataCompra = Calendar.getInstance().getTime();
-                List<Item> itensCompra = new ArrayList<Item>();
-                Compra compra = new Compra(dataCompra, null, fornecedor, Compra.ANDAMENTO, itensCompra);
-
-                daoCompra.insert(compra);
-
-                response.sendRedirect("Compra?operacao=Ver&idCompra=" + compra.getId());
+                
+                if (idFornecedor > 0) {
+                    Fornecedor fornecedor = new DaoFornecedor().get(idFornecedor);
+                    Date dataCompra = Calendar.getInstance().getTime();
+                    List<Item> itensCompra = new ArrayList<Item>();
+                    Compra compra = new Compra(dataCompra, null, fornecedor, Compra.ANDAMENTO, itensCompra);
+                    
+                    daoCompra.insert(compra);
+                    
+                    response.sendRedirect("Compra?operacao=Ver&idCompra=" + compra.getId());
+                } else {
+                    rd.forward(request, response);
+                }
                 break;
             case "Cancelar":
                 int idCompra = Integer.parseInt(request.getParameter("idCompra"));
-
+                
                 Compra compraCancela = daoCompra.get(idCompra);
-
+                
                 compraCancela.setStatusCompra(Compra.CANCELADA);
-
+                
                 daoCompra.update(compraCancela);
-
+                
                 response.sendRedirect("Compra?operacao=Ver&idCompra=" + compraCancela.getId());
                 break;
             case "Finalizar":
                 int idCompraFinaliza = Integer.parseInt(request.getParameter("idCompra"));
-
+                
                 Compra compraFinaliza = daoCompra.get(idCompraFinaliza);
-
+                
                 compraFinaliza.setStatusCompra(Compra.FINALIZADA);
                 Date dataEntrega = Calendar.getInstance().getTime();
                 compraFinaliza.setDataEntrega(dataEntrega);
@@ -203,7 +209,7 @@ public class ServletCompra extends HttpServlet {
                     item.getProduto().setEstoqueAtual(item.getProduto().getEstoqueAtual() + item.getQuantidade());
                 }
                 daoCompra.update(compraFinaliza);
-
+                
                 response.sendRedirect("Compra?operacao=Ver&idCompra=" + compraFinaliza.getId());
                 break;
             default:

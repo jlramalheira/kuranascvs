@@ -85,7 +85,7 @@ public class InitDB {
         
         Fornecedor fornecedor1 = new Fornecedor("Ete informatica", "23.965.734/0001-45", "contato@ete.com", "(44) 1236-4576", endereco4);
         Fornecedor fornecedor2 = new Fornecedor("Consoft informática", "65.458.943/0001-66", "contato@consoft.com", "(11) 6985-2365", endereco5);
-        Fornecedor fornecedor3 = new Fornecedor("Marcãosoft Eletronicos", "75.325.826/0001-98", "contato@marcaosoft.com", "(44) 4586-2365", endereco);
+        Fornecedor fornecedor3 = new Fornecedor("MARCOmp", "75.325.826/0001-98", "contato@marcomp.com", "(44) 4586-2365", endereco);
         
         new DaoFornecedor().insert(fornecedor1);
         new DaoFornecedor().insert(fornecedor2);

@@ -80,7 +80,7 @@ public class ServletItemCompra extends HttpServlet {
                 
                 new DaoCompra().update(compra);
                 
-                response.sendRedirect("compraView.jsp?idCompra="+compra.getId());
+                response.sendRedirect("Compra?operacao=Ver&idCompra="+compra.getId());
                 break;
             case "Excluir Item":
                 int idCompraExclui = Integer.parseInt(request.getParameter("idCompra"));
@@ -93,7 +93,7 @@ public class ServletItemCompra extends HttpServlet {
                 
                 daoItem.remove(idItem);
                 
-                response.sendRedirect("compraView.jsp?idCompra="+compraExclui.getId());
+                response.sendRedirect("Compra?operacao=Ver&idCompra="+compraExclui.getId());
                 break;
             case "Editar":
                 int idCompraEditar = Integer.parseInt(request.getParameter("idCompra"));
@@ -118,13 +118,13 @@ public class ServletItemCompra extends HttpServlet {
                 compraEditar.getItensCompra().add(itemEditar);
                 new DaoCompra().update(compraEditar);
                 
-                response.sendRedirect("compraView.jsp?idCompra="+idCompraEditar);
+                response.sendRedirect("Compra?operacao=Ver&idCompra="+idCompraEditar);
                 
                 break;
             case "Cancelar":
                 int idCompraCancela = Integer.parseInt(request.getParameter("idCompra"));
                 
-                response.sendRedirect("compraView.jsp?idCompra="+idCompraCancela);
+                response.sendRedirect("Compra?operacao=Ver&idCompra="+idCompraCancela);
                 break;
             default:
                 rd.forward(request, response);
