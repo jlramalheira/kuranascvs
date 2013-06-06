@@ -38,19 +38,16 @@ public class Venda implements Serializable {
     private int statusVenda;
     @OneToMany
     private List<Item> itensVenda;
-    @OneToMany
-    private List<Item> itensServico;
 
     public Venda() {
     }
 
-    public Venda(Date dataPedido, Date dataEntrega, Cliente cliente, int statusVenda, List<Item> itensVenda, List<Item> itensServico) {
+    public Venda(Date dataPedido, Date dataEntrega, Cliente cliente, int statusVenda, List<Item> itensVenda) {
         this.dataPedido = dataPedido;
         this.dataEntrega = dataEntrega;
         this.cliente = cliente;
         this.statusVenda = statusVenda;
         this.itensVenda = itensVenda;
-        this.itensServico = itensServico;
     }
     
     public int getId() {
@@ -101,13 +98,6 @@ public class Venda implements Serializable {
         this.itensVenda = itensVenda;
     }
 
-    public List<Item> getItensServico() {
-        return itensServico;
-    }
-
-    public void setItensServico(List<Item> itensServico) {
-        this.itensServico = itensServico;
-    }
     
     //metodos de auxilio
     public double getSomaValoresItensVenda(){
@@ -130,25 +120,7 @@ public class Venda implements Serializable {
         this.itensVenda.add(item);
     }
     
-    public double getSomaValoresItensServico(){
-        double soma = 0;
-        for (Item item : this.itensServico){
-            soma += item.getValorTotal() * item.getQuantidade();
-        }
-        return soma;
-    }
-    
-    public double getSomaQuantidadeItensServico(){
-        double soma = 0;
-        for (Item item : this.itensServico){
-            soma += item.getQuantidade();
-        }
-        return soma;
-    }
-    
-    public void insertItemServico(Item item){
-        this.itensServico.add(item);
-    }
+
 
     @Override
     public int hashCode() {

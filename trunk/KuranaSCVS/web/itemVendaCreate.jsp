@@ -11,7 +11,7 @@
 <%@page import="Model.Venda"%>
 <%@page import="Dao.DaoVenda"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%
+<%    
     if (request.getParameter("idVenda") == null) {
         response.sendRedirect("index.jsp");
     } else {
@@ -24,7 +24,7 @@
             String produtosAutoComplete = "[";
             for (Produto produto : produtos) {
                 if (produto.getEstoqueAtual() > 0) {
-                    produtosAutoComplete += "\"" + produto.getId() + " - " + produto.getValorCusto() + " - " + produto.getCodigoDeBarras() + " - " + produto.getNome() + "\",";
+                    produtosAutoComplete += "\"" + produto.getId() + " - " + produto.getValorCusto() + " - " + produto.getEstoqueAtual() + " - " + produto.getCodigoDeBarras() + " - " + produto.getNome() + "\",";
                 }
             }
             if (produtos.size() > 0) {
@@ -54,16 +54,17 @@
                         </div>
                         <div class="span9">
                             <h2 class="noMarginTop">Inserir novo item de venda</h2>
-                            <form action="" method="post" class="well">
+                            <form action="ItemVenda" method="post" class="well">
                                 <fieldset>
-                                    <legend>Item da Venda #000</legend>
+                                    <legend>Item da Venda #<%=venda.getId()%></legend>
                                     <label for="produto-nome">Produto</label>
                                     <input id="produto-id" type="hidden" name="produto-id" value="id"/>
+                                    <input type="hidden" name="idVenda" value="<%=venda.getId()%>" />
                                     <input type="text" id="produto-nome" class="input-xxlarge"
                                            name="produto-nome" value="" autocomplete="off"
                                            data-provide="typeahead"
-                                           data-itens="4"
-                                           data-source='["1 - 10 - Mouse","2 - 20 - Teclado","3 - 30 - Monitor","4 - 40 - Cartucho","5 - 50 - Maria"]'
+                                           data-itens="<%=produtos.size()%>"
+                                           data-source='<%=produtosAutoComplete%>'
                                            placeholder="Insira o nome do produto"/>
                                     <label>Valor Unitário</label>
                                     <input id="produto-preco" type="text"
@@ -88,10 +89,12 @@
                                     <input id="total" type="text"
                                            class="input-small" disabled="disabled"
                                            name="custo" value="0" />
+                                    <input id="precoTotal" type="hidden"
+                                           name="precoTotal" value="0" />
 
                                 </fieldset>
-                                <button type="submit" class="btn btn-primary btn-large" name="operacao" value="create">Adicionar item</button>
-                                <button type="submit" class="btn btn-large" name="operacao" value="cancel">Voltar</button>
+                                <button type="submit" class="btn btn-primary btn-large" name="operacao" value="Adicionar">Adicionar item</button>
+                                <button type="submit" class="btn btn-large" name="operacao" value="Cancelar">Voltar</button>
                             </form>
 
                         </div>
@@ -111,8 +114,10 @@
                 var custo = (precoUnitario - (precoUnitario * desconto)) * quantidade;
                 if(isNaN(custo)){
                     $("#total").val(0);
+                    $("#precoTotal").val(0);
                 }else{
                     $("#total").val(custo);
+                    $("#precoTotal").val(custo);
                 }
             }
 
@@ -125,6 +130,7 @@
             });
 
             $("#produto-nome").change(function(){
+                var estoqueProduto = parseFloat(this.value.split(" - ")[2]);
                 var produtoPreco = parseFloat(this.value.split(" - ")[1]);
                 var produtoId = parseInt(this.value.split(" - ")[0]);
                 if(isNaN(produtoPreco) && (isNaN(produtoId))){
@@ -132,6 +138,7 @@
                 }else{
                     $("#produto-preco").val(produtoPreco);
                     $("#produto-id").val(produtoId);
+                    $("#quantidade").attr("max", estoqueProduto)
                 }
                 alterarTotal();
             });
