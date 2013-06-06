@@ -6,8 +6,8 @@
                 <ul class="nav nav-collapse collapse">
                     <li><a href="Cliente?operacao=Index">Clientes</a></li>
                     <li><a href="Produto?operacao=Index">Produtos</a></li>
-                    <li><a href="#">Compras</a></li>
-                    <li><a href="#">Vendas</a></li>
+                    <li><a href="Compra?operacao=Index">Compras</a></li>
+                    <li><a href="Vendas?operacao=Index">Vendas</a></li>
                     <li><a href="#">Serviços</a></li>
                     <li><a href="#">Funcionários</a></li>
                 </ul>

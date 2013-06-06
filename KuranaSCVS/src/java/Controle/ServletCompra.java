@@ -140,6 +140,18 @@ public class ServletCompra extends HttpServlet {
                 rd = request.getRequestDispatcher("compraSearch.jsp");
                 rd.forward(request, response);
                 break;
+            case "Index" :
+                rd = request.getRequestDispatcher("compraSearch.jsp");
+                rd.forward(request, response);
+                break;
+            case "Ver" :
+                rd = request.getRequestDispatcher("compraView.jsp");
+                rd.forward(request, response);
+                break;
+            case "Novo" :
+                rd = request.getRequestDispatcher("compraCreate.jsp");
+                rd.forward(request, response);
+                break;
             default:
                 rd.forward(request, response);
         }
