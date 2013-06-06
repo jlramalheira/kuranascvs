@@ -35,8 +35,8 @@
                             <div class="well sidebar-nav">
                                 <ul class="nav nav-list">
                                     <li class="nav-header">Compras</li>
-                                    <li><a href="#">Pesquisar</a></li>
-                                    <li><a href="#">Cadastrar nova</a></li>
+                                    <li><a href="Compra?operacao=Index">Pesquisar</a></li>
+                                    <li><a href="Compra?operacao=Novo">Cadastrar nova</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -47,7 +47,7 @@
                                     <strong>Data:</strong> <%=Util.Util.dateToString(compra.getDataPedido())%>
                                 </div>
                                 <div class="span2">
-                                    <strong>Entrega:</strong> <%=compra.getDataEntrega()!= null ? Util.Util.dateToString(compra.getDataEntrega()) : "Não Entrege" %>
+                                    <strong>Entrega:</strong> <%=compra.getDataEntrega()!= null ? Util.Util.dateToString(compra.getDataEntrega()) : "--" %>
                                 </div>
                             </div>
                             <strong>Fornecedor:</strong> <%=compra.getFornecedor().getNome()%>

@@ -26,8 +26,8 @@
                             <div class="well sidebar-nav">
                                 <ul class="nav nav-list">
                                     <li class="nav-header">Compras</li>
-                                    <li><a href="#">Pesquisar</a></li>
-                                    <li><a href="#">Cadastrar nova</a></li>
+                                    <li><a href="Compra?operacao=Index">Pesquisar</a></li>
+                                    <li><a href="Compra?operacao=Novo">Cadastrar nova</a></li>
                                 </ul>
                             </div>
                         </div>

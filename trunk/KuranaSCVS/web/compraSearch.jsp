@@ -28,8 +28,8 @@ List<Compra> compras = (List<Compra>) session.getAttribute("compras"); %>
                             <div class="well sidebar-nav">
                                 <ul class="nav nav-list">
                                     <li class="nav-header">Compras</li>
-                                    <li><a href="#">Pesquisar</a></li>
-                                    <li><a href="#">Cadastrar nova</a></li>
+                                    <li><a href="Compra?operacao=Index">Pesquisar</a></li>
+                                    <li><a href="Compra?operacao=Novo">Cadastrar nova</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -87,11 +87,11 @@ List<Compra> compras = (List<Compra>) session.getAttribute("compras"); %>
 
                                     </div>
                                 </fieldset>
-                                <button type="submit" name="operacao" value="Pesquisar" class="btn btn-large btn-primary">Pesquisar</button>
-                                <button type="button" class="btn btn-large" onclick="toggleOptions(this)">Mais Opções</button>
+                                <button type="submit" name="operacao" value="Pesquisar" class="btn btn-primary">Pesquisar</button>
+                                <button type="button" class="btn" onclick="toggleOptions(this)">Mais Opções</button>
                             </form>
-                            <%if((compras!=null) && (!compras.isEmpty())){ %>        
-                            <table class="table table-hover table-striped">
+                            <%if((compras!=null) && (!compras.isEmpty())){ %>
+                            <table class="table table-hover table-striped table-row-click">
                                 <thead>
                                     <tr>
                                         <th>#</th>
@@ -103,7 +103,7 @@ List<Compra> compras = (List<Compra>) session.getAttribute("compras"); %>
                                 </thead>
                                 <tbody>
                                     <%for (Compra compra : compras){ %>
-                                    <tr>
+                                    <tr onclick="location = 'Compra?operacao=Ver&idCompra=<%=compra.getId()%>'">
                                         <td><%=compra.getId()%></td>
                                         <td><%=compra.getFornecedor().getNome()%></td>
                                         <td><%=Util.Util.dateToString(compra.getDataPedido())%></td>
