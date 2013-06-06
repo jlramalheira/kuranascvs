@@ -25,16 +25,16 @@
                             <div class="well sidebar-nav">
                                 <ul class="nav nav-list">
                                     <li class="nav-header">Produtos</li>
-                                    <li><a href="#">Pesquisar</a></li>
-                                    <li><a href="#">Cadastrar Novo</a></li>
-                                    <li class="nav-header">Fornecedores</li>
-                                    <li><a href="#">Pesquisar</a></li>
-                                    <li><a href="#">Cadastrar Novo</a></li>
+                                    <li><a href="Produto?operacao=Index">Pesquisar</a></li>
+                                    <li><a href="Produto?operacao=Novo">Cadastrar Novo</a></li>
+                                     <li class="nav-header">Fornecedores</li>
+                                    <li><a href="Fornecedor?operacao=Index">Pesquisar</a></li>
+                                    <li><a href="Fornecedor?operacao=Novo">Cadastrar Novo</a></li>
                                 </ul>
                             </div>
                         </div>
                         <div class="span9">
-                            <h2>Controle de fornecedores</h2>
+                            <h2 class="noMarginTop">Controle de fornecedores</h2>
                             <form class="well" method="get" action="Fornecedor">
                                 <fieldset>
                                     <label for="nome">Nome</label>
@@ -83,8 +83,8 @@
                                         </select>
                                     </div>
                                 </fieldset>
-                                <button type="submit" name="operacao" value="Pesquisar" class="btn btn-large btn-primary">Pesquisar</button>
-                                <button type="button" class="btn btn-large" onclick="toggleOptions(this)">Mais Opções</button>
+                                <button type="submit" name="operacao" value="Pesquisar" class="btn btn-primary">Pesquisar</button>
+                                <button type="button" class="btn" onclick="toggleOptions(this)">Mais Opções</button>
                             </form>
                             <%if((fornecedores != null) && (!fornecedores.isEmpty())){ %>
                             <table class="table table-hover table-striped">

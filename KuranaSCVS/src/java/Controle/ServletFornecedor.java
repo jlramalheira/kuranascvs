@@ -59,6 +59,14 @@ public class ServletFornecedor extends HttpServlet {
                 rd = request.getRequestDispatcher("forneedorView.jsp?idFornecedor=" + idFornecedor);
                 rd.forward(request, response);
                 break;
+            case "Index":
+                rd = request.getRequestDispatcher("fornecedorSearch.jsp");
+                rd.forward(request, response);
+                break;
+            case "Novo":
+                rd = request.getRequestDispatcher("fornecedorCreate.jsp");
+                rd.forward(request, response);
+                break;
             default:
                 rd.forward(request, response);
         }
@@ -119,15 +127,15 @@ public class ServletFornecedor extends HttpServlet {
                     Fornecedor fornecedor = new Fornecedor(nome, cnpj, email, telefone, endereco);
 
                     daoFornecedor.insert(fornecedor);
-                    
-                    response.sendRedirect("fornecedorView.jsp" + fornecedor.getId());
+
+                    response.sendRedirect("fornecedorView.jsp?idFornecedor=" + fornecedor.getId());
                 } else { //inserido sem endereco
                     Endereco e = new DaoEndereco().get(1);
                     Fornecedor fornecedor = new Fornecedor(nome, cnpj, email, telefone, e);
 
                     daoFornecedor.insert(fornecedor);
-                    
-                    response.sendRedirect("fornecedorView.jsp" + fornecedor.getId());
+
+                    response.sendRedirect("fornecedorView.jsp?idFornecedor=" + fornecedor.getId());
                 }
                 break;
             default:

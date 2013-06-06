@@ -28,11 +28,11 @@ List<Produto> produtos =  (List<Produto>) session.getAttribute("produtos"); %>
                             <div class="well sidebar-nav">
                                 <ul class="nav nav-list">
                                     <li class="nav-header">Produtos</li>
-                                    <li><a href="#">Pesquisar</a></li>
-                                    <li><a href="#">Cadastrar Novo</a></li>
-                                    <li class="nav-header">Fornecedores</li>
-                                    <li><a href="#">Pesquisar</a></li>
-                                    <li><a href="#">Cadastrar Novo</a></li>
+                                    <li><a href="Produto?operacao=Index">Pesquisar</a></li>
+                                    <li><a href="Produto?operacao=Novo">Cadastrar Novo</a></li>
+                                     <li class="nav-header">Fornecedores</li>
+                                    <li><a href="Fornecedor?operacao=Index">Pesquisar</a></li>
+                                    <li><a href="Fornecedor?operacao=Novo">Cadastrar Novo</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -58,7 +58,7 @@ List<Produto> produtos =  (List<Produto>) session.getAttribute("produtos"); %>
                                 <button type="button" class="btn" onclick="toggleOptions(this)">Mais Opções</button>
                             </form>
                             <%if((produtos != null) && !(produtos.isEmpty())){ %>
-                            <table class="table table-hover table-striped">
+                            <table class="table table-hover table-striped table-row-click">
                                 <thead>
                                     <tr>
                                         <th>ID</th>
@@ -70,7 +70,7 @@ List<Produto> produtos =  (List<Produto>) session.getAttribute("produtos"); %>
                                 </thead>
                                 <tbody>
                                     <%for(Produto produto : produtos){ %>
-                                    <tr>
+                                    <tr onclick="location = 'Produto?operacao=Ver&idProduto=<%=produto.getId()%>'">
                                         <td><%=produto.getId()%></td>
                                         <td><%=produto.getNome()%></td>
                                         <td><%=produto.getFornecedor().getNome()%></td>
