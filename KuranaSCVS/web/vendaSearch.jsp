@@ -5,7 +5,10 @@
     Description: Esse documento JSP é utilizado para
 --%>
 
+<%@page import="Model.Venda"%>
+<%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%List<Venda> vendas = (List<Venda>) session.getAttribute("vendas"); %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -29,7 +32,7 @@
                         </div>
                         <div class="span9">
                             <h2 class="noMarginTop">Controle de Vendas</h2>
-                            <form action="Venda" method="post" class="well">
+                            <form action="Venda" method="GET" class="well">
                                 <fieldset>
                                     <label for="cliente">Cliente</label>
                                     <input type="text" id="cliente" class="input-xxlarge"
@@ -79,6 +82,7 @@
                                 <button type="submit" name="operacao" value="Pesquisar" class="btn btn-primary">Pesquisar</button>
                                 <button type="button" class="btn" onclick="toggleOptions(this)">Mais Opções</button>
                             </form>
+                            <%if ((vendas != null) && (!vendas.isEmpty())){ %>
                             <table class="table table-hover table-striped table-row-click">
                                 <thead>
                                     <tr>
@@ -90,66 +94,32 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr onclick="location = 'Venda?operacao=Ver&idCompra='">
-                                        <td>1</td>
-                                        <td>Marcão Intercomp</td>
-                                        <td>01/01/2001</td>
-                                        <td>02/02/2002</td>
+                                    <%for(Venda venda : vendas){ %>
+                                    <tr onclick="location = 'Venda?operacao=Ver&idVenda=<%=venda.getId()%>'">
+                                        <td><%=venda.getId()%></td>
+                                        <td><%=venda.getCliente().getNome()%></td>
+                                        <td><%=Util.Util.dateToString(venda.getDataPedido())%></td>
+                                        <td><%=venda.getDataEntrega() != null ? Util.Util.dateToString(venda.getDataEntrega()) : "Não Entrege"%></td>
                                         <td>
-
+                                            <%if (venda.getStatusVenda() == Venda.ANDAMENTO){ %>
                                             <span class="btn btn-mini btn-primary disabled" title="Em andamento">
                                                 <i class="icon-random icon-white"></i>
                                             </span>
-
+                                            <%} else if(venda.getStatusVenda() == Venda.FINALIZADA) {%>
                                             <span class="btn btn-mini btn-success disabled" title="Finalizada">
                                                 <i class="icon-ok icon-white"></i>
                                             </span>
+                                            <%} else {%>
                                             <span class="btn btn-mini btn-danger disabled" title="Cancelada">
                                                 <i class="icon-remove icon-white"></i>
                                             </span>
+                                            <%}%>
                                         </td>
                                     </tr>
-                                    <tr onclick="location = 'Venda?operacao=Ver&idCompra='">
-                                        <td>1</td>
-                                        <td>Marcão Intercomp</td>
-                                        <td>01/01/2001</td>
-                                        <td>02/02/2002</td>
-                                        <td>
-
-                                            <span class="btn btn-mini btn-primary disabled" title="Em andamento">
-                                                <i class="icon-random icon-white"></i>
-                                            </span>
-
-                                            <span class="btn btn-mini btn-success disabled" title="Finalizada">
-                                                <i class="icon-ok icon-white"></i>
-                                            </span>
-                                            <span class="btn btn-mini btn-danger disabled" title="Cancelada">
-                                                <i class="icon-remove icon-white"></i>
-                                            </span>
-                                        </td>
-                                    </tr>
-                                    <tr onclick="location = 'Venda?operacao=Ver&idCompra='">
-                                        <td>1</td>
-                                        <td>Marcão Intercomp</td>
-                                        <td>01/01/2001</td>
-                                        <td>02/02/2002</td>
-                                        <td>
-
-                                            <span class="btn btn-mini btn-primary disabled" title="Em andamento">
-                                                <i class="icon-random icon-white"></i>
-                                            </span>
-
-                                            <span class="btn btn-mini btn-success disabled" title="Finalizada">
-                                                <i class="icon-ok icon-white"></i>
-                                            </span>
-                                            <span class="btn btn-mini btn-danger disabled" title="Cancelada">
-                                                <i class="icon-remove icon-white"></i>
-                                            </span>
-                                        </td>
-                                    </tr>
+                                    <%}%>
                                 </tbody>
                             </table>
-
+                            <%}%>
                         </div>
                     </div>
                 </div>
