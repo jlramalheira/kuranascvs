@@ -5,7 +5,10 @@
     Description: Esse documento JSP é utilizado para
 --%>
 
+<%@page import="Model.Funcionario"%>
+<%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%List<Funcionario> funcionarios = (List<Funcionario>) session.getAttribute("funcionarios"); %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -29,7 +32,7 @@
                         </div>
                         <div class="span9">
                             <h2>Controle de Funcionários</h2>
-                            <form class="well" action="" method="get">
+                            <form class="well" action="Funcionario" method="get">
                                 <fieldset>
                                     <label for="nome">Nome</label>
                                     <input type="text" id="nome" class="input-xxlarge"
@@ -40,9 +43,6 @@
                                         <input type="text" id="cpf" class=""
                                                placeholder="Insira o CPF"
                                                name="cpf" value=""/>
-                                        <label for="data-nascimento">Data nascimento</label>
-                                        <input type="date" id="data-nascimento" class=""
-                                               name="data-nascimento"/>
                                         <label for="cargo">Cargo</label>
                                         <select name="cargo">
                                             <option value="-1">Escolha um cargo</option>
@@ -55,8 +55,6 @@
                                         <input type="email" id="email" class="" name="email" value="" placeholder="Insira um e-mail"/>
                                         <label for="telefone">Telefone</label>
                                         <input type="text" id="telefone" class="" name="telefone" value="" placeholder="Insira um número de telefone"/>
-                                        <label for="endereco-cep">CEP</label>
-                                        <input type="text" id="endereco-cep" class="" name="endereco-cep" value="" placeholder="Código de endereçamento"/>
                                         <label for="endereco-logradouro">Logradouro</label>
                                         <input type="text" id="endereco-logradouro" class="input-xxlarge" name="endereco-logradouro" value="" placeholder="Nome da rua, avenida, travessa, etc..."/>
                                         <label for="endereco-cidade">Cidade</label>
@@ -97,7 +95,7 @@
                                 <button type="submit" name="operacao" value="Pesquisar" class="btn btn-primary">Pesquisar</button>
                                 <button type="button" class="btn" onclick="toggleOptions(this)">Mais Opções</button>
                             </form>
-
+                            <%if ((funcionarios != null) && (!funcionarios.isEmpty())) {%>
                             <table class="table table-striped table-hover">
                                 <thead>
                                     <tr>
@@ -108,27 +106,17 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <%for (Funcionario funcionario : funcionarios){ %>
                                     <tr>
-                                        <td>001</td>
-                                        <td>Max Naerguile Roeck'roll</td>
-                                        <td>0804484444944</td>
-                                        <td>Admitido</td>
+                                        <td><%=funcionario.getId()%></td>
+                                        <td><%=funcionario.getNome()%></td>
+                                        <td><%=funcionario.getCpf()%></td>
+                                        <td><%=funcionario.isContratado() ? "Admitido" : "Demitido"%></td>
                                     </tr>
-                                    <tr>
-                                        <td>001</td>
-                                        <td>Max Naerguile Roeck'roll</td>
-                                        <td>0804484444944</td>
-                                        <td>Admitido</td>
-                                    </tr>
-                                    <tr>
-                                        <td>001</td>
-                                        <td>Max Naerguile Roeck'roll</td>
-                                        <td>0804484444944</td>
-                                        <td>Admitido</td>
-                                    </tr>
+                                    <%}%>
                                 </tbody>
                             </table>
-
+                            <%}%>
 
                         </div>
                     </div>
