@@ -46,7 +46,7 @@
                                         <div class="span3">
                                             <label for="periodo-fim">Fim</label>
                                             <input type="date" id="periodo-fim"
-                                                   name="periodo-fim"/>
+                                                   name="periodo-fim" />
                                         </div>
                                     </div>
                                 </fieldset>
