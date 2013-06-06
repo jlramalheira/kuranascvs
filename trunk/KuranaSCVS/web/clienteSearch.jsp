@@ -24,7 +24,7 @@
                                 <ul class="nav nav-list">
                                     <li class="nav-header">Gerenciamento</li>
                                     <li class="active"><a href="#">Pesquisar</a></li>
-                                    <li><a href="#">Cadastrar novo</a></li>
+                                    <li><a href="Cliente?operacao=Novo">Cadastrar novo</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -87,7 +87,7 @@
 
                             </form>
                             <%if ((clientes != null) && (!clientes.isEmpty())) {%>
-                            <table class="table table-striped table-hover">
+                            <table class="table table-striped table-hover table-row-click">
                                 <thead>
                                     <tr>
                                         <th>ID</th>
@@ -98,7 +98,7 @@
                                 </thead>
                                 <tbody>
                                     <%for (Cliente cliente : clientes) {%>
-                                    <tr>
+                                    <tr onclick="location = 'Cliente?operacao=Ver&idCliente=<%=cliente.getId()%>'">
                                         <td><%=cliente.getId()%></td>
                                         <td><%=cliente.getNome()%></td>
                                         <td><%=cliente.getIdentificacao()%></td>

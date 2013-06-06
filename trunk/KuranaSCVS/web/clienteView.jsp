@@ -34,28 +34,38 @@
                             <div class="well sidebar-nav">
                                 <ul class="nav nav-list">
                                     <li class="nav-header">Gerenciamento</li>
-                                    <li class=""><a href="#">Pesquisar</a></li>
-                                    <li><a href="#">Cadastrar novo</a></li>
+                                    <li><a href="Cliente?operacao=Index">Pesquisar</a></li>
+                                    <li><a href="Cliente?operacao=Novo">Cadastrar novo</a></li>
                                 </ul>
                             </div>
                         </div>
                         <div class="span9">
                             <h2 class="noMarginTop"><%=cliente.getNome()%></h2>
-                            <p>
-                                <strong>ID: </strong><%=cliente.getId()%><br/>
-                                <%if(cliente.isJuridica()){%>
-                                    <strong>CNPJ:</strong> <%=cliente.getIdentificacao()%><br/>
-                                <%} else {%>
-                                    <strong>CPF:</strong> <%=cliente.getIdentificacao()%><br/>
-                                <%}%>
-                            </p>
+                            <div class="row">
+                                <div class="span6">
+                                    <p>
+                                        <strong>ID: </strong><%=cliente.getId()%><br/>
+                                        <%if (cliente.isJuridica()) {%>
+                                        <strong>CNPJ:</strong> <%=cliente.getIdentificacao()%><br/>
+                                        <%} else {%>
+                                        <strong>CPF:</strong> <%=cliente.getIdentificacao()%><br/>
+                                        <%}%>
+                                    </p>
+                                </div>
+                                <div class="span3">
+                                    <a href="Cliente?operacao=Editar&idCliente=<%=cliente.getId()%>"
+                                       class="btn btn-block btn-primary">
+                                        Editar Dados
+                                    </a>
+                                </div>
+                            </div>
                             <p>
                                 Cliente desde <%=Util.Util.dateToString(cliente.getDataInsercao())%>
                             </p>
                             <h3>Contato</h3>
                             <p>
-                                <strong>Telefone:</strong><%=cliente.getTelefone()%><br/>
-                                <strong>Email:</strong><%=cliente.getEmail()%>
+                                <strong>Telefone:</strong> <%=cliente.getTelefone()%><br/>
+                                <strong>Email:</strong> <%=cliente.getEmail()%>
                             </p>
                             <h3>Endereço</h3>
                             <address>
