@@ -24,7 +24,7 @@ import javax.servlet.http.HttpSession;
  */
 @WebServlet(name = "Produto", urlPatterns = {"/Produto"})
 public class ServletProduto extends HttpServlet {
-    
+
     DaoProduto daoProduto = new DaoProduto();
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -34,11 +34,11 @@ public class ServletProduto extends HttpServlet {
         RequestDispatcher rd = request.getRequestDispatcher("erro.jsp");
 
         String operacao = request.getParameter("operacao");
-        
+
         switch (operacao){
             case "Ver":
                 int idProduto = Integer.parseInt(request.getParameter("idProduto"));
-                
+
                 rd = request.getRequestDispatcher("produtoView.jsp?idProduto="+idProduto);
                 rd.forward(request, response);
                 break;
@@ -46,11 +46,19 @@ public class ServletProduto extends HttpServlet {
                 String nome = request.getParameter("nome");
                 String codigoDeBarras = request.getParameter("codigo-barras");
                 int idFornecedor = Integer.parseInt(request.getParameter("fornecedor"));
-                
+
                 List<Produto> produtos = daoProduto.listByNomeCodBarrasIdFornecedor(nome, codigoDeBarras, idFornecedor);
-                
+
                 session.setAttribute("produtos", produtos);
                 rd = request.getRequestDispatcher("produtoSearch.jsp");
+                rd.forward(request, response);
+                break;
+            case "Index":
+                rd = request.getRequestDispatcher("produtoSearch.jsp");
+                rd.forward(request, response);
+                break;
+            case "Novo":
+                rd = request.getRequestDispatcher("produtoCreate.jsp");
                 rd.forward(request, response);
                 break;
             default:
@@ -87,12 +95,12 @@ public class ServletProduto extends HttpServlet {
                 if (!request.getParameter("estoque-minimo").isEmpty()) {
                     estoqueMinimo = Integer.parseInt(request.getParameter("estoque-minimo"));
                 }
-                
+
                 Fornecedor fornecedor = new DaoFornecedor().get(idFornecedor);
-                
+
                 Produto produto = new Produto(nome, codigoDeBarras, fornecedor, valorCusto, valorVenda, estoqueMinimo,0);
                 daoProduto.insert(produto);
-                
+
                 response.sendRedirect("produtoView.jsp?idProduto="+produto.getId());
                 break;
             default:

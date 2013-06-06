@@ -22,11 +22,11 @@
                             <div class="well sidebar-nav">
                                 <ul class="nav nav-list">
                                     <li class="nav-header">Produtos</li>
-                                    <li><a href="#">Pesquisar</a></li>
-                                    <li><a href="#">Cadastrar Novo</a></li>
+                                    <li><a href="Produto?operacao=Index">Pesquisar</a></li>
+                                    <li><a href="Produto?operacao=Novo">Cadastrar Novo</a></li>
                                      <li class="nav-header">Fornecedores</li>
-                                    <li><a href="#">Pesquisar</a></li>
-                                    <li><a href="#">Cadastrar Novo</a></li>
+                                    <li><a href="Fornecedor?operacao=Index">Pesquisar</a></li>
+                                    <li><a href="Fornecedor?operacao=Novo">Cadastrar Novo</a></li>
                                 </ul>
                             </div>
                         </div>
