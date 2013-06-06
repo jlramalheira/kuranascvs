@@ -65,7 +65,7 @@ public class ServletVenda extends HttpServlet {
                     List<Item> itensVenda = new ArrayList<Item>();
                     List<Item> itensServico = new ArrayList<Item>();
                     
-                    Venda venda = new Venda(dataVenda, null, cliente, Venda.ANDAMENTO, itensVenda,itensServico);
+                    Venda venda = new Venda(dataVenda, null, cliente, Venda.ANDAMENTO, itensVenda);
                     
                     daoVenda.insert(venda);
                     

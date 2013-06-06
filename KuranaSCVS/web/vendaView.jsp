@@ -109,60 +109,7 @@
                                 </div>
                                 <%}%>
                             </div>
-                            <table class="table table-hover table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>Serviço</th>
-                                        <th>Valor Unitário</th>
-                                        <th>Quantidade</th>
-                                        <th>Total</th>
-                                        <th>#</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <%for (Item item : venda.getItensServico()) {%>
-                                    <tr>
-                                        <td><%=item.getServico().getNome()%></td>
-                                        <td><%=item.getValor()%></td>
-                                        <td><%=item.getQuantidade()%></td>
-                                        <td>R$ <%=item.getValorTotal()%></td>
-                                        <td>
-                                            <%if (venda.getStatusVenda() == Venda.ANDAMENTO) {%>
-                                            <form action="ItemServico" method="post" class="no-margin-bottom">
-                                                <button type="submit" class="btn btn-mini btn-primary" formaction="ItemServico" formmethod="GET" name="operacao" value="Editar" title="Editar item">
-                                                    <i class="icon-edit icon-white"></i>
-                                                </button>
-                                                <a href="#modalExcluirServico" role="button" class="btn btn-mini btn-danger" data-toggle="modal" title="Excluir item">
-                                                    <i class="icon-remove icon-white"></i>
-                                                </a>
-                                                <%-- MODAL EXCLUIR ITEM DA VENDA --%>
-                                                <div id="modalExcluirServico" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                                    <div class="modal-header">
-                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                                        <h3 id="myModalLabel">Excluir serviço da venda</h3>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <p>Deseja excluir o serviço da venda?</p>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button class="btn" data-dismiss="modal" aria-hidden="true">Não</button>
-                                                        <button type="submit" class="btn btn-primary" name="operacao" value="Excluir">Sim</button>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                            <%}%>
-                                        </td>
-                                    </tr>
-                                    <%}%>
-                                </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <th colspan="2">Total</th>
-                                        <th><%=venda.getSomaQuantidadeItensServico()%></th>
-                                        <th>R$ <%=venda.getSomaValoresItensServico()%></th>
-                                    </tr>
-                                </tfoot>
-                            </table>
+                            
                             <div class="row">
                                 <div class="span6">
                                     <h3 class="noMarginTop">Itens da venda</h3>
@@ -193,6 +140,8 @@
                                         <td>
                                             <%if (venda.getStatusVenda() == Venda.ANDAMENTO) {%>
                                             <form action="ItemVenda" method="post" class="no-margin-bottom">
+                                                <input type="hidden" name="idVenda" value="<%=venda.getId()%>" />
+                                                <input type="hidden" name="idItem" value="<%=item.getId()%>" />
                                                 <button type="submit" class="btn btn-mini btn-primary" formaction="ItemVenda" formmethod="GET" name="operacao" value="Editar" title="Editar Item">
                                                     <i class="icon-edit icon-white"></i>
                                                 </button>

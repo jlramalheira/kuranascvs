@@ -91,8 +91,8 @@
                                            name="precoTotal" value="0" />
 
                                 </fieldset>
-                                <button type="submit" class="btn btn-primary btn-large" name="operacao" value="Cadastrar Compra">Adicionar item</button>
-                                <button type="submit" class="btn btn-large" name="operacao" value="cancel">Voltar</button>
+                                <button type="submit" class="btn btn-primary btn-large" name="operacao" value="Adicionar">Adicionar item</button>
+                                <button type="submit" class="btn btn-large" name="operacao" value="Cancelar">Voltar</button>
                             </form>
 
                         </div>

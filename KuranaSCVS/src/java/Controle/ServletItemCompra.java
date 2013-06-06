@@ -39,7 +39,7 @@ public class ServletItemCompra extends HttpServlet {
         String operacao = request.getParameter("operacao");
         
         switch (operacao) {
-            case "Editar Item":
+            case "Editar":
                 int idCompra = Integer.parseInt(request.getParameter("idCompra"));
                 int idItem = Integer.parseInt(request.getParameter("idItem"));
                 response.sendRedirect("itemCompraEdit.jsp?idCompra="+idCompra+"&idItem="+idItem);
@@ -61,7 +61,7 @@ public class ServletItemCompra extends HttpServlet {
         String operacao = request.getParameter("operacao");
         
         switch (operacao) {
-            case "Cadastrar Compra":
+            case "Adicionar":
                 int idCompra = Integer.parseInt(request.getParameter("idCompra"));
                 int idProduto = Integer.parseInt(request.getParameter("produto-id"));
                 

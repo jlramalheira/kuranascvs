@@ -94,7 +94,7 @@
                                            class="input-small" disabled="disabled"
                                            name="custo" value="<%=item.getValorTotal()%>" />
                                     <input id="precoTotal" type="hidden"
-                                           name="precoTotal" value="0" />
+                                           name="precoTotal" value="<%=item.getValorTotal()%>" />
 
                                 </fieldset>
                                 <button type="submit" class="btn btn-primary btn-large" name="operacao" value="Editar">Editar item</button>

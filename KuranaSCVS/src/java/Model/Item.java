@@ -23,6 +23,7 @@ public class Item implements Serializable {
     private int id;
     @OneToOne
     private Produto produto;
+    @OneToOne
     private Servico servico;
     private int quantidade;
     private double valor;
