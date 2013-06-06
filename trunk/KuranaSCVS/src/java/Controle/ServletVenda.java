@@ -29,7 +29,7 @@ import javax.servlet.http.HttpSession;
  */
 @WebServlet(name = "Venda", urlPatterns = {"/Venda"})
 public class ServletVenda extends HttpServlet {
-    
+
     DaoVenda daoVenda = new DaoVenda();
 
     @Override
@@ -41,6 +41,24 @@ public class ServletVenda extends HttpServlet {
 
         String operacao = request.getParameter("operacao");
         switch (operacao) {
+            case "Index" :
+                rd = request.getRequestDispatcher("vendaSearch.jsp");
+                rd.forward(request, response);
+                break;
+            case "Novo" :
+                rd = request.getRequestDispatcher("vendaCreate.jsp");
+                rd.forward(request, response);
+                break;
+            case "Ver" :
+                rd = request.getRequestDispatcher("vendaView.jsp");
+                rd.forward(request, response);
+                break;
+            case "Pesquisar" :
+                rd = request.getRequestDispatcher("vendaSearch.jsp");
+                rd.forward(request, response);
+                break;
+            default:
+                rd.forward(request, response);
 
         }
     }
@@ -59,16 +77,16 @@ public class ServletVenda extends HttpServlet {
 
                 if (!clienteStr.isEmpty()){
                     int idCliente = Integer.parseInt(clienteStr.split(" - ")[0]);
-                    
+
                     Cliente cliente = new DaoCliente().get(idCliente);
                     Date dataVenda = Calendar.getInstance().getTime();
                     List<Item> itensVenda = new ArrayList<Item>();
                     List<Item> itensServico = new ArrayList<Item>();
-                    
+
                     Venda venda = new Venda(dataVenda, null, cliente, Venda.ANDAMENTO, itensVenda);
-                    
+
                     daoVenda.insert(venda);
-                    
+
                     response.sendRedirect("vendaView.jsp?idVenda="+venda.getId());
                 } else {
                     rd.forward(request, response);
@@ -76,26 +94,26 @@ public class ServletVenda extends HttpServlet {
                 break;
             case "Cancelar":
                 int idVendaCancelar = Integer.parseInt(request.getParameter("idVenda"));
-                
+
                 Venda vendaCancelar = daoVenda.get(idVendaCancelar);
-                
+
                 vendaCancelar.setStatusVenda(Venda.CANCELADA);
-                
+
                 daoVenda.update(vendaCancelar);
-                
+
                 response.sendRedirect("vendaView.jsp?idVenda="+idVendaCancelar);
                 break;
-                
+
             case "Finalizar":
                 int idVendaFinalizar = Integer.parseInt(request.getParameter("idVenda"));
-                
+
                 Venda vendaFinalizar = daoVenda.get(idVendaFinalizar);
-                
+
                 vendaFinalizar.setStatusVenda(Venda.FINALIZADA);
                 Date dataEntrega = Calendar.getInstance().getTime();
                 vendaFinalizar.setDataEntrega(dataEntrega);
                 daoVenda.update(vendaFinalizar);
-                
+
                 response.sendRedirect("vendaView.jsp?idVenda="+idVendaFinalizar);
                 break;
             default:
