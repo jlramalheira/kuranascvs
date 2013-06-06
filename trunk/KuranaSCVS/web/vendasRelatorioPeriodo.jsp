@@ -7,7 +7,6 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<!DOCTYPE html>
 <html>
     <head>
         <%@include file="interfaceHead.jsp" %>
@@ -25,11 +24,13 @@
                                     <li class="nav-header">Vendas</li>
                                     <li><a href="Venda?operacao=Index">Pesquisar</a></li>
                                     <li><a href="Venda?operacao=Novo">Cadastrar nova</a></li>
+                                    <li class="nav-header">Relatórios</li>
+                                    <li><a href="Venda?operacao=VerRelatorioPeriodo">Relatório por período</a></li>
                                 </ul>
                             </div>
                         </div>
                         <div class="span9">
-                            <h2 class="noMarginTop">Relatório de Vendas por Período</h2>
+                            <h2 class="noMarginTop">Relatório de Vendas por período</h2>
                             <form action="" method="get" class="well">
                                 <fieldset>
                                     <legend>Escolha o período</legend>
@@ -47,7 +48,7 @@
                                     </div>
                                 </fieldset>
                                 <button type="submit" class="btn btn-primary"
-                                        name="operacao" value="relatorio-periodo">
+                                        name="operacao" value="RelatorioPeriodo">
                                     Gerar Relatório
                                 </button>
                             </form>
@@ -56,12 +57,10 @@
                                     <h3>Informações</h3>
                                     <p>
                                         <strong>Vendas realizadas: </strong>##<br/>
-                                        <strong>Custo total: </strong>R$ ##
                                     </p>
                                     <hr/>
                                     <p>
-                                        <strong>Lucro bruto: </strong>R$ ##<br/>
-                                        <strong>Lucro líquido </strong>R$ ##
+                                        <strong>Ganho total: </strong>R$ ##
                                     </p>
                                 </div>
                                 <div class="span6">
