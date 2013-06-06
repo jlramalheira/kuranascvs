@@ -34,8 +34,8 @@
                             <div class="well sidebar-nav">
                                 <ul class="nav nav-list">
                                     <li class="nav-header">Funcionários</li>
-                                    <li><a href="#">Pesquisar</a></li>
-                                    <li><a href="#">Cadastrar novo</a></li>
+                                    <li><a href="Funcionario?operacao=Index">Pesquisar</a></li>
+                                    <li><a href="Funcionario?operacao=Novo">Cadastrar novo</a></li>
                                 </ul>
                             </div>
                         </div>

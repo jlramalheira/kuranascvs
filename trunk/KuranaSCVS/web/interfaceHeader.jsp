@@ -9,7 +9,7 @@
                     <li><a href="Compra?operacao=Index">Compras</a></li>
                     <li><a href="Venda?operacao=Index">Vendas</a></li>
                     <li><a href="Servico?operacao=Index">Serviços</a></li>
-                    <li><a href="#">Funcionários</a></li>
+                    <li><a href="Funcionario?operacao=Index">Funcionários</a></li>
                 </ul>
             </nav>
         </div>
