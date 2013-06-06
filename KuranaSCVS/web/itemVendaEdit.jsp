@@ -28,7 +28,7 @@
             String produtosAutoComplete = "[";
             for (Produto produto : produtos) {
                 if (produto.getEstoqueAtual() > 0) {
-                    produtosAutoComplete += "\"" + produto.getId() + " - " + produto.getValorVenda() + " - " + produto.getEstoqueAtual() + " - " + produto.getCodigoDeBarras() + " - " + produto.getNome() + "\",";
+                    produtosAutoComplete += "\"" + produto.getId() + " - " + produto.getValorVenda() + " - " + (produto.getEstoqueAtual() + item.getQuantidade()) + " - " + produto.getCodigoDeBarras() + " - " + produto.getNome() + "\",";
                 }
             }
             if (produtos.size() > 0) {
@@ -78,7 +78,7 @@
                                     <label for="quantidade">Quantidade</label>
                                     <div class="input-append">
                                         <input type="number" id="quantidade" class="input-small"
-                                               min="1"
+                                               min="1" max="<%=(item.getProduto().getEstoqueAtual() + item.getQuantidade())%>"
                                                name="quantidade" value="<%=item.getQuantidade()%>"
                                                />
                                         <span class="add-on">unidades</span>

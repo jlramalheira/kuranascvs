@@ -118,7 +118,9 @@ public class ServletItemVenda extends HttpServlet {
                 double custoEditar = totalEditar / quantidadeEditar;
 
                 if (quantidadeEditar != itemEditar.getQuantidade()) {
-                    int qtde = quantidadeEditar - itemEditar.getQuantidade();
+                    int qtde = itemEditar.getQuantidade() - quantidadeEditar ;
+                    System.out.println("************************");
+                    System.out.println(qtde);
                     produtoEditar.setEstoqueAtual(produtoEditar.getEstoqueAtual() + qtde);
                 }
                 itemEditar.setProduto(produtoEditar);
