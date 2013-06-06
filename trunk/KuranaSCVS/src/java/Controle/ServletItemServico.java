@@ -81,7 +81,7 @@ DaoItem daoItem = new DaoItem();
 
                 new DaoVenda().update(venda);
 
-                response.sendRedirect("vendaView.jsp?idVenda=" + venda.getId());
+                response.sendRedirect("Venda?operacao=Ver&idVenda=" + venda.getId());
                 break;
             case "Excluir":
                 int idVendaExclui = Integer.parseInt(request.getParameter("idVenda"));
@@ -94,7 +94,7 @@ DaoItem daoItem = new DaoItem();
 
                 daoItem.remove(idItem);
 
-                response.sendRedirect("vendaView.jsp?idVenda=" + vendaExclui.getId());
+                response.sendRedirect("Venda?operacao=Ver&idVenda=" + vendaExclui.getId());
                 break;
             case "Editar":
                 int idVendaEditar = Integer.parseInt(request.getParameter("idVenda"));
@@ -123,13 +123,13 @@ DaoItem daoItem = new DaoItem();
                 vendaEditar.getItensVenda().add(itemEditar);
                 new DaoVenda().update(vendaEditar);
 
-                response.sendRedirect("vendaView.jsp?idVenda=" + idVendaEditar);
+                response.sendRedirect("Venda?operacao=Ver&idVenda=" + idVendaEditar);
 
                 break;
             case "Cancelar":
                 int idVendaCancela = Integer.parseInt(request.getParameter("idVenda"));
 
-                response.sendRedirect("vendaView.jsp?idVenda=" + idVendaCancela);
+                response.sendRedirect("Venda?operacao=Ver&idVenda=" + idVendaCancela);
                 break;
             default:
                 rd.forward(request, response);

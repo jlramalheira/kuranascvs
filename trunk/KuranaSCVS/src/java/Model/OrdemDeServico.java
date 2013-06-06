@@ -21,6 +21,10 @@ import javax.persistence.Temporal;
  */
 @Entity
 public class OrdemDeServico implements Serializable {
+    public static final int ANDAMENTO = 0;
+    public static final int FINALIZADA = 1;
+    public static final int CANCELADA = 2;
+    
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,11 +44,12 @@ public class OrdemDeServico implements Serializable {
     private List<Produto> produtos;
     @OneToMany
     private List<Servico> servicos;
+    private int statusOrdem;
 
     public OrdemDeServico() {
     }
 
-    public OrdemDeServico(Date dataEmissao, Date previsaoConclusao, Date dataConclusao, String descricao, Cliente cliente, List<Funcionario> funcionarios, List<Produto> produtos, List<Servico> servicos) {
+    public OrdemDeServico(Date dataEmissao, Date previsaoConclusao, Date dataConclusao, String descricao, Cliente cliente, List<Funcionario> funcionarios, List<Produto> produtos, List<Servico> servicos, int statusOrdem) {
         this.dataEmissao = dataEmissao;
         this.previsaoConclusao = previsaoConclusao;
         this.dataConclusao = dataConclusao;
@@ -53,6 +58,7 @@ public class OrdemDeServico implements Serializable {
         this.funcionarios = funcionarios;
         this.produtos = produtos;
         this.servicos = servicos;
+        this.statusOrdem = statusOrdem;
     }
 
     public int getId() {
@@ -125,6 +131,14 @@ public class OrdemDeServico implements Serializable {
 
     public void setServicos(List<Servico> servicos) {
         this.servicos = servicos;
+    }
+
+    public int getStatusOrdem() {
+        return statusOrdem;
+    }
+
+    public void setStatusOrdem(int statusOrdem) {
+        this.statusOrdem = statusOrdem;
     }
 
     @Override

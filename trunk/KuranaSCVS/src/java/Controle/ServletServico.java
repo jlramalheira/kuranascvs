@@ -77,8 +77,16 @@ public class ServletServico extends HttpServlet {
                 rd = request.getRequestDispatcher("servicoCreate.jsp");
                 rd.forward(request, response);
                 break;
+            case "AdicionarItem":
+                int idVenda = Integer.parseInt(request.getParameter("idVenda"));
+                
+                rd = request.getRequestDispatcher("itemVendaServicoCreate.jsp?idVenda="+idVenda);
+                rd.forward(request, response);
+                break;
             case "Ver" :
-                rd = request.getRequestDispatcher("servicoView.jsp");
+                int idServico = Integer.parseInt(request.getParameter("idServico"));
+                
+                rd = request.getRequestDispatcher("servicoView.jsp?idServico="+idServico);
                 rd.forward(request, response);
                 break;
             default:

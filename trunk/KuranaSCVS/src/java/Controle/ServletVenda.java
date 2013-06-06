@@ -41,6 +41,60 @@ public class ServletVenda extends HttpServlet {
 
         String operacao = request.getParameter("operacao");
         switch (operacao) {
+            case "Relatorio Periodo":
+                String dataInicio = request.getParameter("periodo-inicio");
+                if (dataInicio.isEmpty()) {
+                    dataInicio = null;
+                }
+                String dataFim = request.getParameter("periodo-inicio");
+                if (dataFim.isEmpty()) {
+                    dataFim = null;
+                }
+                
+                List<Venda> vendasPeriodo = null;
+                if (dataInicio != null){
+                    if (dataFim != null){
+                        vendasPeriodo = daoVenda.listByPeriodoInicioFim(dataInicio, dataFim);
+                    } else {
+                        vendasPeriodo = daoVenda.listByPeriodoInicio(dataInicio);
+                    }
+                } else {
+                    if (dataFim != null){
+                        vendasPeriodo = daoVenda.listByPeriodoFim(dataFim);
+                    } else {
+                        vendasPeriodo = daoVenda.list();
+                    }
+                }
+                int canceladas = 0;
+                int finalizadas = 0;
+                int andamento = 0;
+                double ganhoTotal = 0;
+                for (Venda venda : vendasPeriodo){
+                    if (venda.getStatusVenda() == Venda.CANCELADA){
+                        canceladas += 1;
+                    } else if (venda.getStatusVenda() == Venda.FINALIZADA){
+                        finalizadas += 1;
+                    } else {
+                        andamento += 1;
+                    }
+                    ganhoTotal += venda.getSomaValoresItensVenda();
+                }
+                
+                request.setAttribute("vendasPeriodo", vendasPeriodo);
+                request.setAttribute("canceladas", canceladas);
+                request.setAttribute("finalizadas", finalizadas);
+                request.setAttribute("andamento", andamento);
+                request.setAttribute("ganhoTotal", ganhoTotal);
+                
+                
+                rd = request.getRequestDispatcher("vendasRelatorioPeriodo.jsp");
+                rd.forward(request, response);
+                
+                break;
+            case "Ver Relatorio Periodo":
+                rd = request.getRequestDispatcher("verRelatorioPeriodo.jsp");
+                rd.forward(request, response);
+                break;
             case "Index" :
                 rd = request.getRequestDispatcher("vendaSearch.jsp");
                 rd.forward(request, response);
@@ -51,6 +105,7 @@ public class ServletVenda extends HttpServlet {
                 break;
             case "Ver" :
                 int idVenda = Integer.parseInt(request.getParameter("idVenda"));
+                
                 rd = request.getRequestDispatcher("vendaView.jsp?idVenda="+idVenda);
                 rd.forward(request, response);
                 break;

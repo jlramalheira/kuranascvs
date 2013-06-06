@@ -10,7 +10,7 @@
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
-List<Cliente> clientes = new DaoCliente().list();
+    List<Cliente> clientes = new DaoCliente().list();
     String clienteAutoComplete = "[";
     for (Cliente cliente : clientes) {
         clienteAutoComplete += "\"" + cliente.getId() + " - " + cliente.getNome() + "\",";
@@ -51,7 +51,7 @@ List<Cliente> clientes = new DaoCliente().list();
                                     <legend>Informações</legend>
                                     <label for="cliente">Cliente</label>
                                     <input type="text" name="cliente" value=""
-                                           id="cliente" class="input-xxlarge" required="" autocomplete="off"
+                                           id="cliente" class="input-xxlarge" required="required" autocomplete="off"
                                            placeholder="Insira o nome do cliente"
                                            data-provide="typeahead"
                                            data-itens="<%=clientes.size()%>"
@@ -66,6 +66,9 @@ List<Cliente> clientes = new DaoCliente().list();
                                               id="descricao" class="input-xxlarge"
                                               placeholder="Descreva aqui a ordem de serviço"
                                               ></textarea>
+                                    <button type="submit" name="operacao" value="Cadastrar" class="btn btn-large btn-primary">
+                                        Cadastrar
+                                    </button>
                                 </fieldset>
                             </form>
 
