@@ -39,6 +39,10 @@ public class ServletOrdemDeServico extends HttpServlet {
         String operacao = request.getParameter("operacao");
 
         switch (operacao) {
+            case "Pesquisar":
+                rd = request.getRequestDispatcher("ordemSearch.jsp");
+                rd.forward(request, response);
+                break;
             case "Ver":
                 int idOrdem = Integer.parseInt(request.getParameter("idOrdem"));
 
