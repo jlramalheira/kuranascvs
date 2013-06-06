@@ -6,7 +6,7 @@
 <%@page import="Model.Cliente"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<% List<Cliente> clientes = (List<Cliente>) session.getAttribute("clientes");%>
+<% List<Cliente> clientes = (List<Cliente>) request.getAttribute("clientes");%>
 <!DOCTYPE html>
 <html>
     <head>

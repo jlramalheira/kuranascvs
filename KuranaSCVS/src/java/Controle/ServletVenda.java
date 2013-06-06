@@ -263,7 +263,7 @@ public class ServletVenda extends HttpServlet {
                     }
                 }
 
-                session.setAttribute("vendas", vendas);
+                request.setAttribute("vendas", vendas);
 
                 rd = request.getRequestDispatcher("vendaSearch.jsp");
                 rd.forward(request, response);

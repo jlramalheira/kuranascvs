@@ -11,7 +11,7 @@
 <%@page import="Model.Fornecedor"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%List<Fornecedor> fornecedores = new DaoFornecedor().list();
-List<Produto> produtos =  (List<Produto>) session.getAttribute("produtos"); %>
+List<Produto> produtos =  (List<Produto>) request.getAttribute("produtos"); %>
 <!DOCTYPE html>
 <html>
     <head>

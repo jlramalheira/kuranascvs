@@ -8,7 +8,7 @@
 <%@page import="Model.Funcionario"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%List<Funcionario> funcionarios = (List<Funcionario>) session.getAttribute("funcionarios"); %>
+<%List<Funcionario> funcionarios = (List<Funcionario>) request.getAttribute("funcionarios"); %>
 <!DOCTYPE html>
 <html>
     <head>

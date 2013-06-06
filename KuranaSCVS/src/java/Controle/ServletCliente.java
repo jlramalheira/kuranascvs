@@ -58,7 +58,7 @@ public class ServletCliente extends HttpServlet {
                     }
                 }
                 List<Cliente> clientes = daoCliente.listByAll(nome, identificacao, juridica, email, logradouro, cidade, estado);
-                session.setAttribute("clientes", clientes);
+                request.setAttribute("clientes", clientes);
 
                 rd = request.getRequestDispatcher("clienteSearch.jsp");
                 rd.forward(request, response);

@@ -48,7 +48,7 @@ public class ServletFornecedor extends HttpServlet {
                 String estado = request.getParameter("endereco-estado");
 
                 List<Fornecedor> fornecedores = daoFornecedor.listByAll(nome, cnpj, email, logradouro, cidade, estado);
-                session.setAttribute("fornecedores", fornecedores);
+                request.setAttribute("fornecedores", fornecedores);
 
                 rd = request.getRequestDispatcher("fornecedorSearch.jsp");
                 rd.forward(request, response);

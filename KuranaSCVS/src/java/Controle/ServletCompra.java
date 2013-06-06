@@ -136,7 +136,7 @@ public class ServletCompra extends HttpServlet {
                     }
                 }
                 
-                session.setAttribute("compras", compras);
+                request.setAttribute("compras", compras);
                 rd = request.getRequestDispatcher("compraSearch.jsp");
                 rd.forward(request, response);
                 break;

@@ -64,7 +64,7 @@ public class ServletServico extends HttpServlet {
                     }
                 }
 
-                session.setAttribute("servicos", servicos);
+                request.setAttribute("servicos", servicos);
 
                 rd = request.getRequestDispatcher("servicoSearch.jsp");
                 rd.forward(request, response);
