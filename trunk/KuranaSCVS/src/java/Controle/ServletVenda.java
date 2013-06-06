@@ -55,9 +55,9 @@ public class ServletVenda extends HttpServlet {
                 rd.forward(request, response);
                 break;
             case "Pesquisar" :
-                
+
                 String cliente = request.getParameter("cliente");
-                
+
                 String dataPedidoInicio = request.getParameter("pedido-inicio");
                 if (dataPedidoInicio.isEmpty()) {
                     dataPedidoInicio = null;
@@ -74,7 +74,7 @@ public class ServletVenda extends HttpServlet {
                 if (dataEntregaFim.isEmpty()) {
                     dataEntregaFim = null;
                 }
-                
+
                 int status = -1;
                 if (request.getParameter("status") != null){
                     status = Integer.parseInt(request.getParameter("status"));
@@ -205,9 +205,9 @@ public class ServletVenda extends HttpServlet {
                         }
                     }
                 }
-                
+
                 session.setAttribute("vendas", vendas);
-                
+
                 rd = request.getRequestDispatcher("vendaSearch.jsp");
                 rd.forward(request, response);
                 break;
@@ -241,7 +241,7 @@ public class ServletVenda extends HttpServlet {
 
                     daoVenda.insert(venda);
 
-                    response.sendRedirect("vendaView.jsp?idVenda="+venda.getId());
+                    response.sendRedirect("Venda?operacao=Ver&idVenda="+venda.getId());
                 } else {
                     rd.forward(request, response);
                 }
@@ -255,7 +255,7 @@ public class ServletVenda extends HttpServlet {
 
                 daoVenda.update(vendaCancelar);
 
-                response.sendRedirect("vendaView.jsp?idVenda="+idVendaCancelar);
+                response.sendRedirect("Venda?operacao=Ver&idVenda="+idVendaCancelar);
                 break;
 
             case "Finalizar":
@@ -268,7 +268,7 @@ public class ServletVenda extends HttpServlet {
                 vendaFinalizar.setDataEntrega(dataEntrega);
                 daoVenda.update(vendaFinalizar);
 
-                response.sendRedirect("vendaView.jsp?idVenda="+idVendaFinalizar);
+                response.sendRedirect("Venda?operacao=Ver&idVenda="+idVendaFinalizar);
                 break;
             default:
                 rd.forward(request, response);

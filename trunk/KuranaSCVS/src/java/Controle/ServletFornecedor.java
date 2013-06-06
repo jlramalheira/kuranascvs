@@ -128,14 +128,14 @@ public class ServletFornecedor extends HttpServlet {
 
                     daoFornecedor.insert(fornecedor);
 
-                    response.sendRedirect("fornecedorView.jsp?idFornecedor=" + fornecedor.getId());
+                    response.sendRedirect("Fornecedor?operacao=Ver&idFornecedor=" + fornecedor.getId());
                 } else { //inserido sem endereco
                     Endereco e = new DaoEndereco().get(1);
                     Fornecedor fornecedor = new Fornecedor(nome, cnpj, email, telefone, e);
 
                     daoFornecedor.insert(fornecedor);
 
-                    response.sendRedirect("fornecedorView.jsp?idFornecedor=" + fornecedor.getId());
+                    response.sendRedirect("Fornecedor?operacao=Ver&idFornecedor=" + fornecedor.getId());
                 }
                 break;
             default:

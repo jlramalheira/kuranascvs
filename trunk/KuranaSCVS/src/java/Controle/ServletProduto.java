@@ -101,7 +101,7 @@ public class ServletProduto extends HttpServlet {
                 Produto produto = new Produto(nome, codigoDeBarras, fornecedor, valorCusto, valorVenda, estoqueMinimo,0);
                 daoProduto.insert(produto);
 
-                response.sendRedirect("produtoView.jsp?idProduto="+produto.getId());
+                response.sendRedirect("Produto?operacao=Ver&idProduto="+produto.getId());
                 break;
             default:
                 rd.forward(request, response);
