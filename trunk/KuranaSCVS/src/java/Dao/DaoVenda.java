@@ -154,10 +154,10 @@ public class DaoVenda extends Dao<Venda> {
     }
 
     public List<Venda> listByPeriodoInicio(String dataInicio) {
-        return em.createQuery("SELECT DISTINCT e FROM Venda e WHERE AND e.dataPedido > '" + dataInicio + "'").getResultList();
+        return em.createQuery("SELECT DISTINCT e FROM Venda e WHERE e.dataPedido >= '" + dataInicio + "'").getResultList();
     }
 
     public List<Venda> listByPeriodoFim(String dataFim) {
-        return em.createQuery("SELECT DISTINCT e FROM Venda e WHERE AND e.dataPedido < '" + dataFim + "'").getResultList();
+        return em.createQuery("SELECT DISTINCT e FROM Venda e WHERE e.dataPedido <= '" + dataFim + "'").getResultList();
     }
 }

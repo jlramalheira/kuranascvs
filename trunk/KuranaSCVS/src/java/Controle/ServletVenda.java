@@ -46,7 +46,7 @@ public class ServletVenda extends HttpServlet {
                 if (dataInicio.isEmpty()) {
                     dataInicio = null;
                 }
-                String dataFim = request.getParameter("periodo-inicio");
+                String dataFim = request.getParameter("periodo-fim");
                 if (dataFim.isEmpty()) {
                     dataFim = null;
                 }
@@ -85,6 +85,8 @@ public class ServletVenda extends HttpServlet {
                 request.setAttribute("finalizadas", finalizadas);
                 request.setAttribute("andamento", andamento);
                 request.setAttribute("ganhoTotal", ganhoTotal);
+                request.setAttribute("dataInicio", dataInicio);
+                request.setAttribute("dataFim", dataFim);
                 
                 
                 rd = request.getRequestDispatcher("vendasRelatorioPeriodo.jsp");

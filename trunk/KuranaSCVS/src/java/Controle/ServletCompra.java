@@ -145,7 +145,7 @@ public class ServletCompra extends HttpServlet {
                 rd.forward(request, response);
                 break;
             case "Ver":
-                int idCompra = Integer.parseInt("idCompra");
+                int idCompra = Integer.parseInt(request.getParameter("idCompra"));
                 
                 rd = request.getRequestDispatcher("compraView.jsp?idCompra="+idCompra);
                 rd.forward(request, response);
