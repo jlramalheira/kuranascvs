@@ -105,7 +105,7 @@
                                 </div>
                                 <%if (venda.getStatusVenda() == Venda.ANDAMENTO) {%>
                                 <div class="span3">
-                                    <a href="#" class="btn btn-block btn-primary margin-top">Adicionar serviço</a>
+                                    <a href="Servico?operacao=AdicionarItem&idVenda=<%=venda.getId()%>" class="btn btn-block btn-primary margin-top">Adicionar serviço</a>
                                 </div>
                                 <%}%>
                             </div>
@@ -116,7 +116,7 @@
                                 </div>
                                 <%if (venda.getStatusVenda() == Venda.ANDAMENTO) {%>
                                 <div class="span3">
-                                    <a href="#" class="btn btn-block btn-primary margin-top">Adicionar item de venda</a>
+                                    <a href="Produto?operacao=AdicionarItemVenda&idVenda=<%=venda.getId()%>" class="btn btn-block btn-primary margin-top">Adicionar item de venda</a>
                                 </div>
                                 <%}%>
                             </div>

@@ -105,7 +105,7 @@
                                 </div>
                                 <%if (compra.getStatusCompra() == Compra.ANDAMENTO) {%>
                                 <div class="span3">
-                                    <a href="#" class="btn btn-block btn-primary margin-top">Adicionar item de compra</a>
+                                    <a href="Produto?operacao=AdicionarItemCompra&idCompra=<%=venda.getId()%>" class="btn btn-block btn-primary margin-top">Adicionar item de compra</a>
                                 </div>
                                 <%}%>
                             </div>
