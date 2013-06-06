@@ -17,20 +17,10 @@
             <div id="main">
                 <div class="container">
                     <div class="row">
-                        <div class="span3">
-                            <div class="well sidebar-nav">
-                                <ul class="nav nav-list">
-                                    <li class="nav-header">Título</li>
-                                    <li class="active"><a href="#">Link ativo</a></li>
-                                    <li><a href="#">Link</a></li>
-                                    <li><a href="#">Link</a></li>
-                                </ul>
+                        <div class="span12">
+                            <div class="hero-unit">
+                                <h1 class="noMarginTop">Erro!</h1>
                             </div>
-                        </div>
-                        <div class="span9">
-                            <h2 class="noMarginTop">Ops! Ocorreu um erro</h2>
-                            <p>Informe ao desenvolvedor sobre o problema.</p>
-
                         </div>
                     </div>
 
