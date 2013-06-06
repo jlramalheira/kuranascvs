@@ -36,21 +36,34 @@
                                 <fieldset>
                                     <legend>Informações</legend>
                                     <label for="nome">Nome</label>
-                                    <input type="text" id="nome" class="input-xxlarge" name="nome" value="" placeholder="Insira o nome"/>
+                                    <input type="text" id="nome" class="input-xxlarge"
+                                           name="nome" value=""
+                                           required="required"
+                                           placeholder="Insira o nome"/>
                                     <label for="cnpj" class="toggleId">CNPJ</label>
-                                    <input type="text" id="cnpj" class="toggleId" name="cnpj" value="" placeholder="Insira um número de CNPJ"/>
+                                    <input type="text" id="cnpj" class="toggleId"
+                                           name="cnpj" value=""
+                                           required="required"
+                                           placeholder="Insira um número de CNPJ"/>
                                 </fieldset>
                                 <fieldset>
                                     <legend>Contato</legend>
                                     <label for="email">E-mail</label>
-                                    <input type="email" id="email" class="" name="email" value="" placeholder="Insira um e-mail"/>
+                                    <input type="email" id="email" class=""
+                                           name="email" value=""
+                                           placeholder="Insira um e-mail"/>
                                     <label for="telefone">Telefone</label>
-                                    <input type="text" id="telefone" class="" name="telefone" value="" placeholder="Insira um número de telefone"/>
+                                    <input type="text" id="telefone" class=""
+                                           name="telefone" value=""
+                                           placeholder="Insira um número de telefone"/>
                                 </fieldset>
                                 <fieldset>
                                     <legend>Endereço</legend>
                                     <label for="endereco-cep">CEP</label>
-                                    <input type="text" id="endereco-cep" class="" name="endereco-cep" value="" placeholder="Código de endereçamento"/>
+                                    <input type="text" id="endereco-cep" class=""
+                                           name="endereco-cep" value=""
+
+                                           placeholder="Código de endereçamento"/>
                                     <label for="endereco-logradouro">Logradouro</label>
                                     <input type="text" id="endereco-logradouro" class="input-xxlarge" name="endereco-logradouro" value="" placeholder="Nome da rua, avenida, travessa, etc..."/>
                                     <label for="endereco-numero">Número</label>

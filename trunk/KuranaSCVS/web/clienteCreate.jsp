@@ -32,15 +32,26 @@
                                 <fieldset>
                                     <legend>Informações</legend>
                                     <label for="nome">Nome completo</label>
-                                    <input type="text" id="nome" class="input-xxlarge" name="nome" value="" placeholder="Insira o nome completo"/>
+                                    <input type="text" name="nome" value=""
+                                           id="nome" class="input-xxlarge"
+                                           required="required"
+                                           placeholder="Insira o nome completo"/>
                                     <label for="isJuridica" class="checkbox">
-                                        <input type="checkbox" id="isJuridica" class="" name="isJuridica" value="juridica"/>
+                                        <input type="checkbox"
+                                               id="isJuridica" class=""
+                                               name="isJuridica" value="juridica"/>
                                         Pessoa Jurídica
                                     </label>
                                     <label for="cpf" class="toggleId show">CPF</label>
-                                    <input type="text" id="cpf" class="toggleId show" name="cpf" value="" placeholder="Insira um número de CPF"/>
+                                    <input type="text"
+                                           id="cpf" class="toggleId show"
+                                           name="cpf" value=""
+                                           placeholder="Insira um número de CPF"/>
                                     <label for="cnpj" class="toggleId hide">CNPJ</label>
-                                    <input type="text" id="cnpj" class="toggleId hide" name="cnpj" value="" placeholder="Insira um número de CNPJ"/>
+                                    <input type="text"
+                                           id="cnpj" class="toggleId hide"
+                                           name="cnpj" value=""
+                                           placeholder="Insira um número de CNPJ"/>
 
                                 </fieldset>
                                 <fieldset>
