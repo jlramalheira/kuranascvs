@@ -180,7 +180,7 @@ public class ServletFuncionario extends HttpServlet {
 
                 daoFuncionario.update(funcionarioAdmitir);
 
-                response.sendRedirect("funcionarioView.jsp?idFuncionario=" + funcionarioAdmitir.getId());
+                response.sendRedirect("Funcionario?operacao=Ver&idFuncionario=" + funcionarioAdmitir.getId());
                 break;
             case "Demitir":
                 int idFuncionarioDemitir = Integer.parseInt(request.getParameter("idFuncionario"));
@@ -193,7 +193,7 @@ public class ServletFuncionario extends HttpServlet {
 
                 daoFuncionario.update(funcionarioDemitir);
 
-                response.sendRedirect("funcionarioView.jsp?idFuncionario=" + funcionarioDemitir.getId());
+                response.sendRedirect("Funcionario?operacao=Ver&idFuncionario=" + funcionarioDemitir.getId());
                 break;
             default:
                 rd.forward(request, response);

@@ -148,14 +148,14 @@ public class ServletCliente extends HttpServlet {
 
                     daoCliente.insert(cliente);
 
-                    response.sendRedirect("clienteView.jsp?idCliente=" + cliente.getId());
+                    response.sendRedirect("Cliente?operacao=Ver&idCliente=" + cliente.getId());
                 } else { //inserido sem endereco
                     Endereco e = new DaoEndereco().get(1);
                     Cliente cliente = new Cliente(nome, identificacao, juridica, email, telefone, e, dataInsercao);
 
                     daoCliente.insert(cliente);
 
-                    response.sendRedirect("clienteView.jsp?idCliente=" + cliente.getId());
+                    response.sendRedirect("Cliente?operacao=Ver&idCliente=" + cliente.getId());
                 }
 
                 break;

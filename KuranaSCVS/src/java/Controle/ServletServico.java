@@ -104,7 +104,7 @@ public class ServletServico extends HttpServlet {
                 Servico servico = new Servico(nome, descricao, valor, true);
                 daoServico.insert(servico);
 
-                response.sendRedirect("servicoView.jsp?idServico=" + servico.getId());
+                response.sendRedirect("Servico?operacao=Ver&idServico=" + servico.getId());
                 break;
             default:
                 rd.forward(request, response);
