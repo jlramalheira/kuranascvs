@@ -40,7 +40,7 @@ public class ServletServico extends HttpServlet {
                 String nome = request.getParameter("nome");
                 double valor = -1;
                 String descricao = request.getParameter("descricao");
-                
+
                 boolean ativo = true;
                 if (request.getParameter("ativo") != null) {
                     ativo = Boolean.parseBoolean(request.getParameter("ativo"));
@@ -63,10 +63,23 @@ public class ServletServico extends HttpServlet {
                         servicos = daoServico.listNomeDescricao(nome, descricao);
                     }
                 }
-                
+
                 session.setAttribute("servicos", servicos);
-                
-                response.sendRedirect("servicoSearch.jsp");
+
+                rd = request.getRequestDispatcher("servicoSearch.jsp");
+                rd.forward(request, response);
+                break;
+            case "Index" :
+                rd = request.getRequestDispatcher("servicoSearch.jsp");
+                rd.forward(request, response);
+                break;
+            case "Novo" :
+                rd = request.getRequestDispatcher("servicoCreate.jsp");
+                rd.forward(request, response);
+                break;
+            case "Ver" :
+                rd = request.getRequestDispatcher("servicoView.jsp");
+                rd.forward(request, response);
                 break;
             default:
                 rd.forward(request, response);
