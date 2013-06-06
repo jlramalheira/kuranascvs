@@ -19,7 +19,7 @@
                     <div class="row">
                         <div class="span12">
                             <div class="hero-unit">
-                                <h1 class="noMarginTop">Erro!</h1>
+                                <h1 class="noMarginTop">Página Invalida!</h1>
                             </div>
                         </div>
                     </div>

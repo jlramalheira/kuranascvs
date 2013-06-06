@@ -43,7 +43,7 @@ DaoItem daoItem = new DaoItem();
             case "Editar":
                 int idVenda = Integer.parseInt(request.getParameter("idVenda"));
                 int idItem = Integer.parseInt(request.getParameter("idItem"));
-                response.sendRedirect("itemVendaEdit.jsp?idVenda="+idVenda+"&idItem="+idItem);
+                response.sendRedirect("itemVendaServicoEdit.jsp?idVenda="+idVenda+"&idItem="+idItem);
                 break;
             default:
                 rd.forward(request, response);

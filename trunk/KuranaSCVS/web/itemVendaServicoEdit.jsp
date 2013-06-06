@@ -57,11 +57,13 @@
                         </div>
                         <div class="span9">
                             <h2 class="noMarginTop">Editar item de serviço na venda</h2>
-                            <form action="" method="post" class="well">
+                            <form action="ItemServico" method="post" class="well">
                                 <fieldset>
                                     <legend>Venda #<%=venda.getId()%></legend>
                                     <label for="servico-nome">Serviço</label>
                                     <input id="servico-id" type="hidden" name="servico-id" value="<%=item.getServico().getId()%>"/>
+                                    <input type="hidden" name="idVenda" value="<%=venda.getId()%>" />
+                                    <input type="hidden" name="idItem" value="<%=item.getId()%>" />
                                     <input type="text" id="servico-nome" class="input-xxlarge"
                                            name="servico-nome" value="<%=item.getServico().getNome()%>" autocomplete="off"
                                            data-provide="typeahead"
@@ -145,3 +147,4 @@
         </script>
     </body>
 </html>
+<%}}%>
