@@ -52,7 +52,7 @@
                             <p>
                                 <strong>Valor de custo: </strong>R$ <%=produto.getValorCusto()%><br/>
                                 <strong>Valor de venda: </strong>R$ <%=produto.getValorVenda()%><br/>
-                                <strong>Lucro: </strong><%=produto.getLucro()%><br/>
+                                <strong>Lucro: </strong>R$ <%=(produto.getValorVenda() - produto.getValorCusto()) %><br/>
                             </p>
                             <h3>Estoque</h3>
                             <p>

@@ -32,4 +32,3 @@
         <%@include file="interfaceFooter.jsp" %>
     </body>
 </html>
-
