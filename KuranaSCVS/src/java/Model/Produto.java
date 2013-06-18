@@ -106,10 +106,10 @@ public class Produto implements Serializable {
     public void setEstoqueAtual(int estoqueAtual) {
         this.estoqueAtual = estoqueAtual;
     }
-    
+
     //metodos de auxilio
-    public int getLucro(){
-        return (int) ((valorVenda-valorCusto)/valorCusto);
+    public double getLucro(){
+        return valorVenda-valorCusto;
     }
 
     @Override
@@ -136,5 +136,5 @@ public class Produto implements Serializable {
     public String toString() {
         return "Model.Produto[ id=" + id + " ]";
     }
-    
+
 }

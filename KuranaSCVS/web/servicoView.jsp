@@ -34,7 +34,7 @@
                             <div class="well sidebar-nav">
                                 <ul class="nav nav-list">
                                     <li class="nav-header">Ordens</li>
-                                    <li><a href="OrdemDeServico?operacao=Index">Pesquisar</a></li>
+                                    <li><a href="OrdemDeServico?operacao=Pesquisar">Pesquisar</a></li>
                                     <li><a href="OrdemDeServico?operacao=Novo">Cadastrar nova</a></li>
                                     <li class="nav-header">Serviços</li>
                                     <li><a href="Servico?operacao=Index">Pesquisar</a></li>
